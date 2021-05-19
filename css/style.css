@@ -1,2 +1,47 @@
 @import url(/css/fonts.css);
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
 
+:root {
+    --jet: #353535;
+    --ming: #3C6E71;
+    --gainsboro: #D9D9D9;
+    --indigo-dye: #284B63;
+    --white: #ffffff;
+    --black: #0f0f0f;
+    --Abel: 'Abel', cursidve;
+    --Anton: 'Anton', cursive;
+    --Bebas_Neue: 'Bebas_Neue', cursive;
+    --Lexend: 'Lexend', cursive;
+}
+
+
+/* Navbar */
+
+.nav {
+    background: var(--indigo-dye);
+    padding: 0 2rem;
+    height: 0rem;
+    min-height: 10vh;
+    overflow: hidden;
+    transition: height 1s ease-in-out;
+}
+
+
+/*@media only screen and (max-width: 1130px) {
+
+}
+
+@media only screen and (max-width:750px) {
+   
+}
+
+@media only screen and (max-width: 520px) {
+
+    
+}*/
