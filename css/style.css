@@ -1,4 +1,5 @@
 @import url(/css/fonts.css);
+
 html,
 body {
     margin: 0%;
@@ -21,10 +22,16 @@ body {
 }
 
 
-.flex-row {
+.flex{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+a{
+    font-family: var(--Abel);
+    text-decoration: none;
+    color: var(--white);
 }
 
 
@@ -32,7 +39,7 @@ body {
 
 .nav {
     background: var(--indigo-dye);
-    padding: 0 2rem;
+    padding: 0 1rem;
     height: 0rem;
     min-height: 10vh;
     overflow: hidden;
@@ -79,14 +86,15 @@ body {
     font-size: 1.3rem;
     position: relative;
     font-family: var(--Abel);
+    transition: 50ms ease-in-out;
 }
 
 .nav .nav-items .nav-link:hover {
-    background-color: var(--ming);
+    background-color: rgba(60, 110, 113,0.3);
 }
 
 .nav .nav-items .nav-link:hover a {
-    color: var(--white);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .nav .nav-brand a {
@@ -94,6 +102,19 @@ body {
     padding: 1rem 0;
     display: block;
     font-family: var(--Lexend);
+}
+
+.nav .social{
+    padding: 1.4rem 0
+}
+
+.nav .social a{
+    font-size: 1.4rem ;
+    padding: 0 0.3rem;
+}
+
+.nav .social a:hover{
+    color: rgba(255, 255, 255, 0.6);
 }
 
 
