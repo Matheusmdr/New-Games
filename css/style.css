@@ -1,4 +1,5 @@
 @import url(/css/fonts.css);
+
 html,
 body {
     margin: 0%;
@@ -31,11 +32,52 @@ body {
     margin: 0 5vw;
 }
 
+button.btn {
+    border: none;
+    border-radius: 1.3rem;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-family: var(--Lexend);
+    cursor: pointer;
+    color: var(--white);
+}
+
 a {
     font-family: var(--Abel);
     text-decoration: none;
+    font-weight: bold;
     color: var(--white);
 }
+
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+
+h1 {
+    font-family: var(--Lexend);
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-family: var(--Lexend);
+}
+
+h3 {
+    font-family: var(--Lexend);
+    font-size: 1.3rem;
+}
+
+h4{
+    font-size: 1.2rem;
+    font-family: var(--Abel);
+}
+
 
 header {
     width: 100%;
@@ -48,9 +90,10 @@ header {
 
 .nav {
     background: var(--indigo-dye);
+    margin: 0%;
     padding: 0 1rem;
     height: 0rem;
-    min-height: 10vh;
+    min-height: 8vh;
     overflow: hidden;
     transition: 1s ease-in-out;
 }
@@ -85,14 +128,14 @@ header {
 }
 
 .nav .nav-items {
-    list-style-type: none;
     display: flex;
     margin: 0%;
 }
 
 .nav .nav-items .nav-link {
     padding: 1.3rem 1rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     position: relative;
     font-family: var(--Abel);
     transition: 50ms ease-in-out;
@@ -119,54 +162,259 @@ header {
     padding: 1rem 0.5rem;
 }
 
-.nav .social {
-    padding: 1.4rem 0
+
+.nav .nav-icons {
+    display: flex;
+    position: relative;
 }
 
-.nav .social a {
-    font-size: 1.4rem;
-    padding: 0 0.3rem;
+.nav .nav-icons .icon-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.7rem;
+    transition: 0.3s ease-in-out;
 }
 
-.nav .social a:hover {
-    color: rgba(255, 255, 255, 0.6);
+.nav .nav-icons .icon-item:link,
+.nav .nav-icons .icon-item:visited {
+    color: var(--white);
+}
+
+.nav .nav-icons .icon-item:hover {
+    background-color: rgba(60, 110, 113, 0.3);
+}
+
+.nav .nav-icons .icon-item:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.nav .nav-icons #cart-total {
+    font-size: 1rem;
+    position: absolute;
+    top: 2px;
+    right: -6px;
+    background-color: var(--ming);
+    padding: 0.2rem 0.4rem;
+    border-radius: 100%;
+    color: var(--white);
 }
 
 
-/* carousel */
+/*Carousel*/
 
-main .carousel {
-    height: 100vh;
+.hero,
+.hero .glide__slides {
+    margin: 0 0.2rem;
+    padding: 0rem 0.4rem;
+    background-color: var(--white);
+    position: relative;
     width: 100%;
-    background-size: 65%;
+    height: 100vh;
 }
 
-main .carousel .games-post {
-    padding-top: 6rem;
+.hero .glide__bullet {
+    background-color: #222;
+    width: 1rem;
+    height: 1rem;
 }
 
-main .games-post .game-content {
+.hero .glide__arrow {
+    padding: 0.9rem 1rem;
+    opacity: 0;
+    border: none;
+    background-color: var(--jet);
+    transition: all 0.5s ease-in-out 0.2s;
+}
+
+.glide__arrow:hover {
+    background-color: var(--black);
+}
+
+.glide__arrow--left {
+    left: 20rem;
+}
+
+.glide__arrow--right {
+    position: absolute;
+    right: 20rem;
+}
+
+.hero:hover .glide__arrow {
+    opacity: 0.8;
+}
+
+.hero:hover .glide__arrow--left {
+    left: 20rem;
+}
+
+.hero:hover .glide__arrow--right {
+    right: 20rem;
+}
+
+.hero .glide__arrow {
+    border-radius: 50%;
+}
+
+.hero__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    max-width: 114rem;
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 3rem;
+}
+
+.hero__left {
+    padding: 0 3rem;
+    flex: 0 0 50%;
+}
+
+.hero__btn {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.4rem;
+    background-color: var(--black);
+    color: var(--white);
+    cursor: pointer;
+    padding: 1rem 4rem;
+    border: 1px solid var(--black);
+    transition: all 0.3s ease-in-out;
+}
+
+.hero__btn:focus {
+    outline: none;
+}
+
+.hero__left .hero__btn:hover {
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--black);
+}
+
+.hero__left h1 {
+    margin: 1rem 0;
+}
+
+.hero__left p {
+    margin-bottom: 1rem;
+}
+
+.hero__right {
+    flex: 0 0 50%;
+    position: relative;
+    text-align: center;
+}
+
+/* Most Popular */ 
+
+
+main .container h1{
+    text-align: center;
+}
+
+
+main .post .game-post {
     display: flex;
     flex-direction: row;
+    padding-top: 1rem;
+}
+
+main .post .game-post :hover{
+    cursor: pointer;
+}
+
+main .post .game-post .game-content {
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    width: 55%;
-    margin: 2rem auto;
+    width: 80%;
+    margin: 1rem 2rem;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
 }
-
-main .games-post .game-content,img{
-    border-radius: 0.3rem;
+main .game-post .game-content > div {
+    overflow: hidden;
 }
 
-main .game-content .game-title {
+main .game-post .game-content img{
+    transition: all 1s ease;
+}
+
+main .game-post .game-content img:hover{
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+main .game-content .game-title{
+    color: var(--black);
     padding: 2rem 0;
 }
 
+main .game-content .btn-access {
+    padding: .7rem 2rem;
+    background: var(--black);
+    margin: .5rem;
+}
+
+/* New products */
+
+main .products {
+    height: 100vh;
+    width: 100vw;
+    background-size: 65%;
+}
 
 
+main .products .game-post {
+    display: flex;
+    flex-direction: row;
+}
 
+main .products .game-post .game-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    margin: 0.4rem 3rem;
+    box-shadow: 2px rgba(0, 0, 0, 0.5);
+}
 
-/* Main */
+main .products .game-post .game-content .addCart {
+    position: relative;
+    line-height: 2rem;
+    width: 2rem;
+    height: 2rem;
+    bottom: 2.4rem;
+    background-color: var(--white);
+    border-radius: 50%;
+    transition: all 300ms ease-in-out;
+  }
+  
+  main .products .game-post .game-content .addCart:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--white);
+  }
+
+ main .products .game-post .game-content .bottom {
+    text-align: center;
+  }
+  
+ main .products .game-post .game-content .bottom a {
+    color: var(--black);
+    font-size: 1.5rem;
+  }
+
+  main .products .game-post .game-content .bottom span {
+    padding-bottom: 0.4rem;
+  }
+  
+  main .products .game-post .game-content .bottom a:hover {
+    color: var(--black);
+  }
+
 
 
 /* Footer*/
@@ -176,10 +424,12 @@ main .game-content .game-title {
 }*/
 
 @media only screen and (max-width:750px) {
+
     .nav .nav-menu,
     .nav .nav-items {
         flex-direction: column;
     }
+
     .nav .toggle-collapse {
         display: initial;
     }

@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Owl-Carousel -->
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
 
     <!-- AOS Library -->
     <link rel="stylesheet" href="./css/aos.css">
@@ -41,22 +42,33 @@
                 <div>
                     <ul class="nav-items">
                         <li class="nav-link">
-                            <a href="#">STORE</a>
+                            <a href="#">HOME</a>
                         </li>
                         <li class="nav-link">
-                            <a href="#">NOVIDADES</a>
+                            <a href="#">PRODUCTS</a>
                         </li>
                         <li class="nav-link">
-                            <a href="#">AJUDA</a>
+                            <a href="#">HELP</a>
                         </li>
                         <li class="nav-link">
-                            <a href="#">PERGUNTAS FREQUENTES</a>
+                            <a href="#">CONTACT</a>
                         </li>
                     </ul>
                 </div>
-                <div class="social">
-                    <a href="#">Login</a>
-                    <a href="#">Cadastre-se</a>
+
+                <div class="nav-icons">
+                    <a href="#" class="icon-item">
+                        <i class="fas fa-search"></i>
+                    </a>
+
+                    <a href="#" class="icon-item">
+                        <i class="fas fa-user"></i>
+                    </a>
+
+                    <a href="#" class="icon-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-total">0</span>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -65,29 +77,200 @@
 
     <!-- Main -->
     <main>
-        <section id="most-sale">
-            <div class="carousel">
+        <section id="bannerSite">
+            <!-- Hero -->
+            <div class="hero">
+                <div class="glide" id="glide_1">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <div class="hero__center">
+                                    <div class="hero__left">
+                                        <h1>Sonic Mania</h1>
+                                        <p>Sonic Mania is an all-new adventure with Sonic, Tails, and Knuckles full of
+                                            unique bosses, rolling 2D landscapes, and fun classic gameplay.</p>
+                                        <a href="#"><button class="hero__btn">SHOP NOW</button></a>
+                                    </div>
+                                    <div class="hero__right">
+                                        <div class="hero__img-container">
+                                            <img class="banner_01" src="/images/SonicMania.jpg" alt="banner2" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="hero__center">
+                                    <div class="hero__left">
+                                        <h1>Dead Cells</h1>
+                                        <p>Dead Cells is a rogue-lite, metroidvania inspired, action-platformer. You'll
+                                            explore a sprawling, ever-changing castle... assuming you're able to fight
+                                            your way past its keepers in 2D souls-lite combat. No checkpoints. Kill,
+                                            die, learn, repeat.</p>
+                                        <a href="#"><button class="hero__btn">SHOP NOW</button></a>
+                                    </div>
+                                    <div class="hero__right">
+                                        <img class="banner_02" src="/images/DeadCells.jpg" alt="banner2" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        <button class="glide__bullet" data-glide-dir="=0"></button>
+                        <button class="glide__bullet" data-glide-dir="=1"></button>
+                    </div>
+
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section id="Most-Popular">
+            <div class="post">
                 <div class="container">
-                    <div class="owl-carousel owl-theme games-post">
-                        <div class="game-content">
-                            <img src="../images/capsule_616x353.jpg" alt="game-1">
+                    <h1>Most Popular</h1>
+                    <div class="game-post">
+                        <div class="game-content" data-aos="fade-right" data-aos-delay="200">
+                            <div>
+                                <img src="/images/Persona5S.jpg" alt="post-1">
+                            </div>
                             <div class="game-title">
-                                <h3>Sonic Maia</h3>
-                                <button class="btn">Acessar</button>
+                                <h3>PERSONA 5 STRIKERS</h3>
+                                <h4>US$ 59.99</h4>
+                                <button class="btn btn-access">SHOP NOW</button>
                             </div>
                         </div>
-                        <div class="game-content">
-                            <img src="../images/Capa.jpg" alt="game-2">
+                        <div class="game-content" data-aos="fade-in" data-aos-delay="200">
+                            <div>
+                                <img src="/images/darksouls3.jpg" alt="post-2">
+                            </div>
                             <div class="game-title">
-                                <h3>Dead Cells</h3>
-                                <button class="btn">Acessar</button>
+                                <h3>DARK SOULS 3</h3>
+                                <h4>US$ 59.99</h4>
+                                <button class="btn btn-access">SHOP NOW</button>
+                            </div>
+                        </div>
+                        <div class="game-content" data-aos="fade-left" data-aos-delay="200">
+                            <div>
+                                <img src="/images/devil-may-cry-5.jpg" alt="post-3">
+                            </div>
+                            <div class="game-title">
+                                <h3>DEVIL MAY CRY 5</h3>
+                                <h4>US$ 24.99</h4>
+                                <button class="btn btn-access">SHOP NOW</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
+
+        <section id="New Products">
+            <div class="products">
+                <div class="container">
+                    <h1>New Products</h1>
+                    <div class="game-post">
+                        <div class="game-content" data-aos="fade-right" data-aos-delay="200">
+                            <div>
+                                <img src="/images/cyberpunk.jpg" alt="post-1">
+                                <div class="addCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <a href="">Cyberpunk 2077</a>
+                                <div class="price">
+                                    <span>US$ 47.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-content" data-aos="fade-in" data-aos-delay="200">
+                            <div>
+                                <img src="/images/Super-Bomberman-R.jpg" alt="post-2">
+                                <div class="addCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <a href="">Super Bomberman R Online</a>
+                                <div class="price">
+                                    <span>FREE</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-content" data-aos="fade-left" data-aos-delay="200">
+                            <div>
+                                <img src="/images/Sekiro-Shadows-Die-Twice.jpg" alt="post-3">
+                                <div class="addCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <a href="">Sekiro: Shadows Die Twice</a>
+                                <div class="price">
+                                    <span>US$ 59.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-post">
+                        <div class="game-content" data-aos="fade-right" data-aos-delay="200">
+                            <div>
+                                <img src="/images/EGS_KINGDOMHEARTSIIIReMindDLC.jpg" alt="post-1">
+                                <div class="addCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <a href="">KINGDOM HEARTS III + Re Mind (DLC)</a>
+                                <div class="price">
+                                    <span>US$ 59.99 </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-content" data-aos="fade-in" data-aos-delay="200">
+                            <div>
+                                <img src="/images/rocketleague.jpg" alt="post-2">
+                                <div class="addCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <a href="">Rocket League</a>
+                                <div class="price">
+                                    <span>FREE</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-content" data-aos="fade-left" data-aos-delay="200">
+                            <div>
+                                <img src="/images/nioh2.jpg" alt="post-3">
+                                <div class="addCart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <a href="">Nioh 2</a>
+                                <div class="price">
+                                    <span>US$ 39.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
     </main>
 
     <!-- Footer -->
@@ -95,11 +278,11 @@
     </footer>
 
 
+    <!-- Glide Carousel Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+
     <!--JQuery Library -->
     <script src="/js/Jquery3.4.1.min.js"></script>
-
-    <!-- Owl-Carousel js -->
-    <script src="/js/owl.carousel.min.js"></script>
 
     <!-- AOS js Library -->
     <script src="/js/aos.js"></script>
