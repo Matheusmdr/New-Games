@@ -354,8 +354,16 @@ main .game-content .game-title{
 
 main .game-content .btn-access {
     padding: .7rem 2rem;
+    border: 1px solid var(--black);
     background: var(--black);
     margin: .5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+main .game-content .btn-access:hover {
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--black);
 }
 
 /* New products */
@@ -405,14 +413,16 @@ main .products .game-post .game-content .addCart {
  main .products .game-post .game-content .bottom a {
     color: var(--black);
     font-size: 1.5rem;
+    transition: all 0.3s ease-in-out;
   }
 
   main .products .game-post .game-content .bottom span {
     padding-bottom: 0.4rem;
+    font-family: var(--Lexend);
   }
   
   main .products .game-post .game-content .bottom a:hover {
-    color: var(--black);
+    color: var(--gainsboro);
   }
 
 
