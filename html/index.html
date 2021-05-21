@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Owl-Carousel -->
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+    <!-- AOS Library -->
+    <link rel="stylesheet" href="./css/aos.css">
+
     <!-- Main Style -->
     <link rel="stylesheet" href="/css/style.css">
 
@@ -25,7 +32,6 @@
                 <div class="nav-brand">
                     <img src="../images/game-controller.png" alt="joystick brand icon" id="joystick-brand-icon" />
                     <a href="#">New Games</a>
-
                 </div>
                 <div class="toggle-collapse">
                     <div class="toggle-icons">
@@ -59,17 +65,44 @@
 
     <!-- Main -->
     <main>
-        <div class="games-container"></div>
+        <section id="most-sale">
+            <div class="carousel">
+                <div class="container">
+                    <div class="owl-carousel owl-theme games-post">
+                        <div class="game-content">
+                            <img src="../images/capsule_616x353.jpg" alt="game-1">
+                            <div class="game-title">
+                                <h3>Sonic Maia</h3>
+                                <button class="btn">Acessar</button>
+                            </div>
+                        </div>
+                        <div class="game-content">
+                            <img src="../images/Capa.jpg" alt="game-2">
+                            <div class="game-title">
+                                <h3>Dead Cells</h3>
+                                <button class="btn">Acessar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </main>
 
     <!-- Footer -->
     <footer>
-        <a class="footer-text">© 2021 New Games</a>
     </footer>
 
 
     <!--JQuery Library -->
     <script src="/js/Jquery3.4.1.min.js"></script>
+
+    <!-- Owl-Carousel js -->
+    <script src="/js/owl.carousel.min.js"></script>
+
+    <!-- AOS js Library -->
+    <script src="/js/aos.js"></script>
 
     <!-- Main Script -->
     <script src="/js/script.js"></script>
