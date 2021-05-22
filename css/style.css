@@ -311,7 +311,7 @@ header {
 /* Most Popular */ 
 
 
-main .container h1{
+main .container h2{
     text-align: center;
 }
 
@@ -369,6 +369,7 @@ main .game-content .btn-access:hover {
 /* New products */
 
 main .products {
+    padding-top: 3rem;
     height: 100vh;
     width: 100vw;
     background-size: 65%;
@@ -424,6 +425,126 @@ main .products .game-post .game-content .addCart {
   main .products .game-post .game-content .bottom a:hover {
     color: var(--gainsboro);
   }
+
+  /* Sale */
+
+main .megasale {
+    padding-top: 3rem;
+    height: 100vh;
+    width: 100vw;
+    background-size: 65%;
+}
+
+
+main .megasale .game-post {
+    display: flex;
+    flex-direction: row;
+}
+
+main .megasale .game-post .game-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    margin: 0.4rem 3rem;
+    box-shadow: 2px rgba(0, 0, 0, 0.5);
+}
+
+main .megasale .game-post .game-content .addCart {
+    position: relative;
+    line-height: 2rem;
+    width: 2rem;
+    height: 2rem;
+    bottom: 2.4rem;
+    background-color: var(--white);
+    border-radius: 50%;
+    transition: all 300ms ease-in-out;
+  }
+  
+  main .megasale .game-post .game-content .addCart:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--white);
+  }
+
+ main .megasale .game-post .game-content .bottom {
+    text-align: center;
+  }
+  
+ main .megasale .game-post .game-content .bottom a {
+    color: var(--black);
+    font-size: 1.5rem;
+    transition: all 0.3s ease-in-out;
+  }
+
+  main .megasale .game-post .game-content .bottom span {
+    padding-bottom: 0.4rem;
+    font-family: var(--Lexend);
+  }
+  
+  main .megasale .game-post .game-content .bottom a:hover {
+    color: var(--gainsboro);
+  }
+
+
+
+
+/* Footer */
+
+footer.footer {
+    height: 100%;
+    background: var(--ming);
+    position: relative;
+}
+
+footer.footer .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+footer.footer .container .footer-center{
+    display: flex;
+    flex-direction: column;
+}
+
+footer.footer .container .footer-center a{
+    transition: 50ms ease-in-out;
+    padding: 0.2rem 0rem;
+}
+
+footer.footer .container .footer-center a:hover {
+    color: var(--indigo-dye);
+}
+
+footer.footer .container>div {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 3rem 0.9rem;
+}
+
+footer.footer .follow .social {
+    justify-content: flex-end;
+    padding: 0.3rem;
+}
+
+footer.footer .follow .social i {
+    padding: 0.2rem;
+    font-size: 1.4rem;
+}
+
+footer.footer .follow .social i:hover {
+    color: var(--indigo-dye);
+}
+
+footer.footer .follow div i {
+    color: var(--white);
+    padding: 0 .4rem;
+}
+
+footer.footer .rights {
+    justify-content: center;
+    font-family: var(--Lexend);
+}
 
 
 
