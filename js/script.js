@@ -6,6 +6,8 @@ $(document).ready(function () {
       $nav.toggleClass('collapse');
     })
 
+    AOS.init();
+
 
   });
 
