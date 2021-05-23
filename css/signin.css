@@ -1,0 +1,126 @@
+/*import home style*/
+@import url(../css/style.css);
+
+html{
+    background: var(--black);
+}
+
+
+/*keep footer in the correct place*/
+.content {
+    min-height: calc(100vh - 70px);
+}
+
+.footer {
+    height: 50px;
+}
+
+/*Single purpose classes*/
+.border-radius {
+    border-radius: 15px;
+}
+
+.shadow {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.center_text{
+    text-align: center;
+}
+
+.text_style{
+    font-family: var(--Lexend);
+}
+
+/* Login */
+/* Login (container)*/
+.sign_up-container { /*invisible*/
+    position: relative;
+    left: 15rem;
+    width: 50rem;
+    height: 10rem;
+    /*var(--ming);*/
+}
+
+.second-container { /*visible*/
+    position: relative;
+    top: 4.5rem;
+    left: 10rem;
+    width: 40rem;
+    height: 30rem;
+    background-color: var(--jet);/*var(--gainsboro);*/
+}
+
+/* Login (submit button)*/
+input[type=submit] {
+    background-color: var(--ming);
+    color: var(--white);
+    cursor: pointer;
+}
+  
+input[type=submit]:hover {
+    background-color: var(--indigo-dye)
+}
+
+.username{
+    position: relative;
+    top: 5rem;
+    left: 10rem;
+    width: 20rem;
+    height: 2rem;
+}
+
+.password{
+    top: 8rem;
+}
+
+.login_btn{
+    top: 8rem;
+    height: 3rem;
+}
+
+.login_title{
+    position: relative;
+    top: 5rem;
+    color: var(--ming);
+    font-size: 22px;
+}
+
+.question_account{
+    position: relative;
+    top: 10rem;
+    left: -2rem;
+}
+
+.signup_text{
+    position: relative;
+    top: 7.7rem;
+    left: 27rem;
+}
+
+.username_fig{
+    position: relative;
+    top: 7.5rem;
+    left: 8rem;
+    width: 20rem;
+    height: 2rem;
+}
+
+.password_fig{
+    position: relative;
+    top: 10.5rem;
+    left: 8rem;
+    width: 20rem;
+    height: 2rem;
+}
+
+.container_username{
+    position: relative;
+    top: 0rem;
+}
+.container_password{
+    position: relative;
+    top: -2rem;
+}
