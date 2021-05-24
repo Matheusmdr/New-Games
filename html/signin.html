@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../css/aos.css">
 
     <!-- Main Style -->
-
     <link rel="stylesheet" href="../css/signin.css">
 
     <!-- Font Awesome Icons -->
@@ -32,7 +31,7 @@
             <div class="nav-menu flex">
                 <div class="nav-brand">
                     <img src="../images/game-controller.png" alt="joystick brand icon" id="joystick-brand-icon" />
-                    <a href="../index.html">New Games</a>
+                    <a href="../html/index.html">New Games</a>
                 </div>
                 <div class="toggle-collapse">
                     <div class="toggle-icons">
@@ -42,7 +41,7 @@
                 <div>
                     <ul class="nav-items">
                         <li class="nav-link">
-                            <a href="../index.html">HOME</a>
+                            <a href="../html/index.html">HOME</a>
                         </li>
                         <li class="nav-link">
                             <a href="#">PRODUCTS</a>
@@ -77,26 +76,33 @@
 
     <!-- Main -->
     <main>
-        <div class="sign_up-container content">
-            <div class="second-container border-radius ">
-                <form action="/">
-                    <p class="center_text text_style login_title">LOGIN</p>
-                    <div class="container_username">
-                        <i class="fa fa-user icon username_fig"></i>
-                        <input type="text" name="username" placeholder="Username" required class="text_style border-radius username">
+        <section>
+            <div class="sign_in">
+                <div class="sign_up-container content">
+                    <div class="second-container border-radius ">
+                        <form action="/">
+                            <p class="center_text text_style login_title">LOGIN</p>
+                            <div class="container_username">
+                                <i class="fa fa-user icon username_fig"></i>
+                                <input type="text" name="username" placeholder="Username" required
+                                    class="text_style border-radius username">
+                            </div>
+                            <div class="container_password">
+                                <i class="fa fa-lock icon password_fig"></i>
+                                <input type="password" name="password" placeholder="Password" required
+                                    class="text_style border-radius username password">
+                            </div>
+                            <input type="submit" value="Sign In" class="text_style border-radius username login_btn">
+                        </form>
+                        <div class="container_signup">
+                            <p class="center_text text_style question_account">Don't have a New Games account?</p>
+                            <a class="signup_text" href="#">Sign Up</a>
+                        </div>
                     </div>
-                    <div class="container_password">
-                        <i class="fa fa-lock icon password_fig"></i>
-                        <input type="password" name="password" placeholder="Password" required class="text_style border-radius username password">
-                    </div>
-                    <input type="submit" value="Sign In" class="text_style border-radius username login_btn">
-             </form>
-             <div class="container_signup">
-                <p class="center_text text_style question_account">Don't have a New Games account?</p>
-                <a class="signup_text" href="#">Sign Up</a>
+                </div>
             </div>
-            </div>
-        </div>
+
+        </section>
     </main>
 
     <!-- Footer -->
