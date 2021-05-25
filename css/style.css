@@ -10,13 +10,8 @@ body {
 
 
 :root {
-    --jet: #353535;
-    --ming: #3C6E71;
-    --gainsboro: #D9D9D9;
-    --indigo-dye: #284B63;
     --white: #ffffff;
     --black: #0f0f0f;
-
     --primary: #BB86FC;
     --secondary: #03DAC6;
     --background: #121212;
@@ -42,8 +37,8 @@ body {
     margin: 0 5vw;
 }
 
-main{
-    background:var(--background);
+main {
+    background: var(--background);
 }
 
 button.btn {
@@ -167,7 +162,7 @@ header {
 }
 
 .nav .nav-items .nav-link:hover {
-    background-color: rgba(187,134,252,0.7);
+    background-color: rgba(187, 134, 252, 0.7);
 }
 
 .nav .nav-brand a {
@@ -197,7 +192,7 @@ header {
     transition: 0.3s ease-in-out;
 }
 
-.nav .nav-icons .icon-item .down-arrow{
+.nav .nav-icons .icon-item .down-arrow {
     padding-left: 0.5rem;
     font-size: 0.8rem;
 }
@@ -208,7 +203,7 @@ header {
 }
 
 .nav .nav-icons .icon-item:hover {
-    background-color: rgba(187,134,252,0.7);
+    background-color: rgba(187, 134, 252, 0.7);
 }
 
 .nav .nav-icons .icon-item:not(:last-child) {
@@ -517,8 +512,39 @@ footer.footer .rights {
 }
 
 
+.goto-top:link,
+.goto-top:visited {
+    position: fixed;
+    right: 2rem;
+    bottom: 3rem;
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 15rem;
+    background: var(--secondary);
+    border: 1px solid var(--secondary);
+    visibility: hidden;
+    cursor: pointer;
+    z-index: 10;
+    transition: 100ms ease-in-out;
+}
 
-/* Footer*/
+.show-top:link,
+.show-top:visited {
+    visibility: visible;
+}
+
+
+.goto-top:hover {
+    color: var(--secondary);
+    background: transparent;
+}
+
+/* Products Html CSS */
+
+main .products-list {
+    height: 100vh;
+    width: 100vw;
+}
 
 /*@media only screen and (max-width: 1130px) {
     
