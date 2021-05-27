@@ -1,18 +1,19 @@
 /*import home style*/
+
 @import url(../css/style.css);
-
-
 main .sign_up {
-    padding-top:2.5rem ;
+    padding-top: 2.5rem;
     height: 100vh;
     width: 100vw;
 }
 
-form i{
+form i {
     color: var(--white);
 }
 
+
 /*Single purpose classes*/
+
 .border-radius {
     border-radius: 15px;
 }
@@ -31,8 +32,12 @@ form i{
     font-family: var(--Lexend);
 }
 
+
 /* Login */
+
+
 /* Login (container)*/
+
 .sign_up-container {
     /*invisible*/
     position: relative;
@@ -52,7 +57,9 @@ form i{
     background-color: var(--secondary-background);
 }
 
-/* Login (submit button)*/
+
+/* Login (sign up button)*/
+
 input[type=submit] {
     padding: .7rem 2rem;
     border: 1px solid var(--primary);
@@ -71,6 +78,9 @@ input[type=submit]:hover {
     color: var(--primary);
 }
 
+
+/* Login (information inputs)*/
+
 .username {
     outline: none;
     position: relative;
@@ -87,7 +97,7 @@ input[type=submit]:hover {
 }
 
 .login_btn {
-    top: 8rem;
+    top: 15rem;
     height: 3rem;
 }
 
@@ -98,16 +108,26 @@ input[type=submit]:hover {
     font-size: 22px;
 }
 
-.question_account {
+.question_checkbox {
     position: relative;
-    top: 10rem;
-    left: -2rem;
+    top: 13.78rem;
+    left: 10rem;
+    width: 15rem;
+    height: 1rem;
 }
 
-.signup_text {
+.terms_text {
     position: relative;
-    top: 7.7rem;
-    left: 27rem;
+    top: 11.75rem;
+    left: 25.1rem;
+    width: 3rem;
+    height: 1rem;
+}
+
+.checkbox {
+    position: relative;
+    top: 16.2rem;
+    left: 1.5rem;
 }
 
 .username_fig {
@@ -126,20 +146,36 @@ input[type=submit]:hover {
     height: 2rem;
 }
 
+.envelope_fig {
+    position: relative;
+    top: 7.6rem;
+    left: 8rem;
+    width: 20rem;
+    height: 2rem;
+}
+
 .container_username {
     position: relative;
     top: 0rem;
+    height: 1rem;
+}
+
+.container_email {
+    position: relative;
+    top: 3rem;
+    height: 1rem;
 }
 
 .container_password {
     position: relative;
-    top: -2rem;
+    top: 3rem;
+    height: 1rem;
 }
 
-.container_signup p{
+.container_signup p {
     color: var(--white);
 }
 
-.container_signup a{
+.container_signup a {
     color: var(--secondary);
 }
