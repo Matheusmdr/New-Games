@@ -4,7 +4,7 @@
 Ever dreamed of being able to have access to thousands of games in your hands at any time? Well, our dream has come true! 
 The New Games store (land for the more intimate people) consists of thousands of games that we can buy at any time and for a very small price💸(most important part LoL). Yes, you are not dreaming... Paradise exists!
 
-Come collect XP and defeat all the Bosses!🎯 [Click here](https://matheusmdr.github.io/Trabalho-Final-Desenvolvimento-Web/html/)
+Come collect XP and defeat all the Bosses!🎯 [Click here](https://matheusmdr.github.io/New-Games/html)
 
 ---
 ### 📜 Documentation (We know, this part is so boring...):
