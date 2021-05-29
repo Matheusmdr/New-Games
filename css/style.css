@@ -98,6 +98,23 @@ h4 {
     font-family: var(--Abel);
 }
 
+select {
+    background-color: var(--alternative-secondary-bg);
+    width: 250px;
+    height: 30px;
+    outline: none;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    border:none;
+}
+
+
+option{
+    font-weight: bold;
+    font-size: 1rem;
+}
 
 header {
     width: 100%;
@@ -425,7 +442,6 @@ main .products .game-post .game-content {
     text-align: center;
     width: 65%;
     margin: 0.4rem 3rem;
-    box-shadow: 2px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -450,7 +466,6 @@ main .sale .game-post .game-content {
     text-align: center;
     width: 80%;
     margin: 0.4rem 3rem;
-    box-shadow: 2px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -542,8 +557,27 @@ footer.footer .rights {
 /* Products Html CSS */
 
 main .products-list {
-    height: 100vh;
+    font-family: var(--Lexend);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 20% 80%;
+    padding-top: 5rem;
+    height: auto;
     width: 100vw;
+}
+
+main .products-list .game-list {
+    padding: 1rem 0rem;
+    display: flex;
+    flex-direction: row;
+}
+
+main .products-list .game-list .game-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 25%;
+    margin: 0.4rem 1rem;
 }
 
 /*@media only screen and (max-width: 1130px) {
