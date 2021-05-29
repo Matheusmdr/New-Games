@@ -1,11 +1,11 @@
 # Trabalho-Final-Desenvolvimento-Web
 
-#New Games 🎮:
+<h1>New Games 🎮:</h1>
 An game selling website built with HTML, CSS, and JAVASCRIPT for the discipline of "Desenvolvimento de aplicações para a internet".
 
-#Specifications 📜
+<h1>Specifications 📜:</h1>
 TrabalhoWeb.pdf
 
-#Contributors 🖊️
+<h1>Contributors 🖊️:</h1>
 -Daniel Nunes Monteiro
 -Matheus Magalhães da Rocha
