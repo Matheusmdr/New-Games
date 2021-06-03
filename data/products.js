@@ -26,7 +26,7 @@ let products = [
     {
         "name": "Super Bomberman R Online",
         "category": 4,
-        "price": 0,
+        "price": "Free",
         "image": "Super-Bomberman-R.jpg"
     },
     {
@@ -44,7 +44,7 @@ let products = [
     {
         "name": "Rocket League",
         "category": 4,
-        "price": 0,
+        "price": "Free",
         "image": "rocketleague.jpg"
     },
     {

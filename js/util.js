@@ -40,7 +40,7 @@ function SetMostPopular() {
     }
 }
 
-function setNewProducts() {
+function SetNewProducts() {
     /*Set new products */
     let productsList = getList(products)
     const path = "../images/"
@@ -73,16 +73,84 @@ function setNewProducts() {
     }
 }
 
+function SetSaleProducts() {
+    /*Set sale products */
+    let productsList = getList(products)
+    const path = "../images/"
+
+
+    for (let index = 9; index < 12; index++) {
+        let $div = $("<div class='game-content'></div>")
+
+        let $imageDiv = $("<div></div>")
+        let $imagem = $('<img></img>')
+
+
+        let $titulo = $('<a></a>')
+        let $preco = $('<span></span>')
+        let $botao = $("<button class='btn'>Add To Cart</button>");
+        $imagem.prop("src", path + productsList[index].image)
+        $titulo.text(productsList[index].name)
+        $preco.text("$" + productsList[index].price)
+
+        $div.id = `${productsList[index].name}${index}`
+
+        $imageDiv.append($imagem);
+        $div.append($imageDiv)
+
+        $div.append($titulo);
+        $div.append($preco);
+        $div.append($botao);
+
+        $('#saleDiv').append($div);
+    }
+}
+
+
+function SetProducts() {
+    /*Set sale products */
+    let productsList = getList(products)
+    const path = "../images/"
+
+
+    for (let index = 0; index < productsList.length ; index++) {
+        let $div = $("<div class='game-content'></div>")
+
+        let $imageDiv = $("<div></div>")
+        let $imagem = $('<img></img>')
+
+
+        let $titulo = $('<a></a>')
+        let $preco = $('<span></span>')
+        let $botao = $("<button class='btn'>Add To Cart</button>");
+        $imagem.prop("src", path + productsList[index].image)
+        $titulo.text(productsList[index].name)
+        $preco.text("$" + productsList[index].price)
+
+        $div.id = `${productsList[index].name}${index}`
+
+        $imageDiv.append($imagem);
+        $div.append($imageDiv)
+
+        $div.append($titulo);
+        $div.append($preco);
+        $div.append($botao);
+
+        $('#productsListDiv').append($div);
+    }
+}
 
 function SetProductsHome() {
     SetMostPopular()
-    setNewProducts()
+    SetNewProducts()
+    SetSaleProducts()
 }
 
 
 
 function start() {
-    SetProductsHome();
+    SetProductsHome()
+    SetProducts()
 }
 
 start();

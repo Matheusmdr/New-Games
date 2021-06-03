@@ -560,22 +560,23 @@ main .products-list {
     display: grid;
     grid-template-columns: 20% 80%;
     padding-top: 5rem;
+    margin: 0rem 1rem;
     height: auto;
     width: 100vw;
 }
 
 main .products-list .game-list {
     padding: 1rem 0rem;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
 }
 
 main .products-list .game-list .game-content {
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 25%;
-    margin: 0.4rem 1rem;
+    width: 82%;
+    margin: 1rem 0.2rem;
 }
 
 /*@media only screen and (max-width: 1130px) {
