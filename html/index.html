@@ -148,38 +148,7 @@
             <div class="post">
                 <div class="container" data-aos="fade-in" data-aos-delay="200">
                     <h2>MOST POPULAR</h2>
-                    <div class="game-post">
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/Persona5S.jpg" alt="post-1">
-                            </div>
-                            <div class="game-title">
-                                <h3>PERSONA 5 STRIKERS</h3>
-                                <h4>$59.99</h4>
-                                <button class="btn btn-access">Add To Cart</button>
-                            </div>
-                        </div>
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/darksouls3.jpg" alt="post-2">
-                            </div>
-                            <div class="game-title">
-                                <h3>DARK SOULS 3</h3>
-                                <h4>$59.99</h4>
-                                <button class="btn btn-access">Add To Cart</button>
-                            </div>
-                        </div>
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/devil-may-cry-5.jpg" alt="post-3">
-                            </div>
-                            <div class="game-title">
-                                <h3>DEVIL MAY CRY 5</h3>
-                                <h4>$24.99</h4>
-                                <button class="btn btn-access">Add To Cart</button>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="popularDivPost" class="game-post"></div>
                 </div>
             </div>
         </section>
@@ -189,58 +158,7 @@
             <div class="products">
                 <div class="container">
                     <h2>NEW PRODUCTS</h2>
-                    <div class="game-post" data-aos="fade-right" data-aos-delay="200">
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/cyberpunk.jpg" alt="post-1">
-                            </div>
-                            <a href="">Cyberpunk 2077</a>
-                            <span>$47.99</span>
-                            <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
-                        </div>
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/Super-Bomberman-R.jpg" alt="post-2">
-                            </div>
-                            <a href="">Super Bomberman R Online</a>
-                            <span>FREE</span>
-                            <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
-                        </div>
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/Sekiro-Shadows-Die-Twice.jpg" alt="post-3">
-                            </div>
-                            <a href="">Sekiro: Shadows Die Twice</a>
-                            <span>$59.99</span>
-                            <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
-                        </div>
-                    </div>
-                    <div class="game-post" data-aos="fade-left" data-aos-delay="200">
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/EGS_KINGDOMHEARTSIIIReMindDLC.jpg" alt="post-4">
-                            </div>
-                            <a href="">KINGDOM HEARTS III + Re Mind</a>
-                            <span>$59.99 </span>
-                            <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
-                        </div>
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/rocketleague.jpg" alt="post-5">
-                            </div>
-                            <a href="">Rocket League</a>
-                            <span>FREE</span>
-                            <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
-                        </div>
-                        <div class="game-content">
-                            <div>
-                                <img src="../images/nioh2.jpg" alt="post-6">
-                            </div>
-                            <a href="">Nioh 2</a>
-                            <span>$39.99</span>
-                            <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
-                        </div>
-                    </div>
+                    <div id="newProductsDiv" class="game-post"></div> 
                 </div>
             </div>
         </section>
@@ -251,6 +169,7 @@
             <div class="sale">
                 <div class="container">
                     <h2>SALE</h2>
+                    <!--
                     <div class="game-post" data-aos="fade-up" data-aos-delay="200">
                         <div class="game-content">
                             <div>
@@ -264,7 +183,7 @@
                             <div>
                                 <img src="../images/ReadDeadRedemption 2.jpg" alt="post-2">
                             </div>
-                            <a href="">Read Dead Redemption 2</a>
+                            <a href="">Red Dead Redemption 2</a>
                             <span>$14.99</span>
                             <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
                         </div>
@@ -273,10 +192,11 @@
                                 <img src="../images/hollowknight.jpg" alt="post-3">
                             </div>
                             <a href="">Hollow Knight</a>
-                            <span>$59.99</span>
+                            <span>$14.99</span>
                             <a href="#"><button type="submit" class="btn">Add To Cart</button></a>
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
         </section>
@@ -339,6 +259,9 @@
     <script src="../js/aos.js"></script>
 
     <!-- Main Script -->
+    <script src="../js/glide.js"></script>
+    <script src="../data/products.js"></script>
+    <script src="../js/util.js"></script>
     <script src="../js/script.js"></script>
 </body>
 
