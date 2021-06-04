@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/aos.css">
 
     <!-- Main Style -->
-    <link rel="stylesheet" href="../css/shopping_cart.css">
+    <link rel="stylesheet" href="../css/order_confirmation.css">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="../css/all.css" />
@@ -83,7 +83,7 @@
                         <table id="orders" class="table-orders">
                             <thead>
                                 <tr class="table-title">
-                                    <th colspan="4">Orders</th>
+                                    <th colspan="4">Order Confirmation</th>
                                 </tr>
                                 <tr class="table-subtitle">
                                     <th>Game</th>
@@ -94,7 +94,21 @@
                             </thead>
                             <tbody id="orders" class="table-rows">
                                 <!--Add orders here (DOM)-->
-
+                                <tr>
+                                    <th><img src="../images/hollowknight.jpg"></th>
+                                    <th>teste</th>
+                                    <th>teste</th>
+                                    <th><div class="counter">1</div></th>
+                                </tr>
+                                <!--Add delivery order here (DOM)-->
+                                <tr class="delivery-information-title">
+                                    <th colspan="4">Delivery Information</th>
+                                </tr>
+                                <tr><th colspan="4">Name: teste teste teste</th></tr>
+                                <tr><th colspan="4">E-mail: teste teste teste</th></tr>
+                                <tr><th colspan="4">Adress: teste teste teste, 000</th></tr>
+                                <tr class="delivery-message"><th colspan="4">Your order will arrive in 0000 business days!</th></tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -158,8 +172,8 @@
     <!-- Main Script -->
     <script src="../js/script.js"></script>
 
-    <!-- Shopping_cart Script -->
-    <script src="../js/shopping_cart.js"></script>
+    <!-- Order_confirmation Script -->
+    <script src="../js/order_confirmation.js"></script>
 </body>
 
 </html>
