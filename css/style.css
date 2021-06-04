@@ -228,6 +228,7 @@ header {
 }
 
 .nav .nav-icons #cart-total {
+    display: none;
     font-size: 1rem;
     height: 1rem;
     position: absolute;

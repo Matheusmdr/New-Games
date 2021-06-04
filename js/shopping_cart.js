@@ -1,11 +1,7 @@
-let pedidos = []
-
-function recupera() {
-    pedidos = JSON.parse(sessionStorage.getItem('cart'))
-    setProducts()
-}
 
 function setProducts() {
+    let pedidos = []
+    pedidos = JSON.parse(sessionStorage.getItem('products'))
     let $CartTable = $("#orders")
     const path = "../images/"
 
@@ -99,5 +95,4 @@ function increaseCount() {
     }
   }
   
-  
-  recupera()
+  setProducts()

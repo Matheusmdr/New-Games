@@ -1,4 +1,4 @@
-let cart = []
+
 
 function getList(array) {
     let list = []
@@ -167,14 +167,43 @@ function getProduct(id) {
 
 function AddCart(event){
     let product = getProduct(this.id)
+    let itens = []
+    if (sessionStorage['products']){
+        itens = JSON.parse(sessionStorage.getItem('products'));
+        if (!_VerificaCarrinho(itens, product)){
+            alert("!! ERRO !!\n\nEste produto já está adicionado no carrinho.");
+            return;
+        }
+    }
+    itens.push(product)
+    sessionStorage.setItem('products', JSON.stringify(itens))
+    if (sessionStorage['somaQuant']){
+        sessionStorage.setItem('somaQuant', JSON.stringify(JSON.parse(sessionStorage.getItem('somaQuant'))+1));
+        sessionStorage.setItem('somaTotal', JSON.stringify(JSON.parse(sessionStorage.getItem('somaTotal'))+product.price));
+    }else{
+        sessionStorage.setItem('somaQuant', JSON.stringify(1));
+        sessionStorage.setItem('somaTotal', JSON.stringify(product.price));
+    }
+    if (localStorage['quantProds']){
+        localStorage.setItem('quantProds', JSON.stringify(JSON.parse(localStorage.getItem('quantProds')) + 1));
+    }else localStorage.setItem('quantProds', JSON.stringify(1));
     cart.push(product)
-    $('#cart-total').text(cart.length)
     event.preventDefault()
 }
 
+
+function _VerificaCarrinho(cart, product) {
+    let tam = cart.length;
+    for (let i = 0; i < tam; i++)
+        if (((cart[i]).name == product.name))
+            return false;
+    return true;
+}
+
+
 function setCart() {
     let send = JSON.stringify(cart);
-    sessionStorage.setItem('cart', send);
+    localStorage.setItem('cart', send);
 }
 
 function SetProductsHome() {
