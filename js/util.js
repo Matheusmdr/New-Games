@@ -1,9 +1,11 @@
+let cart = []
+
 function getList(array) {
-    let list = [];
+    let list = []
     for (let index = 0; index < array.length; index++) {
-        list.push(array[index]);
+        list.push(array[index])
     }
-    return list;
+    return list
 }
 
 function SetMostPopular() {
@@ -21,7 +23,11 @@ function SetMostPopular() {
 
         let $titulo = $('<h3></h3>')
         let $preco = $('<h4></h4>')
-        let $botao = $("<button class='btn btn-access'>Add To Cart</button>");
+        let botao = document.createElement("button")
+        botao.id = index
+        botao.classList.add("btn")
+        botao.innerHTML = "Add To Cart"
+        botao.onclick = AddCart
 
         $imagem.prop("src", path + productsList[index].image)
         $titulo.text(productsList[index].name)
@@ -29,14 +35,14 @@ function SetMostPopular() {
 
         $div.id = `${productsList[index].name}${index}`
 
-        $imageDiv.append($imagem);
+        $imageDiv.append($imagem)
         $div.append($imageDiv)
 
-        $titleDiv.append($titulo);
-        $titleDiv.append($preco);
-        $titleDiv.append($botao);
+        $titleDiv.append($titulo)
+        $titleDiv.append($preco)
+        $titleDiv.append(botao)
         $div.append($titleDiv)
-        $('#popularDivPost').append($div);
+        $('#popularDivPost').append($div)
     }
 }
 
@@ -55,21 +61,25 @@ function SetNewProducts() {
 
         let $titulo = $('<a></a>')
         let $preco = $('<span></span>')
-        let $botao = $("<button class='btn'>Add To Cart</button>");
+        let botao = document.createElement("button")
+        botao.id = index
+        botao.classList.add("btn")
+        botao.innerHTML = "Add To Cart"
+        botao.onclick = AddCart
         $imagem.prop("src", path + productsList[index].image)
         $titulo.text(productsList[index].name)
         $preco.text("$" + productsList[index].price)
 
         $div.id = `${productsList[index].name}${index}`
 
-        $imageDiv.append($imagem);
+        $imageDiv.append($imagem)
         $div.append($imageDiv)
 
-        $div.append($titulo);
-        $div.append($preco);
-        $div.append($botao);
+        $div.append($titulo)
+        $div.append($preco)
+        $div.append(botao)
 
-        $('#newProductsDiv').append($div);
+        $('#newProductsDiv').append($div)
     }
 }
 
@@ -88,21 +98,25 @@ function SetSaleProducts() {
 
         let $titulo = $('<a></a>')
         let $preco = $('<span></span>')
-        let $botao = $("<button class='btn'>Add To Cart</button>");
+        let botao = document.createElement("button")
+        botao.id = index
+        botao.classList.add("btn")
+        botao.innerHTML = "Add To Cart"
+        botao.onclick = AddCart
         $imagem.prop("src", path + productsList[index].image)
         $titulo.text(productsList[index].name)
         $preco.text("$" + productsList[index].price)
 
         $div.id = `${productsList[index].name}${index}`
 
-        $imageDiv.append($imagem);
+        $imageDiv.append($imagem)
         $div.append($imageDiv)
 
-        $div.append($titulo);
-        $div.append($preco);
-        $div.append($botao);
+        $div.append($titulo)
+        $div.append($preco)
+        $div.append(botao)
 
-        $('#saleDiv').append($div);
+        $('#saleDiv').append($div)
     }
 }
 
@@ -122,22 +136,45 @@ function SetProducts() {
 
         let $titulo = $('<a></a>')
         let $preco = $('<span></span>')
-        let $botao = $("<button class='btn'>Add To Cart</button>");
+        let botao = document.createElement("button")
+        botao.id = index
+        botao.classList.add("btn")
+        botao.innerHTML = "Add To Cart"
+        botao.onclick = AddCart
         $imagem.prop("src", path + productsList[index].image)
         $titulo.text(productsList[index].name)
         $preco.text("$" + productsList[index].price)
+        $div.id = `${productsList[index].name}`
 
-        $div.id = `${productsList[index].name}${index}`
-
-        $imageDiv.append($imagem);
+        $imageDiv.append($imagem)
         $div.append($imageDiv)
 
-        $div.append($titulo);
-        $div.append($preco);
-        $div.append($botao);
+        $div.append($titulo)
+        $div.append($preco)
+        $div.append(botao)
 
-        $('#productsListDiv').append($div);
+        $('#productsListDiv').append($div)
     }
+}
+
+function getProduct(id) {
+    for (let index = 0; index < products.length; index++) {
+        if (id == index) return products[index];
+    }
+    return console.log("item não encontrado!");
+}
+
+
+function AddCart(event){
+    let product = getProduct(this.id)
+    cart.push(product)
+    $('#cart-total').text(cart.length)
+    event.preventDefault()
+}
+
+function setCart() {
+    let send = JSON.stringify(cart);
+    sessionStorage.setItem('cart', send);
 }
 
 function SetProductsHome() {
@@ -152,5 +189,4 @@ function start() {
     SetProductsHome()
     SetProducts()
 }
-
-start();
+start()
