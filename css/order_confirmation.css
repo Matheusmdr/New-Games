@@ -1,0 +1,11 @@
+@import url(../css/shopping_cart.css);
+
+.delivery-information-title{
+    font-size: 25px;
+    border-top: 1px solid var(--white);
+    border-bottom: 1px solid var(--white);
+}
+
+.delivery-message{
+    border-top: 1px solid var(--white);
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css">
+
+    <!-- AOS Library -->
+    <link rel="stylesheet" href="../css/aos.css">
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/order_confirmation.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="../css/all.css" />
+    <link rel="icon" href="../images/game-controller.ico" />
+    <title>New Games</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-menu flex">
+                <div class="nav-brand">
+                    <img src="../images/game-controller.png" alt="joystick brand icon" id="joystick-brand-icon" />
+                    <a href="../html/index.html">New Games</a>
+                </div>
+                <div class="toggle-collapse">
+                    <div class="toggle-icons">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+                <div>
+                    <ul class="nav-items">
+                        <li class="nav-link">
+                            <a href="../html/index.html">HOME</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="../html/products.html">PRODUCTS</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="#">HELP</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="#">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-icons">
+                    <a href="#" class="icon-item">
+                        <i class="fas fa-search"></i>
+                    </a>
+
+                    <a href="../html/signin.html" class="icon-item">
+                        <i class="fas fa-user"></i>
+                    </a>
+
+                    <a href="../html/shopping_cart.html" class="icon-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-total">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Main -->
+    <main>
+        <section>
+            <div>
+                <div>
+                    <div class="container-table text_style">
+                        <table id="orders" class="table-orders">
+                            <thead>
+                                <tr class="table-title">
+                                    <th colspan="4">Order Confirmation</th>
+                                </tr>
+                                <tr class="table-subtitle">
+                                    <th>Game</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders" class="table-rows">
+                                <!--Add orders here (DOM)-->
+                                <tr>
+                                    <th><img src="../images/hollowknight.jpg"></th>
+                                    <th>teste</th>
+                                    <th>teste</th>
+                                    <th><div class="counter">1</div></th>
+                                </tr>
+                                <!--Add delivery order here (DOM)-->
+                                <tr class="delivery-information-title">
+                                    <th colspan="4">Delivery Information</th>
+                                </tr>
+                                <tr><th colspan="4">Name: teste teste teste</th></tr>
+                                <tr><th colspan="4">E-mail: teste teste teste</th></tr>
+                                <tr><th colspan="4">Adress: teste teste teste, 000</th></tr>
+                                <tr class="delivery-message"><th colspan="4">Your order will arrive in 0000 business days!</th></tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-center">
+                <h3>EXTRAS</h3>
+                <a href="#">Brands</a>
+                <a href="#">Gift Certificates</a>
+                <a href="#">Affiliate</a>
+                <a href="#">Specials</a>
+                <a href="#">Site Map</a>
+            </div>
+            <div class="footer-center">
+                <h3>INFORMATION</h3>
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Site Map</a>
+            </div>
+            <div class="footer-center">
+                <h3>MY ACCOUNT</h3>
+                <a href="#">My Account</a>
+                <a href="#">Order History</a>
+                <a href="#">Wish List</a>
+                <a href="#">Newsletter</a>
+                <a href="#">Returns</a>
+            </div>
+            <div class="follow">
+                <h3>FOLLOW US</h3>
+                <div class="social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="goto-top scroll-link">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Glide Carousel Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+
+    <!--JQuery Library -->
+    <script src="../js/Jquery3.4.1.min.js"></script>
+
+    <!-- AOS js Library -->
+    <script src="../js/aos.js"></script>
+
+    <!-- Main Script -->
+    <script src="../js/script.js"></script>
+
+    <!-- Order_confirmation Script -->
+    <script src="../js/order_confirmation.js"></script>
+</body>
+
+</html>

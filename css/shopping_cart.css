@@ -74,10 +74,8 @@ th {
 
 .table-title th {
     background-color: var(--alternative-secondary-bg);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     border-bottom: 1px solid var(--white);
-    font-size: 22px; 
+    font-size: 25px; 
     height: 70px;
 }
 .table-subtitle{
