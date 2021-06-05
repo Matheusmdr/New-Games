@@ -1,5 +1,7 @@
 /*import home style*/
 @import url(../css/style.css);
+/*import sigin style*/
+@import url(../css/signin.css);
 
 body {
     grid-template-columns: 1fr;
@@ -136,4 +138,65 @@ th img{
 .counter span:hover {
     color: var(--secondary);
     background: transparent;
+}
+
+/* Delivery information */
+.container-adress-information{    
+    background-color: var(--alternative-secondary-bg);
+    height: 35rem;
+}
+
+
+.adress-information-center{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;  
+    justify-content: center;
+}
+
+.adress-information-title {
+    top: 3rem;  
+}
+
+.container-adress{
+    background-color: var(--blue);
+}
+
+.insert-name {
+    top: 3rem;
+}
+
+.insert-email {
+    top: 3.5rem;
+}
+
+.insert-street {
+    top: 4rem;
+}
+.insert-neighborhood {
+    top: 4.5rem;
+}
+
+.insert-city {
+    top:5rem;
+}
+.insert-zipcode {
+    display: inline-flex;
+    top: 5.5rem;
+    width: 13.3rem;
+}
+
+.house-number{
+    display: inline-flex;
+    top: 5.5rem;
+    left: 10rem;
+    width: 6rem;
+}
+
+.insert-country {
+    top: 6rem;
+}
+
+.buy-button {
+    top: 7rem;
 }
