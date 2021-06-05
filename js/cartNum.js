@@ -1,6 +1,6 @@
 function CartUp(){
-    if (sessionStorage['somaQuant']) {
-        let prods = JSON.parse(sessionStorage.getItem('somaQuant'));
+    if (sessionStorage['quantProds']) {
+        let prods = JSON.parse(sessionStorage.getItem('quantProds'));
         let cartUp = document.getElementById("cart-total");
         if (prods > 0) {
             cartUp.style.display = "block";
@@ -9,11 +9,10 @@ function CartUp(){
     }
 }
 
+window.onstorage = () => {
+    CartUp();
+};
 
 window.onload = () => {
-    CartUp()
-}
-
-window.onload = () => {
-    CartUp()
+    CartUp();
 }

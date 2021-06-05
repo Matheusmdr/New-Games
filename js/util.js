@@ -1,3 +1,5 @@
+
+
 function getList(array) {
     let list = []
     for (let index = 0; index < array.length; index++) {
@@ -125,7 +127,7 @@ function SetProducts() {
     const path = "../images/"
 
 
-    for (let index = 0; index < productsList.length; index++) {
+    for (let index = 0; index < productsList.length ; index++) {
         let $div = $("<div class='game-content'></div>")
 
         let $imageDiv = $("<div></div>")
@@ -142,15 +144,15 @@ function SetProducts() {
         $imagem.prop("src", path + productsList[index].image)
         $titulo.text(productsList[index].name)
         $preco.text("$" + productsList[index].price)
+        $div.id = `${productsList[index].name}`
 
         $imageDiv.append($imagem)
-
         $div.append($imageDiv)
 
         $div.append($titulo)
         $div.append($preco)
         $div.append(botao)
-        $div.attr("id", `${productsList[index].name}${index}`)
+
         $('#productsListDiv').append($div)
     }
 }
@@ -163,125 +165,36 @@ function getProduct(id) {
 }
 
 
-function AddCart(event) {
+function AddCart(event){
     let product = getProduct(this.id)
     let cart = []
-    if (sessionStorage['products']) {
+    if (sessionStorage['products']){
         cart = JSON.parse(sessionStorage.getItem('products'));
-        if (!checkCart(cart, product)) {
-            alert("Este produto já está adicionado no carrinho.");
+        if (!checkCart(cart, product)){
+            alert("!! ERRO !!\n\nEste produto já está adicionado no carrinho.");
             return;
         }
     }
-    productItem = []
-    productItem.push(product.name)
-    productItem.push(product.category)
-    productItem.push(product.price)
-    productItem.push(product.image)
-    productItem.push(1)
-    cart.push(productItem)
+    cart.push(product)
     sessionStorage.setItem('products', JSON.stringify(cart))
-    if (sessionStorage['somaQuant']) {
-        sessionStorage.setItem('somaQuant', JSON.stringify(JSON.parse(sessionStorage.getItem('somaQuant')) + 1));
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total')) + product.price));
-    } else {
+    if (sessionStorage['somaQuant']){
+        sessionStorage.setItem('somaQuant', JSON.stringify(JSON.parse(sessionStorage.getItem('somaQuant'))+1));
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('somaTotal'))+product.price));
+    }else{
         sessionStorage.setItem('somaQuant', JSON.stringify(1));
         sessionStorage.setItem('Total', JSON.stringify(product.price));
     }
-    CartUp()
+    if (sessionStorage['quantProds']){
+        sessionStorage.setItem('quantProds', JSON.stringify(JSON.parse(sessionStorage.getItem('quantProds')) + 1));
+    }else sessionStorage.setItem('quantProds', JSON.stringify(1));
     event.preventDefault()
-}
-
-function FilterCategory() {
-    var box = document.getElementById('Category')
-
-    let categoryId = box.options[box.selectedIndex].value
-
-    if (categoryId != -1) {
-        for (let index = 0; index < products.length; index++) {
-            if (categoryId != products[index].category) {
-                let product = document.getElementById(`${products[index].name}${index}`);
-                product.style.display = "none";
-            } else {
-                let product = document.getElementById(`${products[index].name}${index}`);
-                product.style.display = "flex";
-            }
-        }
-    } else {
-        for (let index = 0; index < products.length; index++) {
-            let product = document.getElementById(`${products[index].name}${index}`);
-            product.style.display = "flex";
-        }
-    }
-}
-
-function FilterPrice(){
-    var box = document.getElementById('Price')
-
-    let Price = box.options[box.selectedIndex].value
-
-    if (Price != -1) {
-        if(Price == 0){
-            for (let index = 0; index < products.length; index++) {
-                if(products[index].price > 10){
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "none";
-                }
-                else{
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "flex";
-                }
-            }
-        }
-        else if (Price == 1){
-            for (let index = 0; index < products.length; index++) {
-                if(products[index].price > 20){
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "none";
-                }
-                else{
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "flex";
-                }
-            }
-        }
-        else if (Price == 2){
-            for (let index = 0; index < products.length; index++) {
-                if(products[index].price > 40){
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "none";
-                }
-                else{
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "flex";
-                }
-            }
-        }
-        else if (Price == 3){
-            for (let index = 0; index < products.length; index++) {
-                if(products[index].price > 80){
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "none";
-                }
-                else{
-                    let product = document.getElementById(`${products[index].name}${index}`);
-                    product.style.display = "flex";
-                }
-            }
-        }
-    } else {
-        for (let index = 0; index < products.length; index++) {
-            let product = document.getElementById(`${products[index].name}${index}`);
-            product.style.display = "flex";
-        }
-    }
 }
 
 
 function checkCart(cart, product) {
     let tam = cart.length;
     for (let i = 0; i < tam; i++)
-        if (((cart[i])[0] == product.name))
+        if (((cart[i]).name == product.name))
             return false;
     return true;
 }
