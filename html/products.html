@@ -73,7 +73,7 @@
                         <div>
                             <h3>Category</h3>
                         </div>
-                        <select id="Category" name="select" onclick="Filter()">
+                        <select id="Category" name="select" onclick="FilterCategory()">
                             <option selected value="-1">All</option>
                             <option value="0">RPG</option>
                             <option value="1">Survival horror</option>
@@ -82,12 +82,12 @@
                             <option value="4">Multiplayer</option>
                         </select>
                         <h3>Price</h3>
-                        <select name="select">
-                            <option selected value>Select Filter</option>
-                            <option value="valor1">Free</option>
-                            <option value="valor2">Under $20.00</option>
-                            <option value="valor3">Under $40.00</option>
-                            <option value="valor3">Under $80.00</option>
+                        <select id="Price" name="select" onclick="FilterPrice()">
+                            <option selected value="-1">Select Filter</option>
+                            <option value="0">Under $10.00</option>
+                            <option value="1">Under $20.00</option>
+                            <option value="2">Under $40.00</option>
+                            <option value="3">Under $80.00</option>
                         </select>
                     </div>
                 </div>

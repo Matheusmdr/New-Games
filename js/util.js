@@ -192,10 +192,10 @@ function AddCart(event) {
     event.preventDefault()
 }
 
-function Filter() {
-    var box = document.getElementById('Category');
+function FilterCategory() {
+    var box = document.getElementById('Category')
 
-    let categoryId = box.options[box.selectedIndex].value;
+    let categoryId = box.options[box.selectedIndex].value
 
     if (categoryId != -1) {
         for (let index = 0; index < products.length; index++) {
@@ -205,6 +205,68 @@ function Filter() {
             } else {
                 let product = document.getElementById(`${products[index].name}${index}`);
                 product.style.display = "flex";
+            }
+        }
+    } else {
+        for (let index = 0; index < products.length; index++) {
+            let product = document.getElementById(`${products[index].name}${index}`);
+            product.style.display = "flex";
+        }
+    }
+}
+
+function FilterPrice(){
+    var box = document.getElementById('Price')
+
+    let Price = box.options[box.selectedIndex].value
+
+    if (Price != -1) {
+        if(Price == 0){
+            for (let index = 0; index < products.length; index++) {
+                if(products[index].price > 10){
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "none";
+                }
+                else{
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "flex";
+                }
+            }
+        }
+        else if (Price == 1){
+            for (let index = 0; index < products.length; index++) {
+                if(products[index].price > 20){
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "none";
+                }
+                else{
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "flex";
+                }
+            }
+        }
+        else if (Price == 2){
+            for (let index = 0; index < products.length; index++) {
+                if(products[index].price > 40){
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "none";
+                }
+                else{
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "flex";
+                }
+            }
+        }
+        else if (Price == 3){
+            for (let index = 0; index < products.length; index++) {
+                if(products[index].price > 80){
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "none";
+                }
+                else{
+                    let product = document.getElementById(`${products[index].name}${index}`);
+                    product.style.display = "flex";
+                }
             }
         }
     } else {
