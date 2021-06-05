@@ -1,5 +1,3 @@
-
-
 function getList(array) {
     let list = []
     for (let index = 0; index < array.length; index++) {
@@ -127,7 +125,7 @@ function SetProducts() {
     const path = "../images/"
 
 
-    for (let index = 0; index < productsList.length ; index++) {
+    for (let index = 0; index < productsList.length; index++) {
         let $div = $("<div class='game-content'></div>")
 
         let $imageDiv = $("<div></div>")
@@ -144,15 +142,15 @@ function SetProducts() {
         $imagem.prop("src", path + productsList[index].image)
         $titulo.text(productsList[index].name)
         $preco.text("$" + productsList[index].price)
-        $div.id = `${productsList[index].name}`
 
         $imageDiv.append($imagem)
+
         $div.append($imageDiv)
 
         $div.append($titulo)
         $div.append($preco)
         $div.append(botao)
-
+        $div.attr("id", `${productsList[index].name}${index}`)
         $('#productsListDiv').append($div)
     }
 }
@@ -165,12 +163,12 @@ function getProduct(id) {
 }
 
 
-function AddCart(event){
+function AddCart(event) {
     let product = getProduct(this.id)
     let cart = []
-    if (sessionStorage['products']){
+    if (sessionStorage['products']) {
         cart = JSON.parse(sessionStorage.getItem('products'));
-        if (!checkCart(cart, product)){
+        if (!checkCart(cart, product)) {
             alert("Este produto já está adicionado no carrinho.");
             return;
         }
@@ -183,15 +181,38 @@ function AddCart(event){
     productItem.push(1)
     cart.push(productItem)
     sessionStorage.setItem('products', JSON.stringify(cart))
-    if (sessionStorage['somaQuant']){
-        sessionStorage.setItem('somaQuant', JSON.stringify(JSON.parse(sessionStorage.getItem('somaQuant'))+1));
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total'))+product.price));
-    }else{
+    if (sessionStorage['somaQuant']) {
+        sessionStorage.setItem('somaQuant', JSON.stringify(JSON.parse(sessionStorage.getItem('somaQuant')) + 1));
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total')) + product.price));
+    } else {
         sessionStorage.setItem('somaQuant', JSON.stringify(1));
         sessionStorage.setItem('Total', JSON.stringify(product.price));
     }
     CartUp()
     event.preventDefault()
+}
+
+function Filter() {
+    var box = document.getElementById('Category');
+
+    let categoryId = box.options[box.selectedIndex].value;
+
+    if (categoryId != -1) {
+        for (let index = 0; index < products.length; index++) {
+            if (categoryId != products[index].category) {
+                let product = document.getElementById(`${products[index].name}${index}`);
+                product.style.display = "none";
+            } else {
+                let product = document.getElementById(`${products[index].name}${index}`);
+                product.style.display = "flex";
+            }
+        }
+    } else {
+        for (let index = 0; index < products.length; index++) {
+            let product = document.getElementById(`${products[index].name}${index}`);
+            product.style.display = "flex";
+        }
+    }
 }
 
 

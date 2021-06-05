@@ -8,3 +8,12 @@ function CartUp(){
         } else cartUp.style.display = "none";
     }
 }
+
+
+window.onload = () => {
+    CartUp()
+}
+
+window.onload = () => {
+    CartUp()
+}

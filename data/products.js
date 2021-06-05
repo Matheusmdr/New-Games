@@ -85,7 +85,7 @@ let products = [
     },
     {
         "name": "Resident Evil Village",
-        "category": 2,
+        "category": 1,
         "price": 79.99,
         "image": "RESIDENT-EVIL-8-1.jpg"
     }

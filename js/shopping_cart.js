@@ -65,12 +65,12 @@ function setProducts() {
         let linha = document.createElement("tr");
         let totalText = document.createElement("th");
         let total = document.createElement("th");
-
+        let aux = JSON.parse(sessionStorage.getItem('Total'))
         linha.classList.add("table-foot-total")
         linha.id = "total";
         totalText.innerText = "TOTAL";
         totalText.colSpan = "3"
-        total.innerHTML = "$" + JSON.parse(sessionStorage.getItem('Total'));
+        total.innerHTML = "$" + aux.toFixed(2);
         total.colSpan = "1"
         total.id = "totalValue"
 
