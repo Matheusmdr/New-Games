@@ -84,6 +84,11 @@ th {
     border-bottom: 1px solid var(--white);
 }
 
+.table-rows th{
+    padding: 0rem 1rem;
+    border-top: 1px solid var(--white); 
+}
+
 
 .table-foot-total {
     border-top: 1px solid var(--white);      
@@ -93,8 +98,9 @@ th {
 }
 
 th img{
-    width: 8rem;
-    height: 5rem;
+    margin: 0.3rem 0rem;
+    width: 7rem;
+    height: auto;
 }
 
 .counter {
@@ -115,7 +121,7 @@ th img{
     appearance: none;
     outline: 0;
 }
-.counter span {
+.counter span { 
     height: 2rem;
     width: 2rem;
     border: 1px solid var(--secondary);

@@ -26,6 +26,7 @@ function setProducts() {
             counterDiv.classList.add("counter")
 
             let spanDown = document.createElement("span")
+            spanDown.id = pedidos[index].price
             spanDown.innerHTML = "-"
             spanDown.classList.add("down")
             spanDown.onclick = decreaseCount
@@ -36,6 +37,7 @@ function setProducts() {
 
 
             let spanUp = document.createElement("span")
+            spanUp.id = pedidos[index].price
             spanUp.innerHTML = "+"
             spanUp.classList.add("up")
             spanUp.onclick = increaseCount
@@ -44,8 +46,7 @@ function setProducts() {
             counterDiv.append(quantity)
             counterDiv.append(spanUp)
             counterCol.append(counterDiv)
-
-            valorTotal = valorTotal + pedidos[index].price;
+   
 
             imagem.src = path + pedidos[index].image;
             colunaTitulo.innerHTML = pedidos[index].name;
@@ -67,7 +68,7 @@ function setProducts() {
         linha.id = "total";
         totalText.innerText = "TOTAL";
         totalText.colSpan = "3"
-        total.innerHTML = "$" + valorTotal;
+        total.innerHTML = "$" + JSON.parse(sessionStorage.getItem('Total'));
         total.colSpan = "1"
 
         linha.append(totalText);
