@@ -97,6 +97,20 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="container-adress-information">
+                        <form action="../html/order_confirmation.html" class="container-adress-information">
+                            <p class="center_text text_style login_title adress-information-center adress-information-title">Add Delivery Information</p>          
+                                <input type="text" name="name" placeholder="Full Name" required class="text_style border-radius username adress-information-center insert-name" onkeypress="return onlyLetterKey(event)"/>
+                                <input type="email" name="email" placeholder="Email" required class="text_style border-radius username email adress-information-center insert-email"/>        
+                                <input type="text" name="street" placeholder="Street" required class="text_style border-radius username password adress-information-center insert-street"onkeypress="return onlyLetterKey(event)"/>
+                                <input type="text" name="neighborhood" placeholder="Neighborhood" required class="text_style border-radius username password adress-information-center insert-neighborhood"onkeypress="return onlyLetterKey(event)"/>
+                                <input type="text" name="city" placeholder="City" required class="text_style border-radius username password adress-information-center insert-city"onkeypress="return onlyLetterKey(event)"/>
+                                <input type="text" name="zipcode" placeholder="Zip code" required class="text_style border-radius username password adress-information-center insert-zipcode" onkeypress="return onlyNumberKey(event)"/>
+                                <input type="text" name="house-number" placeholder="Number" required class="text_style border-radius username password adress-information-center house-number" onkeypress="return onlyNumberKey(event)"/>
+                                <input type="text" name="country" placeholder="Country" required class="text_style border-radius username password adress-information-center insert-country"onkeypress="return onlyLetterKey(event)"/>
+                            <input type="submit" value="Buy now!" class="text_style border-radius username login_btn adress-information-center buy-button">
+                        </form>                        
+                    </div>                     
                 </div>
             </div>
         </section>
