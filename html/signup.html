@@ -85,7 +85,7 @@
                             <p class="center_text text_style login_title">Sign Up</p>
                             <div class="container_username">
                                 <i class="fa fa-user icon username_fig"></i>
-                                <input type="text" name="username" placeholder="Username" required class="text_style border-radius username">
+                                <input type="text" name="username" placeholder="Username" required class="text_style border-radius username" onkeypress="return username(event)"/>
                             </div>
                             <div class="container_email">
                                 <i class="fa fa-envelope icon envelope_fig"></i>
@@ -95,7 +95,7 @@
                                 <i class="fa fa-lock icon password_fig"></i>
                                 <input type="password" name="password" placeholder="Password" required class="text_style border-radius username password">
                             </div>
-                            <input type="submit" value="Sign Up" class="text_style border-radius username login_btn">
+                            <input type="submit" value="Sign Up" class="text_style border-radius username login_btn" onclick="ValidateEmail(document.form.email)">
                         </form>
                         <div class="container_signup">
                             <form action="/">
