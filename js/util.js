@@ -171,22 +171,26 @@ function AddCart(event){
     if (sessionStorage['products']){
         cart = JSON.parse(sessionStorage.getItem('products'));
         if (!checkCart(cart, product)){
-            alert("!! ERRO !!\n\nEste produto já está adicionado no carrinho.");
+            alert("Este produto já está adicionado no carrinho.");
             return;
         }
     }
-    cart.push(product)
+    productItem = []
+    productItem.push(product.name)
+    productItem.push(product.category)
+    productItem.push(product.price)
+    productItem.push(product.image)
+    productItem.push(1)
+    cart.push(productItem)
     sessionStorage.setItem('products', JSON.stringify(cart))
     if (sessionStorage['somaQuant']){
         sessionStorage.setItem('somaQuant', JSON.stringify(JSON.parse(sessionStorage.getItem('somaQuant'))+1));
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('somaTotal'))+product.price));
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total'))+product.price));
     }else{
         sessionStorage.setItem('somaQuant', JSON.stringify(1));
         sessionStorage.setItem('Total', JSON.stringify(product.price));
     }
-    if (sessionStorage['quantProds']){
-        sessionStorage.setItem('quantProds', JSON.stringify(JSON.parse(sessionStorage.getItem('quantProds')) + 1));
-    }else sessionStorage.setItem('quantProds', JSON.stringify(1));
+    CartUp()
     event.preventDefault()
 }
 
@@ -194,7 +198,7 @@ function AddCart(event){
 function checkCart(cart, product) {
     let tam = cart.length;
     for (let i = 0; i < tam; i++)
-        if (((cart[i]).name == product.name))
+        if (((cart[i])[0] == product.name))
             return false;
     return true;
 }

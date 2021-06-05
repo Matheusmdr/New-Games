@@ -26,18 +26,20 @@ function setProducts() {
             counterDiv.classList.add("counter")
 
             let spanDown = document.createElement("span")
-            spanDown.id = pedidos[index].price
+            spanDown.id = (pedidos[index])[2]
             spanDown.innerHTML = "-"
             spanDown.classList.add("down")
             spanDown.onclick = decreaseCount
 
             let quantity = document.createElement("input")
             quantity.type = "text"
-            quantity.value = 1
+            quantity.value = (pedidos[index])[4]
+            console.log(quantity.value)
+            quantity.id = index
 
 
             let spanUp = document.createElement("span")
-            spanUp.id = pedidos[index].price
+            spanUp.id = (pedidos[index])[2]
             spanUp.innerHTML = "+"
             spanUp.classList.add("up")
             spanUp.onclick = increaseCount
@@ -48,9 +50,9 @@ function setProducts() {
             counterCol.append(counterDiv)
    
 
-            imagem.src = path + pedidos[index].image;
-            colunaTitulo.innerHTML = pedidos[index].name;
-            colunaPreco.innerHTML = "$" + pedidos[index].price;
+            imagem.src = path + (pedidos[index])[3]
+            colunaTitulo.innerHTML = (pedidos[index])[0]
+            colunaPreco.innerHTML = "$" + (pedidos[index])[2]
 
             colunaImg.append(imagem);
             linha.append(colunaImg);
@@ -64,12 +66,13 @@ function setProducts() {
         let totalText = document.createElement("th");
         let total = document.createElement("th");
 
-        linha.classList.add("teste","table-foot-total")
+        linha.classList.add("table-foot-total")
         linha.id = "total";
         totalText.innerText = "TOTAL";
         totalText.colSpan = "3"
         total.innerHTML = "$" + JSON.parse(sessionStorage.getItem('Total'));
         total.colSpan = "1"
+        total.id = "totalValue"
 
         linha.append(totalText);
         linha.append(total);
@@ -81,19 +84,40 @@ function setProducts() {
 function increaseCount() {
     var input = this.previousElementSibling;
     var value = parseInt(input.value, 10);
-    value = isNaN(value) ? 0 : value;
-    value++;
-    input.value = value;
-  }
-  
-  function decreaseCount() {
+    let index = input.id
+    cart = JSON.parse(sessionStorage.getItem('products'));
+    value = (cart[index])[4];
+    if (value < 99){
+        value = isNaN(value) ? 0 : value;
+        value++;
+        input.value++
+        (cart[index])[4] = value
+        let totalText = document.querySelector('#totalValue')
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total'))+parseFloat(this.id)));
+        let total = parseFloat(JSON.parse(sessionStorage.getItem('Total')))
+        totalText.innerHTML = "$"+ total.toFixed(2)
+        sessionStorage.setItem('products', JSON.stringify(cart))
+    }
+}
+
+function decreaseCount() {
     var input = this.nextElementSibling;
     var value = parseInt(input.value, 10);
-    if (value > 1) {
-      value = isNaN(value) ? 0 : value;
-      value--;
-      input.value = value;
+    let index = input.id
+    cart = JSON.parse(sessionStorage.getItem('products'));
+    value = (cart[index])[4];
+    if (value > 1){
+        value = isNaN(value) ? 0 : value;
+        value--;
+        input.value--
+        (cart[index])[4] = value
+        let totalText = document.querySelector('#totalValue')
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total'))-parseFloat(this.id)));
+        let total = parseFloat(JSON.parse(sessionStorage.getItem('Total')))
+        totalText.innerHTML = "$"+ total.toFixed(2)
+        sessionStorage.setItem('products', JSON.stringify(cart))
     }
-  }
+}
+
   
   setProducts()
