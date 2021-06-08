@@ -176,7 +176,6 @@ function getForm() {
 
 
 $(document).ready(function () {
-    SetCartProducts()
     let orders = []
     orders = JSON.parse(sessionStorage.getItem('products'))
     let div = document.getElementById("content-form-div")
@@ -185,6 +184,5 @@ $(document).ready(function () {
     } else {
         div.style.display = "initial"
     }
-
-    console.log(orders)
+    SetCartProducts()
 })
