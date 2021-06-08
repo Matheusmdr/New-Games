@@ -1,37 +1,37 @@
-function onlyNumberKey(evt) { 
-  var Key = (evt.which) ? evt.which : evt.keyCode
-  if (Key > 31 && (Key < 48 || Key > 57))
-      return false;
-  return true;
+function onlyNumberKey(evt) {
+    var Key = (evt.which) ? evt.which : evt.keyCode
+    if (Key > 31 && (Key < 48 || Key > 57))
+        return false;
+    return true;
 }
 
-function onlyLetterKey(evt) { 
-  var charCode = (evt.which) ? evt.which : evt.keyCode
-  if (charCode==32 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || (charCode > 191 && charCode <= 255))
-      return true;
-  return false;
+function onlyLetterKey(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode == 32 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || (charCode > 191 && charCode <= 255))
+        return true;
+    return false;
 }
 
 function onlyEmail(evt) {
-  var charCode = (evt.which) ? evt.which : evt.keyCode
-  if (charCode == 32)
-      return false; 
-  if (!(charCode==46 || charCode==95 || (charCode >= 64 || charCode<=91) || (charCode >= 97 || charCode<= 122) || (charCode >= 48 || charCode<=57) ) )
-      return false;
-  return true; 
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode == 32)
+        return false;
+    if (!(charCode == 46 || charCode == 95 || (charCode >= 64 || charCode <= 91) || (charCode >= 97 || charCode <= 122) || (charCode >= 48 || charCode <= 57)))
+        return false;
+    return true;
 }
 
 function validateEmail(value) {
-  var input = document.createElement('input');
+    var input = document.createElement('input');
 
-  input.type = 'email';
-  input.required = true;
-  input.value = value;
+    input.type = 'email';
+    input.required = true;
+    input.value = value;
 
-  return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
+    return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
 }
 
-function setProducts() {
+function SetCartProducts() {
     let orders = []
     orders = JSON.parse(sessionStorage.getItem('products'))
     let $CartTable = $("#orders")
@@ -44,9 +44,8 @@ function setProducts() {
         span.colSpan = "4"
 
         row.append(span);
-        $CartTable.append(row); 
+        $CartTable.append(row);
     } else {
-        let totalValue = 0;
         for (let index = 0; index < orders.length; index++) {
             let row = document.createElement("tr")
             let imageColumn = document.createElement("th")
@@ -66,7 +65,6 @@ function setProducts() {
             let quantity = document.createElement("input")
             quantity.type = "text"
             quantity.value = (orders[index])[4]
-            console.log(quantity.value)
             quantity.id = index
 
 
@@ -80,7 +78,7 @@ function setProducts() {
             counterDiv.append(quantity)
             counterDiv.append(spanUp)
             counterCol.append(counterDiv)
-   
+
 
             image.src = path + (orders[index])[3]
             titleColumn.innerHTML = (orders[index])[0]
@@ -119,15 +117,15 @@ function increaseCount() {
     let index = input.id
     cart = JSON.parse(sessionStorage.getItem('products'));
     value = (cart[index])[4];
-    if (value < 99){
+    if (value < 99) {
         value = isNaN(value) ? 0 : value;
         value++;
         input.value++
-        (cart[index])[4] = value
+            (cart[index])[4] = value
         let totalText = document.querySelector('#totalValue')
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total'))+parseFloat(this.id)));
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total')) + parseFloat(this.id)));
         let total = parseFloat(JSON.parse(sessionStorage.getItem('Total')))
-        totalText.innerHTML = "$"+ total.toFixed(2)
+        totalText.innerHTML = "$" + total.toFixed(2)
         sessionStorage.setItem('products', JSON.stringify(cart))
     }
 }
@@ -138,18 +136,53 @@ function decreaseCount() {
     let index = input.id
     cart = JSON.parse(sessionStorage.getItem('products'));
     value = (cart[index])[4];
-    if (value > 1){
+    if (value > 1) {
         value = isNaN(value) ? 0 : value;
         value--;
         input.value--
-        (cart[index])[4] = value
+            (cart[index])[4] = value
         let totalText = document.querySelector('#totalValue')
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total'))-parseFloat(this.id)));
+        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total')) - parseFloat(this.id)));
         let total = parseFloat(JSON.parse(sessionStorage.getItem('Total')))
-        totalText.innerHTML = "$"+ total.toFixed(2)
+        totalText.innerHTML = "$" + total.toFixed(2)
         sessionStorage.setItem('products', JSON.stringify(cart))
     }
 }
 
-  
-  setProducts()
+function getForm() {
+    let name = document.getElementById("name").value
+    let email = document.getElementById("email").value
+    let street = document.getElementById("street").value
+    let num = document.getElementById("house-number").value
+    let neighborhood = document.getElementById("neighborhood").value
+    let city = document.getElementById("city").value
+    let country = document.getElementById("country").value
+    let zipcode = document.getElementById("zipcode").value
+
+
+    let data = {
+        "name": `${name}`,
+        "email": `${email}`,
+        "street": `${street}`,
+        "num": `${num}`,
+        "neighborhood": `${neighborhood}`,
+        "city": `${city}`,
+        "country": `${country}`,
+        "zipcode": `${zipcode}`
+    }
+    console.log(data)
+    sessionStorage.setItem('userdata', JSON.stringify(data))
+}
+
+
+$(document).ready(function () {
+    SetCartProducts()
+
+    let orders = []
+    orders = JSON.parse(sessionStorage.getItem('products'))
+    let div = document.getElementById("container-adress-information")
+    if(orders.length == 0){
+        div.style.display = "none"
+    }
+    else{div.style.display = "initial"}
+})
