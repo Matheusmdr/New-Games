@@ -37,7 +37,7 @@ function SetCartProducts() {
     let $CartTable = $("#orders")
     const path = "../images/"
 
-    if (orders.length == 0) {
+    if (orders == null || orders.length == 0) {
         let row = document.createElement("tr")
         let span = document.createElement("th")
         span.innerHTML = "Cart is Empty"
@@ -177,12 +177,14 @@ function getForm() {
 
 $(document).ready(function () {
     SetCartProducts()
-
     let orders = []
     orders = JSON.parse(sessionStorage.getItem('products'))
-    let div = document.getElementById("container-adress-information")
-    if(orders.length == 0){
+    let div = document.getElementById("content-form-div")
+    if (orders == null || orders.length == 0) {
         div.style.display = "none"
+    } else {
+        div.style.display = "initial"
     }
-    else{div.style.display = "initial"}
+
+    console.log(orders)
 })
