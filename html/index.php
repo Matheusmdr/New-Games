@@ -24,51 +24,7 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <!-- Navigation -->
-        <nav class="nav">
-            <div class="nav-menu flex">
-                <div class="nav-brand">
-                    <img src="../images/game-controller.png" alt="joystick brand icon" id="joystick-brand-icon" />
-                    <a href="../html/index.html">New Games</a>
-                </div>
-                <div class="toggle-collapse">
-                    <div class="toggle-icons">
-                        <i class="fas fa-bars"></i>
-                    </div>
-                </div>
-                <div>
-                    <ul class="nav-items">
-                        <li class="nav-link">
-                            <a href="../html/index.html">HOME</a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="../html/products.html">PRODUCTS</a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">HELP</a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">CONTACT</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="nav-icons">
-                    <a href="#" class="icon-item">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <a href="../html/signin.html" class="icon-item">
-                        <i class="fas fa-user"></i></a>
-                    <a href="../html/shopping_cart.html" onclick="setCart()" class="icon-item">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span id="cart-total"></span>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <?php include "../html/header.php"?>
 
 
     <!-- Main -->
@@ -171,45 +127,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-center">
-                <h3>EXTRAS</h3>
-                <a href="#">Brands</a>
-                <a href="#">Gift Certificates</a>
-                <a href="#">Affiliate</a>
-                <a href="#">Specials</a>
-                <a href="#">Site Map</a>
-            </div>
-            <div class="footer-center">
-                <h3>INFORMATION</h3>
-                <a href="#">About Us</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Site Map</a>
-            </div>
-            <div class="footer-center">
-                <h3>MY ACCOUNT</h3>
-                <a href="#">My Account</a>
-                <a href="#">Order History</a>
-                <a href="#">Wish List</a>
-                <a href="#">Newsletter</a>
-                <a href="#">Returns</a>
-            </div>
-            <div class="follow">
-                <h3>FOLLOW US</h3>
-                <div class="social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <?php include "../html/footer.php" ?>
 
     <a href="#" class="goto-top scroll-link">
         <i class="fas fa-arrow-up"></i>

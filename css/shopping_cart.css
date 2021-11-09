@@ -50,6 +50,11 @@ form i{
     font-family: var(--Lexend);
 }
 
+
+.center-btn  {
+    width: 100%;
+}
+
 /* shopping cart */
 section {
     display: flex;
@@ -200,3 +205,4 @@ th img{
 .buy-button {
     top: 7rem;
 }
+

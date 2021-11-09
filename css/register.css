@@ -1,0 +1,77 @@
+@import url(../css/style.css);
+
+body{
+    background: #121212;
+}
+section{
+    margin: 4rem auto;
+    background: var(--primary-background);
+}
+
+.sign_up{
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: var(--Lexend);
+}
+
+.sign_up p{
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.form-container{
+    background: var(--secondary-background);
+    padding: 2rem 7rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container form{
+    width: 100%;
+    color: #fff;
+}
+
+.form-container form input[type=text], .form-container form input[type=password],.form-container form input[type=email]{
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    width: 12rem;
+    border-radius: 8px;
+    margin: 0.5rem;
+    font-size: 0.9rem;
+    align-self: center;
+}
+
+.form-container form button.btn{
+    border-radius: 8px;
+    padding: .7rem 2rem;
+    border: 1px solid var(--primary);
+    margin: .5rem;
+    transition: all 0.3s ease-in-out;
+    font-size: 1rem;
+    font-family: var(--Lexend);
+    background-color: var(--primary);
+    color: var(--white);
+    cursor: pointer;
+    width: 85%;
+    margin-left: 10%;
+}
+
+.form-container form button.btn:hover{
+    background-color: transparent;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.delivery-inform{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    
+}

@@ -59,54 +59,11 @@ function SetPurchase() {
     $CartTable.append(row);
 
     row = document.createElement("tr")
-    row.classList.add("delivery-information-title")
-    let Title = document.createElement("th")
-    Title.innerHTML = "Delivery Information"
-    Title.colSpan = "4"
-
-    row.append(Title)
-    $CartTable.append(row)
-
-    let UserData = JSON.parse(sessionStorage.getItem("userdata"))
-
-    row = document.createElement("tr")
     Title = document.createElement("th")
-    Title.innerHTML = "Name: "+ `${UserData.name}`
+    Title.innerHTML = "Your order will arrive in "+randomNumber()+" Business days!"
     Title.colSpan = "4"
     row.append(Title)
-    $CartTable.append(row)
-
-    row = document.createElement("tr")
-    Title = document.createElement("th")
-    Title.innerHTML = "Email: "+ `${UserData.email}`
-    Title.colSpan = "4"
-    row.append(Title)
-    $CartTable.append(row)
-
-    row = document.createElement("tr")
-    Title = document.createElement("th")
-    Title.innerHTML = "Adress: "+ `${UserData.street}`+","+`${UserData.num}`
-    Title.colSpan = "4"
-    row.append(Title)
-    $CartTable.append(row)
-    
-    row = document.createElement("tr")
-    Title = document.createElement("th")
-    Title.innerHTML = "City: "+ `${UserData.city}` + "," + `${UserData.country}`
-    Title.colSpan = "2"
-    row.append(Title)
-    let zipcode = document.createElement("th")
-    zipcode.colSpan = "2"
-    zipcode.innerHTML = "Zipcode: "+`${UserData.zipcode}`
-    row.append(zipcode)
-    $CartTable.append(row)
-
-    row = document.createElement("tr")
-    Title = document.createElement("th")
-    Title.innerHTML = "Your order will arrive in "+randomNumber()+" business days!"
-    Title.colSpan = "4"
-    row.append(Title)
-    $CartTable.append(row)
+    document.querySelector("#devilery").append(row)
   
 }
 
