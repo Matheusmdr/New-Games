@@ -9,7 +9,7 @@ use newgamesdb;
 -- Criação do banco ----------------------------------------------
 -- tabelas ----------------------------------------------
 create table if not exists game(
-	id_game int auto_increment,
+    id_game int auto_increment,
     game_name varchar(120) not null,
     game_category int not null,
     game_price decimal(6,2),
@@ -18,13 +18,13 @@ create table if not exists game(
     primary key(id_game)
 );
 create table if not exists library(
-	id_lib int not null auto_increment,
+    id_lib int not null auto_increment,
     
     primary key(id_lib)
 );
 
 create table if not exists connection_lib_and_game(
-	id_game int not null,
+    id_game int not null,
     id_lib int not null,
     
     foreign key(id_game) references game(id_game),
@@ -32,13 +32,13 @@ create table if not exists connection_lib_and_game(
 );
 
 create table if not exists wishlist(
-	id_wishlist int not null auto_increment,
+    id_wishlist int not null auto_increment,
     
     primary key(id_wishlist)
 );
 
 create table if not exists connection_wishlist_and_game(
-	id_game int not null,
+    id_game int not null,
     id_wishlist int not null,
     
     foreign key(id_game) references game(id_game),
@@ -96,7 +96,7 @@ begin
 		select last_insert_id() into id_wishl;
     
 		set new.id_wishlist = id_wishl;
-    end;
+	end;
     
     if new.users_name = null then
         signal sqlstate '45000' set message_text = 'no username', mysql_errno = 1364;
