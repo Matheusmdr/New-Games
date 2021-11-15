@@ -9,6 +9,7 @@ function getProduct(id) {
 
 function AddCart(event) {
     let product = getProduct(this.id)
+    console.log(this.id)
     let cart = []
     if (sessionStorage['products']) {
         cart = JSON.parse(sessionStorage.getItem('products'));

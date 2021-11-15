@@ -17,8 +17,7 @@
 
 <body>
     <?php include "../html/header.php"?>
-
-
+    <?php include_once "../php/connection.php"?>
     <!-- Main -->
     <main>
         <section>
@@ -36,6 +35,7 @@
                             <option value="3">Platform</option>
                             <option value="4">Multiplayer</option>
                         </select>
+                        <!--
                         <h3>Price</h3>
                         <select id="Price" name="select" onclick="Filter()">
                             <option selected value="999">Select Filter</option>
@@ -44,13 +44,30 @@
                             <option value="40">Under $40.00</option>
                             <option value="80">Under $80.00</option>
                         </select>
+                        -->
                     </div>
                 </div>
                 <div class="col-2">
                     <h3>Products</h3>
                     <div class="list"  data-aos="fade-in" data-aos-delay="200">
                         <div>
-                            <div id="productsListDiv" class="game-list"></div>     
+                            <div id="productsListDiv" class="game-list">
+                            <?php 
+                            $produtos_ = "SELECT * FROM game";
+                            $produtos = mysqli_query($conn,$produtos_);
+                            while($row_game = mysqli_fetch_assoc($produtos)){
+                                echo "<div class='game-content' id=".$row_game['id_game'].">
+                                <div>
+                                <img src=".$row_game['game_img']."></img>
+                                </div>
+                                <a>".$row_game['game_name']."</a>
+                                <span>$".$row_game['game_price']."</span>
+                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+                                </div>";
+                            }
+                            
+                            ?>
+                            </div>     
                         </div>
                     </div>
                 </div>
@@ -74,9 +91,6 @@
 
     <!--Script Cart Total-->
     <script src="../js/cartNum.js"></script>
-
-    <!--Load Products in products page-->
-    <script src="../js/LoadProducts.js"></script>
 
     <!--Some important functions-->
     <script src="../js/util.js"></script>

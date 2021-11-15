@@ -25,7 +25,7 @@
 
 <body>
     <?php include "../html/header.php"?>
-
+    <?php include_once "../php/connection.php"?>
 
     <!-- Main -->
     <main>
@@ -103,7 +103,25 @@
             <div class="post">
                 <div class="container" data-aos="fade-in" data-aos-delay="200">
                     <h2>MOST POPULAR</h2>
-                    <div id="popularDivPost" class="game-post"></div>
+                    <div id="popularDivPost" class="game-post">
+                    <?php 
+                            $produtos_ = "SELECT * FROM game where game_situation='Popular'";
+                            $produtos = mysqli_query($conn,$produtos_);
+                            while($row_game = mysqli_fetch_assoc($produtos)){
+                                echo "<div class='game-content' id=".$row_game['id_game'].">
+                                <div>
+                                <img src=".$row_game['game_img']."></img>
+                                </div>
+                                <div class='game-title'>
+                                <h3>".$row_game['game_name']."</h3>
+                                <h4>$".$row_game['game_price']."</h4>
+                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+                                </div>
+                                </div>";
+                            }
+                            
+                            ?>
+                    </div>
                 </div>
             </div>
         </section>
@@ -112,7 +130,23 @@
             <div class="products">
                 <div class="container"  data-aos="fade-right" data-aos-delay="200">
                     <h2>NEW PRODUCTS</h2>
-                    <div id="newProductsDiv" class="game-post"></div> 
+                    <div id="newProductsDiv" class="game-post">
+                    <?php 
+                            $produtos_ = "SELECT * FROM game where game_situation='New'";
+                            $produtos = mysqli_query($conn,$produtos_);
+                            while($row_game = mysqli_fetch_assoc($produtos)){
+                                echo "<div class='game-content' id=".$row_game['id_game'].">
+                                <div>
+                                <img src=".$row_game['game_img']."></img>
+                                </div>
+                                <a>".$row_game['game_name']."</a>
+                                <span>$".$row_game['game_price']."</span>
+                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+                                </div>";
+                            }
+                            
+                            ?>
+                    </div> 
                 </div>
             </div>
         </section>
@@ -121,7 +155,23 @@
             <div class="sale">
                 <div class="container" data-aos="fade-left" data-aos-delay="200">
                     <h2>SALE</h2>
-                    <div id="saleDiv" class="game-post"></div> 
+                    <div id="saleDiv" class="game-post">
+                    <?php 
+                            $produtos_ = "SELECT * FROM game where game_situation='Sale'";
+                            $produtos = mysqli_query($conn,$produtos_);
+                            while($row_game = mysqli_fetch_assoc($produtos)){
+                                echo "<div class='game-content' id=".$row_game['id_game'].">
+                                <div>
+                                <img src=".$row_game['game_img']."></img>
+                                </div>
+                                <a>".$row_game['game_name']."</a>
+                                <span>$".$row_game['game_price']."</span>
+                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+                                </div>";
+                            }
+                            
+                            ?>
+                    </div> 
                 </div>
             </div>
         </section>
@@ -150,9 +200,6 @@
 
     <!--Script Cart Total-->
     <script src="../js/cartNum.js"></script>
-
-    <!--Load Products in home-->
-    <script src="../js/LoadHome.js"></script>
 
     <!--Some important functions-->
     <script src="../js/util.js"></script>
