@@ -19,7 +19,6 @@
             $item_array_id = array_column($_SESSION['cart'], "id_game");
             if(in_array($_POST['id_game'], $item_array_id)){
                 echo "<script>alert('Product is already added in the cart..!')</script>";
-                echo "<script>window.location = 'index.php'</script>";
             }else{
     
                 $count = count($_SESSION['cart']);

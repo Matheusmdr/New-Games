@@ -471,7 +471,6 @@ main .sale .game-post .game-content {
 /* Footer */
 
 footer.footer {
-    height: 100%;
     background: var(--alternative-secondary-bg);
     position: relative;
 }

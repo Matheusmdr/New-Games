@@ -41,7 +41,7 @@
                                         <h1>Sonic Mania</h1>
                                         <p>Sonic Mania is an all-new adventure with Sonic, Tails, and Knuckles full of
                                             unique bosses, rolling 2D landscapes, and fun classic gameplay.</p>
-                                        <a href="../html/products.html"><button class="hero__btn">SHOP NOW</button></a>
+                                        <a href="../html/products.php"><button class="hero__btn">SHOP NOW</button></a>
                                     </div>
                                     <div class="hero__right">
                                         <div class="hero__img-container">
@@ -58,7 +58,7 @@
                                             explore a sprawling, ever-changing castle... assuming you're able to fight
                                             your way past its keepers in 2D souls-lite combat. No checkpoints. Kill,
                                             die, learn, repeat.</p>
-                                        <a href="../html/products.html"><button class="hero__btn">SHOP NOW</button></a>
+                                        <a href="../html/products.php"><button class="hero__btn">SHOP NOW</button></a>
                                     </div>
                                     <div class="hero__right">
                                         <img class="banner_02" src="../images/DeadCells.jpg" alt="banner2" />
@@ -71,7 +71,7 @@
                                         <h1>Resident Evil Village</h1>
                                         <p>Experience survival horror like never before in the 8th major installment in
                                             the Resident Evil franchise.</p>
-                                        <a href="../html/products.html"><button class="hero__btn">SHOP NOW</button></a>
+                                        <a href="../html/products.php"><button class="hero__btn">SHOP NOW</button></a>
                                     </div>
                                     <div class="hero__right">
                                         <img class="banner_03" src="../images/RESIDENT-EVIL-8-1.jpg" alt="banner3" />
@@ -116,7 +116,7 @@
                                 <div class='game-title'>
                                 <h3>".$row_game['game_name']."</h3>
                                 <h4>$".$row_game['game_price']."</h4>
-                                <form method='post'>
+                                <form action='../html/index.php' method='post'>
                                 <button class='btn' type='submit' name='add'>Add to Cart</button>
                                 <input type='hidden' name='id_game' value=".$row_game['id_game'].">
                                 </form>
