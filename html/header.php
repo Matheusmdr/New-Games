@@ -7,9 +7,9 @@
     if(isset($_SESSION['logged'])){
         require_once "../php/connection.php";
         $user = $_SESSION['logged'];
-        $query = "SELECT name FROM users WHERE id = '{$user}'";
+        $query = "SELECT users_name FROM users WHERE id_users = '{$user}'";
         $result = $conn->query($query);
-        while($row = $result->fetch_assoc()) $name = $row['name'];
+        while($row = $result->fetch_assoc()) $name = $row['users_name'];
         $name = explode(' ',$name,15);
     }
 ?>

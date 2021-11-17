@@ -7,12 +7,12 @@ if (isset($_POST['email']) && isset($_POST['password'])){
 
     $email = $_POST['email'];
     $password = md5($_POST['password']);
-    $query = "SELECT id FROM users WHERE email = '{$email}' and password = '{$password}'";
+    $query = "SELECT id_users FROM users WHERE users_email = '{$email}' and users_password = '{$password}'";
     $result = $conn->query($query);
     $aux = 0;
     if($result)
             while($row = $result->fetch_assoc())
-                $aux = $row['id'];
+                $aux = $row['id_users'];
 
     if($aux){
         $row = $result->fetch_assoc();
