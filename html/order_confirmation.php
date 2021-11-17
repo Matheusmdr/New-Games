@@ -27,6 +27,7 @@
                 <div>
                     <div class="container-table text_style">
                         <table id="orders" class="table-orders">
+                            
                             <thead>
                                 <tr class="table-title">
                                     <th colspan="4">Order Confirmation</th>
@@ -38,7 +39,58 @@
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
-                            <tbody id="orders" class="table-rows"></tbody>
+                            <tbody id="orders" class="table-rows">
+                                <?php
+                                $total = 0;
+                                    if (isset($_SESSION['cart'])){
+                                        $produtos_ = "SELECT * FROM game";
+                                        $produtos = mysqli_query($conn,$produtos_);
+                                        $product_id = array_column($_SESSION['cart'], 'id_game');
+                                        while ($row = mysqli_fetch_assoc($produtos)){
+                                            foreach ($product_id as $id){
+                                                if ($row['id_game'] == $id){
+                                                    $total = $total + (float)$row['game_price'];
+                                                    echo "
+                                                    <tr>
+                                                    <th><img src=".$row['game_img']." /></th>
+                                                    <th>".$row['game_name']."</th>
+                                                    <th>".$row['game_price']."</th>
+                                                    <th>
+                                                    <div class='counter'>
+                                                    <p> </p>
+                                                    </div>
+                                                    </th>
+                                                    </tr>
+                                                    
+                                                    
+                                                    ";
+                                                }
+                                            }
+                                        }
+                                        echo "<tfoot>
+                                        <tr>
+                                        <th colspan='3'>
+                                        TOTAL
+                                        </th>
+                                        <th colspan='1'>
+                                        ".$total."
+                                        </th>
+                                        <tr>
+                                        <tr>
+                                        <th colspan='4'>
+                                        Your order will arrive in Business days!
+                                        </th>
+                                        <tr>
+                                        </tfoot>";
+                                    }else{
+                                        echo "<tr><th span='4'>Cart is Empty</th></tr>";
+                                    }
+                                ?>
+
+                            </tbody>
+
+
+                            
                         </table>
                         <table id="devilery">
                         <?php
