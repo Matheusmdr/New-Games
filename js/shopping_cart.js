@@ -30,7 +30,7 @@ function validateEmail(value) {
 
     return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
 }
-
+/*
 function SetCartProducts() {
     let orders = []
     orders = JSON.parse(sessionStorage.getItem('products'))
@@ -110,7 +110,7 @@ function SetCartProducts() {
         $CartTable.append(foot);
     }
 }
-
+*/
 function increaseCount() {
     var input = this.previousElementSibling;
     var value = parseInt(input.value, 10);

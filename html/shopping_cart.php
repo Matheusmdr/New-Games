@@ -1,6 +1,21 @@
+<?php
+
+if (isset($_POST['remove'])){
+  if ($_GET['action'] == 'remove'){
+      foreach ($_SESSION['cart'] as $key => $value){
+          if($value["product_id"] == $_GET['id']){
+              unset($_SESSION['cart'][$key]);
+              echo "<script>alert('Product has been Removed...!')</script>";
+              echo "<script>window.location = 'cart.php'</script>";
+          }
+      }
+  }
+}
 
 
-<!DOCTYPE html>
+?>
+
+
 <html lang="pt-br">
 
 <head>
@@ -19,7 +34,7 @@
 
 <body>
     <?php include "../html/header.php"?>
-
+    <?php include_once "../php/connection.php"?>
 
     <!-- Main -->
     <main>
@@ -40,7 +55,53 @@
                                 </tr>
                             </thead>
                             <tbody id="orders" class="table-rows">
-                                <!--Add orders here (DOM)-->
+                                <?php
+                                $total = 0;
+                                    if (isset($_SESSION['cart'])){
+                                        $produtos_ = "SELECT * FROM game";
+                                        $produtos = mysqli_query($conn,$produtos_);
+                                        $product_id = array_column($_SESSION['cart'], 'id_game');
+                                        while ($row = mysqli_fetch_assoc($produtos)){
+                                            foreach ($product_id as $id){
+                                                if ($row['id_game'] == $id){
+                                                    $total = $total + (float)$row['game_price'];
+                                                    echo "
+                                                    <tr>
+                                                    <th><img src=".$row['game_img']." /></th>
+                                                    <th>".$row['game_name']."</th>
+                                                    <th>".$row['game_price']."</th>
+                                                    <th>
+                                                    <div class='counter'>
+                                                    <span class='down'>
+                                                    -
+                                                    </span>
+                                                    <span class='up'>
+                                                    +
+                                                    </span>
+                                                    </div>
+                                                    </th>
+                                                    </tr>
+                                                    
+                                                    
+                                                    ";
+                                                }
+                                            }
+                                        }
+                                        echo "<tfoot>
+                                        <tr>
+                                        <th colspan='3'>
+                                        TOTAL
+                                        </th>
+                                        <th colspan='1'>
+                                        ".$total."
+                                        </th>
+                                        <tr>
+                                        </tfoot>";
+                                    }else{
+                                        echo "<tr><th span='4'>Cart is Empty</th></tr>";
+                                    }
+                                ?>
+
                             </tbody>
                         </table>
                         <?php if(isset($_SESSION['logged'])): ?>
