@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="pt-br">
 
 <head>
@@ -109,13 +109,17 @@
                             $produtos = mysqli_query($conn,$produtos_);
                             while($row_game = mysqli_fetch_assoc($produtos)){
                                 echo "<div class='game-content' id=".$row_game['id_game'].">
+                               
                                 <div>
                                 <img src=".$row_game['game_img']."></img>
                                 </div>
                                 <div class='game-title'>
                                 <h3>".$row_game['game_name']."</h3>
                                 <h4>$".$row_game['game_price']."</h4>
-                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+                                <form method='post'>
+                                <button class='btn' type='submit' name='add'>Add to Cart</button>
+                                <input type='hidden' name='id_game' value=".$row_game['id_game'].">
+                                </form>
                                 </div>
                                 </div>";
                             }
@@ -141,7 +145,11 @@
                                 </div>
                                 <a>".$row_game['game_name']."</a>
                                 <span>$".$row_game['game_price']."</span>
-                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+
+                                <form method='post'>
+                                <button class='btn' type='submit' name='add'>Add to Cart</button>
+                                <input type='hidden' name='id_game' value=".$row_game['id_game'].">
+                                </form>
                                 </div>";
                             }
                             
@@ -166,7 +174,10 @@
                                 </div>
                                 <a>".$row_game['game_name']."</a>
                                 <span>$".$row_game['game_price']."</span>
-                                <button class='btn' onclick='AddCart()'>Add to Cart</button>
+                                <form method='post'>
+                                <button class='btn' type='submit' name='add'>Add to Cart</button>
+                                <input type='hidden' name='id_game' value=".$row_game['id_game'].">
+                                </form>
                                 </div>";
                             }
                             

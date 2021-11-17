@@ -12,6 +12,31 @@
         while($row = $result->fetch_assoc()) $name = $row['users_name'];
         $name = explode(' ',$name,15);
     }
+
+
+    if (isset($_POST['add'])){
+        if(isset($_SESSION['cart'])){
+            $item_array_id = array_column($_SESSION['cart'], "id_game");
+            if(in_array($_POST['id_game'], $item_array_id)){
+                echo "<script>alert('Product is already added in the cart..!')</script>";
+                echo "<script>window.location = 'index.php'</script>";
+            }else{
+    
+                $count = count($_SESSION['cart']);
+                $item_array = array(
+                    'id_game' => $_POST['id_game']
+                );
+                $_SESSION['cart'][$count] = $item_array;
+            }
+        }else{
+            $item_array = array(
+                    'id_game' => $_POST['id_game']
+            );
+            $_SESSION['cart'][0] = $item_array;
+        }
+    }
+  
+    
 ?>
 
 
@@ -69,7 +94,18 @@
                     ?>
                     <a href="../html/shopping_cart.php" onclick="setCart()" class="icon-item">
                         <i class="fas fa-shopping-cart"></i>
-                        <span id="cart-total"></span>
+                        <span id="cart-total">
+                        <?php
+
+                            if (isset($_SESSION['cart'])){
+                                $count = count($_SESSION['cart']);
+                                echo $count;
+                            }else{
+                                echo "0";
+                            }
+
+                         ?>
+                        </span>
                     </a>
                 </div>
             </div>
