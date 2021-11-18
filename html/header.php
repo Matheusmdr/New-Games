@@ -1,6 +1,8 @@
 <?php
-    session_start();
-    
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
     if(isset($_SESSION['error'])){
         unset($_SESSION['error']);
     }
@@ -44,58 +46,16 @@
         if (isset($_SESSION['cart'])){    
             foreach ($_SESSION['cart'] as $key=>$value){
             if ($value['id_game'] === $_POST['id_game']){
-                $_SESSION['cart'][$key]['item_quantity'] = $quantity;
+                if($quantity == 0){
+                    unset( $_SESSION['cart'][$key]);
+                }
+                else{
+                    $_SESSION['cart'][$key]['item_quantity'] = $quantity;
+                }
             }
         }  
         }
-    }
-
-    if(isset($_POST['select_price'])){
-        if(isset($_SESSION['price_selected'])){
-            $price_select = $_POST['select_price'];
-            $_SESSION['price_selected'] = $price_select;
-        }
-        else{
-        
-            $_SESSION['price_selected'] ='999';
-            $price_select = '999';
-        }
-    }
-    else{
-        $_SESSION['price_selected'] = '999';
-        $price_select = '999';
-    }
-
-
-    
-    if(isset($_POST['select_category'])){
-        if(isset($_SESSION['category_selected'])){
-            $category_select = $_POST['select_category'];
-            if( $category_select == '-1'){
-                $produtos_ = "SELECT * FROM game
-                WHERE (game_price Between 0 and '{$price_select}')
-                ORDER By game_price Asc ";
-            }
-            else{
-            $produtos_ = "SELECT * FROM game WHERE game_category = '{$category_select}' and (game_price Between 0 and '{$price_select}')
-            ORDER By game_price Asc ";
-            }
-
-            $_SESSION['category_selected'] = $category_select;
-        }
-        else{
-        
-            $produtos_ = "SELECT * FROM game
-            WHERE (game_price Between 0 And '{ $price_select}')
-            ORDER By game_price Asc ";
-            $_SESSION['category_selected'] ='-1';
-        }
-    }
-    else{
-        $_SESSION['category_selected'] = '-1';
-    }
-
-    
+    } 
 ?>
 
 

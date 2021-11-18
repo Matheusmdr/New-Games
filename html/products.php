@@ -1,4 +1,39 @@
-<!DOCTYPE html>
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
+   if(isset($_POST['select_price'])){
+    if(isset($_SESSION['price_selected'])){
+        $price_select = $_POST['select_price'];
+        $_SESSION['price_selected'] = $price_select;
+    }
+    else{
+    
+        $_SESSION['price_selected'] ='999';
+    }
+}
+else{
+    $_SESSION['price_selected'] = '999';
+}
+
+
+
+if(isset($_POST['select_category'])){
+    if(isset($_SESSION['category_selected'])){
+        $category_select = $_POST['select_category'];
+        $_SESSION['category_selected'] = $category_select;
+    }
+    else{
+        $_SESSION['category_selected'] ='-1';
+    }
+}
+else{
+    $_SESSION['category_selected'] = '-1';
+}
+
+
+?>
 <html lang="pt-br">
 
 <head>
@@ -55,7 +90,15 @@
                         <div>
                             <div id="productsListDiv" class="game-list">
                             <?php
-
+                            if( $_SESSION['category_selected']== '-1'){
+                                $produtos_ = "SELECT * FROM game
+                                WHERE (game_price Between 0 and '{$_SESSION['price_selected']}')
+                                ORDER By game_price Asc ";
+                            }
+                            else{
+                            $produtos_ = "SELECT * FROM game WHERE game_category = '{$_SESSION['category_selected']}' and (game_price Between 0 and '{$_SESSION['price_selected']}')
+                            ORDER By game_price Asc ";
+                            }
                             $produtos = mysqli_query($conn,$produtos_);
                             while($row_game = mysqli_fetch_assoc($produtos)){
                                 echo "<div class='game-content' id=".$row_game['id_game'].">

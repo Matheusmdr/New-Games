@@ -45,11 +45,10 @@
                                     if (isset($_SESSION['cart'])){
                                         $produtos_ = "SELECT * FROM game";
                                         $produtos = mysqli_query($conn,$produtos_);
-                                        $product_id = array_column($_SESSION['cart'], 'id_game');
                                         while ($row = mysqli_fetch_assoc($produtos)){
-                                            foreach ($product_id as $id){
-                                                if ($row['id_game'] == $id){
-                                                    $total = $total + (float)$row['game_price'];
+                                            foreach ($_SESSION['cart'] as $value){
+                                                if ($row['id_game'] == $value['id_game']){
+                                                    $total = $total + (float)$row['game_price']  * (int)$value['item_quantity'];
                                                     echo "
                                                     <tr>
                                                     <th><img src=".$row['game_img']." /></th>
@@ -57,13 +56,10 @@
                                                     <th>".$row['game_price']."</th>
                                                     <th>
                                                     <div class='counter'>
-                                                    <p> </p>
+                                                    ".$value['item_quantity']."
                                                     </div>
                                                     </th>
-                                                    </tr>
-                                                    
-                                                    
-                                                    ";
+                                                    </tr>";
                                                 }
                                             }
                                         }
