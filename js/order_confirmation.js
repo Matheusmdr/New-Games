@@ -4,8 +4,3 @@ function randomNumber() {
 
     return Math.floor(Math.random() * (max - min) + min);
 }
-
-
-$(document).ready(function () {
-    SetPurchase()
-})

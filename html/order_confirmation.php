@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
+
+?>
+
 <html lang="pt-br">
 
 <head>
@@ -41,6 +48,14 @@
                             </thead>
                             <tbody id="orders" class="table-rows">
                                 <?php
+                                 if(isset($_SESSION['logged'])){
+                                    require_once "../php/connection.php";
+                                    $user = $_SESSION['logged'];
+                                    $query = "SELECT * FROM users WHERE id_users = '{$user}'";
+                                    $result =mysqli_query($conn,$query);
+                                    $result = mysqli_fetch_assoc($result);
+
+                                }
                                 $total = 0;
                                     if (isset($_SESSION['cart'])){
                                         $produtos_ = "SELECT * FROM game";
@@ -71,12 +86,30 @@
                                         <th colspan='1'>
                                         ".$total."
                                         </th>
-                                        <tr>
+                                        </tr>
                                         <tr>
                                         <th colspan='4'>
-                                        Your order will arrive in Business days!
+                                        Your order will arrive in ".rand(1, 20)." Business days!
                                         </th>
+                                        </tr>
                                         <tr>
+                                        <th colspan='4'>
+                                        Delivery Information
+                                        </th>
+                                        </tr>
+                                        <tr>
+                                        <th colspan='4'>
+                                        Customer Name: ".$result['users_name']."
+                                        </th>
+                                        </tr>
+
+                                        <tr>
+                                        <th colspan='4'>
+                                        Address: ".$result['users_street'].",".$result['users_number'].",".$result['users_neighborhood'].",".$result['users_zip_code'].",".$result['users_country']."
+                                        </th>
+                                        </tr>
+                                        
+                                        
                                         </tfoot>";
                                     }else{
                                         echo "<tr><th span='4'>Cart is Empty</th></tr>";
@@ -88,30 +121,9 @@
 
                             
                         </table>
-                        <table id="devilery">
-                        <?php
-                            require_once "../php/connection.php";
-                            $result = NULL;
-                            if (isset($_SESSION["logged"])) {
-                            $query = "SELECT name,email,country, city,zip_code,neighborhood,street,number FROM users WHERE id = {$_SESSION["logged"]}";
-                            $result = $conn->query($query);
-                            }
-                            if ($result):
-                                while ($row = $result->fetch_assoc()):
-                        ?>
-
-                            <thead>
-                                <tr class="delivery-information-title"> <th colspan="4">Delivery information</th></tr>
-                                <tr > <th colspan="4">Name: <?php echo "".$row["name"]; ?></th></tr>
-                                <tr> <th colspan="4">Email: <?php echo "".$row["email"]; ?></th></tr>
-                                <tr > <th colspan="4">Adress: <?php echo "".$row["street"] . "," . $row["number"]; ?></th></tr>
-                                <tr> <th colspan="2">City:  <?php echo "".$row["city"] . "," . $row["country"]; ?></th><th colspan="2">Zipcode: <?php echo "".$row["zip_code"]; ?></th></tr>
-                            </thead>
-                            <?php
-                                 endwhile;
-                                  endif;
-                            ?>
-                        </table>
+                        <form  method="post" action='../html/index.php'>
+                            <button type="submit" class='btn' name='confirm_order'>Confirm</button>
+                        </form>
                     </div>
                 </div>
             </div>

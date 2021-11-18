@@ -56,7 +56,7 @@
                                                     <th>
                                                     <div class='counter'>
                                                     <form method='post' action=''>
-                                                    <input type='number' name='quantity_cart' value=". $value['item_quantity']." min='0' max='99' onchange='this.form.submit()'/>
+                                                    <input type='number' name='quantity_cart' value=". $value['item_quantity']." min='0' max=".$row['game_stock']." onchange='this.form.submit()'/>
                                                     <input type='hidden' name='id_game' value=".$row['id_game'].">
                                                     </form>
                                                     </div>
@@ -77,7 +77,9 @@
                                         ".$total."
                                         </th>
                                         <tr>
-                                        </tfoot>";
+                                        
+                                        </tfoot>
+                                        ";
                                     }else{
                                         echo "<tr><th span='4'>Cart is Empty</th></tr>";
                                     }

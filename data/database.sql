@@ -13,6 +13,7 @@ create table if not exists game(
     game_name varchar(120) not null,
     game_situation varchar(120) not null,
     game_category int not null,
+    game_stock int not null,
     game_price decimal(6,2),
     game_img varchar(120) not null,
     
@@ -141,21 +142,21 @@ delimiter ;
 
 -- inserção do banco ----------------------------------------------
 -- inserindo jogos
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Persona 5 Strikers","Popular",0,59.99,"../images/Persona5S.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Dark Souls 3","Popular",0,59.99,"../images/darksouls3.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Devil May Cry 5","Popular",2,24.99,"../images/devil-may-cry-5.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Cyberpunk 2077","New",0,47.99,"../images/cyberpunk.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Super Bomberman R Online","New",4,9.99,"../images/Super-Bomberman-R.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Sekiro: Shadows Die Twice","New",2,59.99,"../images/Sekiro-Shadows-Die-Twice.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("KINGDOM HEARTS III + Re Mind","Sale",0,59.99,"../images/EGS_KINGDOMHEARTSIIIReMindDLC.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Rocket League","Sale",4,9.99,"../images/rocketleague.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Nioh 2","Sale",2,39.99,"../images/nioh2.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("The Witcher 3: Wild Hunt","Normal",0,7.99,"../images/the-witcher-3-wild-hunt.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Red Dead Redemption 2","Normal",2,14.99,"../images/ReadDeadRedemption_2.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Hollow Knight","Normal",3,14.99,"../images/hollowknight.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Sonic Mania","Normal",3,9.99,"../images/SonicMania.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Dead Cells","Normal",3,24.99,"../images/DeadCells.jpg");
-insert into game(game_name,game_situation,game_category,game_price,game_img) values("Resident Evil Village","Normal",1,79.99,"../images/RESIDENT-EVIL-8-1.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Persona 5 Strikers","Popular",0,10,59.99,"../images/Persona5S.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Dark Souls 3","Popular",0,10,59.99,"../images/darksouls3.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Devil May Cry 5","Popular",2,10,24.99,"../images/devil-may-cry-5.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Cyberpunk 2077","New",0,10,47.99,"../images/cyberpunk.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Super Bomberman R Online","New",4,10,9.99,"../images/Super-Bomberman-R.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Sekiro: Shadows Die Twice","New",2,10,59.99,"../images/Sekiro-Shadows-Die-Twice.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("KINGDOM HEARTS III + Re Mind","Sale",0,10,59.99,"../images/EGS_KINGDOMHEARTSIIIReMindDLC.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Rocket League","Sale",4,10,9.99,"../images/rocketleague.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Nioh 2","Sale",2,10,39.99,"../images/nioh2.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("The Witcher 3: Wild Hunt","Normal",0,10,7.99,"../images/the-witcher-3-wild-hunt.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Red Dead Redemption 2","Normal",2,10,14.99,"../images/ReadDeadRedemption_2.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Hollow Knight","Normal",3,10,14.99,"../images/hollowknight.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Sonic Mania","Normal",3,10,9.99,"../images/SonicMania.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Dead Cells","Normal",3,10,24.99,"../images/DeadCells.jpg");
+insert into game(game_name,game_situation,game_category,game_stock,game_price,game_img) values("Resident Evil Village","Normal",1,10,79.99,"../images/RESIDENT-EVIL-8-1.jpg");
 
 -- select * from game;
 
