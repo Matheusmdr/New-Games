@@ -65,6 +65,7 @@
                                 <form action='../html/products.php' method='post'>
                                 <button class='btn' type='submit' name='add'>Add to Cart</button>
                                 <input type='hidden' name='id_game' value=".$row_game['id_game'].">
+                                <input type='hidden' name='quantity' value='1'>
                                 </form>
                                 </div>";
                             }

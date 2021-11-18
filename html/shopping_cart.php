@@ -1,20 +1,3 @@
-<?php
-
-if (isset($_POST['remove'])){
-  if ($_GET['action'] == 'remove'){
-      foreach ($_SESSION['cart'] as $key => $value){
-          if($value["product_id"] == $_GET['id']){
-              unset($_SESSION['cart'][$key]);
-              echo "<script>alert('Product has been Removed...!')</script>";
-              echo "<script>window.location = 'cart.php'</script>";
-          }
-      }
-  }
-}
-
-
-?>
-
 
 <html lang="pt-br">
 
@@ -60,24 +43,22 @@ if (isset($_POST['remove'])){
                                     if (isset($_SESSION['cart'])){
                                         $produtos_ = "SELECT * FROM game";
                                         $produtos = mysqli_query($conn,$produtos_);
-                                        $product_id = array_column($_SESSION['cart'], 'id_game');
+
                                         while ($row = mysqli_fetch_assoc($produtos)){
-                                            foreach ($product_id as $id){
-                                                if ($row['id_game'] == $id){
-                                                    $total = $total + (float)$row['game_price'];
+                                            foreach ($_SESSION['cart'] as $key=>$value){
+                                                if ($row['id_game'] == $value['id_game']){
+                                                    $total = $total + (float)$row['game_price'] * (int)$value['item_quantity'];
                                                     echo "
                                                     <tr>
                                                     <th><img src=".$row['game_img']." /></th>
                                                     <th>".$row['game_name']."</th>
-                                                    <th>".$row['game_price']."</th>
+                                                    <th>".$row['game_price'] * $value['item_quantity']."</th>
                                                     <th>
                                                     <div class='counter'>
-                                                    <span class='down'>
-                                                    -
-                                                    </span>
-                                                    <span class='up'>
-                                                    +
-                                                    </span>
+                                                    <form method='post' action=''>
+                                                    <input type='number' name='quantity' value=". $value['item_quantity']." min='1' max='99'/>
+                                                    <input type='hidden' name='id_game' value=".$row['id_game'].">
+                                                    </form>
                                                     </div>
                                                     </th>
                                                     </tr>

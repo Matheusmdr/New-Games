@@ -23,18 +23,33 @@
     
                 $count = count($_SESSION['cart']);
                 $item_array = array(
-                    'id_game' => $_POST['id_game']
+                    'id_game' => $_POST['id_game'],
+                    'item_quantity' =>1,
                 );
                 $_SESSION['cart'][$count] = $item_array;
             }
         }else{
             $item_array = array(
-                    'id_game' => $_POST['id_game']
+                    'id_game' => $_POST['id_game'],
+                    'item_quantity' => 1,
             );
             $_SESSION['cart'][0] = $item_array;
         }
     }
+
+    
+    if (isset($_POST['quantity'])){
+        $quantity = (int)$_POST['quantity'];
   
+        if (isset($_SESSION['cart'])){    
+            foreach ($_SESSION['cart'] as $key=>$value){
+            if ($value['id_game'] === $_POST['id_game']){
+                $_SESSION['cart'][$key]['item_quantity'] = $quantity;
+            }
+        }  
+        }
+    }
+
     
 ?>
 

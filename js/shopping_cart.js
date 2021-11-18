@@ -31,43 +31,6 @@ function validateEmail(value) {
     return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
 }
 
-function increaseCount() {
-    var input = this.previousElementSibling;
-    var value = parseInt(input.value, 10);
-    let index = input.id
-    cart = JSON.parse(sessionStorage.getItem('products'));
-    value = (cart[index])[4];
-    if (value < 99) {
-        value = isNaN(value) ? 0 : value;
-        value++;
-        input.value++
-            (cart[index])[4] = value
-        let totalText = document.querySelector('#totalValue')
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total')) + parseFloat(this.id)));
-        let total = parseFloat(JSON.parse(sessionStorage.getItem('Total')))
-        totalText.innerHTML = "$" + total.toFixed(2)
-        sessionStorage.setItem('products', JSON.stringify(cart))
-    }
-}
-
-function decreaseCount() {
-    var input = this.nextElementSibling;
-    var value = parseInt(input.value, 10);
-    let index = input.id
-    cart = JSON.parse(sessionStorage.getItem('products'));
-    value = (cart[index])[4];
-    if (value > 1) {
-        value = isNaN(value) ? 0 : value;
-        value--;
-        input.value--
-            (cart[index])[4] = value
-        let totalText = document.querySelector('#totalValue')
-        sessionStorage.setItem('Total', JSON.stringify(JSON.parse(sessionStorage.getItem('Total')) - parseFloat(this.id)));
-        let total = parseFloat(JSON.parse(sessionStorage.getItem('Total')))
-        totalText.innerHTML = "$" + total.toFixed(2)
-        sessionStorage.setItem('products', JSON.stringify(cart))
-    }
-}
 
 function getForm() {
     let name = document.getElementById("name").value
