@@ -27,24 +27,26 @@
                         <div>
                             <h3>Category</h3>
                         </div>
-                        <select id="Category" name="select" onclick="Filter()">
-                            <option selected value="-1">All</option>
-                            <option value="0">RPG</option>
-                            <option value="1">Survival horror</option>
-                            <option value="2">Action</option>
-                            <option value="3">Platform</option>
-                            <option value="4">Multiplayer</option>
-                        </select>
-                        <!--
+                        <form method="post" action=''>
+                            <select id="Category" name="select_category" onchange="this.form.submit()">
+                                <option <?php if( $_SESSION['category_selected'] == '-1') echo "selected";?> value="-1">All</option>
+                                <option <?php if( $_SESSION['category_selected'] == '0') echo "selected";?> value="0">RPG</option>
+                                <option <?php if( $_SESSION['category_selected'] == '1') echo "selected";?> value="1">Survival horror</option>
+                                <option <?php if( $_SESSION['category_selected'] == '2') echo "selected";?> value="2">Action</option>
+                                <option <?php if( $_SESSION['category_selected'] == '3') echo "selected";?> value="3">Platform</option>
+                                <option <?php if( $_SESSION['category_selected'] == '4') echo "selected";?> value="4">Multiplayer</option>
+                            </select>
+                        
                         <h3>Price</h3>
-                        <select id="Price" name="select" onclick="Filter()">
-                            <option selected value="999">Select Filter</option>
-                            <option value="10">Under $10.00</option>
-                            <option value="20">Under $20.00</option>
-                            <option value="40">Under $40.00</option>
-                            <option value="80">Under $80.00</option>
+
+                        <select id="Price" name="select_price"onchange="this.form.submit()">
+                            <option <?php if( $_SESSION['price_selected'] == '999') echo "selected";?> value="999">Select Filter</option>
+                            <option <?php if( $_SESSION['price_selected'] == '10') echo "selected";?> value="10">Under $10.00</option>
+                            <option <?php if( $_SESSION['price_selected'] == '20') echo "selected";?> value="20">Under $20.00</option>
+                            <option <?php if( $_SESSION['price_selected'] == '40') echo "selected";?> value="40">Under $40.00</option>
+                            <option <?php if( $_SESSION['price_selected'] == '80') echo "selected";?> value="80">Under $80.00</option>
                         </select>
-                        -->
+                        </form>
                     </div>
                 </div>
                 <div class="col-2">
@@ -52,8 +54,8 @@
                     <div class="list"  data-aos="fade-in" data-aos-delay="200">
                         <div>
                             <div id="productsListDiv" class="game-list">
-                            <?php 
-                            $produtos_ = "SELECT * FROM game";
+                            <?php
+
                             $produtos = mysqli_query($conn,$produtos_);
                             while($row_game = mysqli_fetch_assoc($produtos)){
                                 echo "<div class='game-content' id=".$row_game['id_game'].">

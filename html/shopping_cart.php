@@ -56,7 +56,7 @@
                                                     <th>
                                                     <div class='counter'>
                                                     <form method='post' action=''>
-                                                    <input type='number' name='quantity' value=". $value['item_quantity']." min='1' max='99'/>
+                                                    <input type='number' name='quantity_cart' value=". $value['item_quantity']." min='1' max='99' onchange='this.form.submit()'/>
                                                     <input type='hidden' name='id_game' value=".$row['id_game'].">
                                                     </form>
                                                     </div>

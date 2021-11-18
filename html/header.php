@@ -38,8 +38,8 @@
     }
 
     
-    if (isset($_POST['quantity'])){
-        $quantity = (int)$_POST['quantity'];
+    if (isset($_POST['quantity_cart'])){
+        $quantity = (int)$_POST['quantity_cart'];
   
         if (isset($_SESSION['cart'])){    
             foreach ($_SESSION['cart'] as $key=>$value){
@@ -48,6 +48,51 @@
             }
         }  
         }
+    }
+
+    if(isset($_POST['select_price'])){
+        if(isset($_SESSION['price_selected'])){
+            $price_select = $_POST['select_price'];
+            $_SESSION['price_selected'] = $price_select;
+        }
+        else{
+        
+            $_SESSION['price_selected'] ='999';
+            $price_select = '999';
+        }
+    }
+    else{
+        $_SESSION['price_selected'] = '999';
+        $price_select = '999';
+    }
+
+
+    
+    if(isset($_POST['select_category'])){
+        if(isset($_SESSION['category_selected'])){
+            $category_select = $_POST['select_category'];
+            if( $category_select == '-1'){
+                $produtos_ = "SELECT * FROM game
+                WHERE (game_price Between 0 and '{$price_select}')
+                ORDER By game_price Asc ";
+            }
+            else{
+            $produtos_ = "SELECT * FROM game WHERE game_category = '{$category_select}' and (game_price Between 0 and '{$price_select}')
+            ORDER By game_price Asc ";
+            }
+
+            $_SESSION['category_selected'] = $category_select;
+        }
+        else{
+        
+            $produtos_ = "SELECT * FROM game
+            WHERE (game_price Between 0 And '{ $price_select}')
+            ORDER By game_price Asc ";
+            $_SESSION['category_selected'] ='-1';
+        }
+    }
+    else{
+        $_SESSION['category_selected'] = '-1';
     }
 
     
