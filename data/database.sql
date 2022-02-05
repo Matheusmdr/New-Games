@@ -20,7 +20,7 @@ create table if not exists supplier(
 
 create table if not exists category(
 	id_category int auto_increment,
-    category_name varchar(120),
+    category_name varchar(120) not null,
     category_description varchar(200),
     
     primary key(id_category)
@@ -28,8 +28,8 @@ create table if not exists category(
 
 create table if not exists game(
 	id_game int auto_increment,
-    game_name varchar(120) not null,
-    price decimal(6,2),
+    game_name varchar(120) not null unique,
+    price decimal(6,2) not null,
     img varchar(120) not null,
     supplier int not null,
     
@@ -89,7 +89,7 @@ create table if not exists adress(
 create table if not exists clients (
     id_client int not null auto_increment,
     client_name varchar(200) not null,
-    email varchar(50) not null,
+    email varchar(50) not null unique,
     client_password varchar(80) not null,
 	adress int not null,
     id_lib int not null,
@@ -104,7 +104,7 @@ create table if not exists clients (
 create table if not exists purchase(
 	id_purchase int not null auto_increment,
     date_time datetime not null,
-    cost decimal(10,2),
+    cost decimal(10,2) not null,
     discount decimal(6,2),
     payment_method varchar(120) not null,
     payment_installments tinyint not null,
@@ -123,6 +123,22 @@ create table if not exists connection_purchase_game(
     foreign key(id_purchase) references purchase(id_purchase)
 );
 
+create table if not exists employee(
+	id_employee int not null auto_increment,
+    employee_name varchar(200) not null,
+    email varchar(200) not null unique,
+    employee_password varchar(200) not null,
+    adress int not null,
+    
+    primary key(id_employee),
+    foreign key(adress) references adress(id_adress)
+);
+
+create table if not exists budget(
+	input decimal(8,2) not null,
+    output decimal(8,2) not null,
+    transation_description varchar(200) not null
+);
 
 -- Triggers ---------------------------------------------------------
 /*Inicializa uma biblioteca de jogos para cada usuário criado. Caso apresente algum erro, a mesma já elimina a biblioteca criada*/
@@ -196,9 +212,27 @@ begin
 
 end$$
 delimiter ;
-
+-- registra orçamento------------------------------------------------------------------
+delimiter $$
+create trigger after_purchase_insert_budget after insert on purchase
+for each row
+begin
+	insert into budget(input,output,transation_description)
+		(select sum(cost),0.00, concat("purchase ", max(id_purchase)) from purchase);
+end$$
+delimiter ;
 
 -- inserção do banco ----------------------------------------------
+-- inserindo funcionários --------------------------------------
+-- criando endereço 
+insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","São Paulo", "Bairro 0", "11929391","Rua teste",190);
+
+select * from adress;
+
+-- criando funcionário
+insert into employee(employee_name,email,employee_password,adress) values("Rodrigo Araújo Neto","rodrigo_araujo@gmail.com",MD5("senha123"),1);
+
+select * from employee;
 -- inserindo fornecedores
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("SEGA","+551139068215","+551137062215","sega1@gmail.com", "sega2@gmail.com","https://www.sega.com");
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("CAPCOM","+551139068635","+551137002150","capcom1@gmail.com", "capcom2@gmail.com","https://www.capcom.com/");
@@ -275,28 +309,63 @@ select game_name from game where id_game = 2;
 -- inserindo cliente ---------------------------------------------------
 -- criando endereço ---------
 insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Presidente Prudente", "Bairro 1", "19029396","Rua teste",170);
+insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Álvares Machado", "Bairro 2", "18019390","Rua teste 2",90);
+insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
+select * from adress;
+
+insert into clients(client_name,email,client_password,adress) values("João Antônio Soares","joao_antonio@gmail.com",MD5("senha123"),2);
+insert into clients(client_name,email,client_password,adress) values("Maria Joana Costa","maria_joana@gmail.com",MD5("senha123"),3);
+insert into clients(client_name,email,client_password,adress) values("Augusto Pereira Silva","augusto_pereira@gmail.com",MD5("senha123"),4);
+select * from clients;
 
 select * from library; -- lib e wishlist são criadas automaticamente ao inserir cliente
-insert into clients(client_name,email,client_password,adress) values("João Antônio Soares","joao_antonio@gmail.com",MD5("senha123"),1);
 
 -- busca os dados de endereço do cliente através do nome
 select country,state,city,neighborhood,zip_code,street,house_number from adress where id_adress = (
 	select adress from clients where client_name = "João Antônio Soares"
 );
 
--- compra
+-- Compra ------------------------------------------------------------------------------------------
 -- Setando Timezone correta (Brasil/São Paulo)
 SET @@global.time_zone = '+03:00';
 SET GLOBAL time_zone = '+3:00';
 
+-- registrando compra
 insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-09-01 23:59:59',9.99,0.99,"credit card",1,1);
 insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-09-02 20:50:59',14.99,0.99,"credit card",1,1);
+insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-10-05 14:50:59',24.98,0.00,"credit card",1,2);
+insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-10-05 21:10:08',39.99,0.00,"credit card",1,3);
 select * from purchase;
+select * from budget;
+select * from clients;
+select * from connection_purchase_game;
 
+-- registrando o que foi comprado e em qual registro de compra
 insert into connection_purchase_game(id_game,id_purchase) values(12,1);
 insert into connection_purchase_game(id_game,id_purchase) values(8,1);
 insert into connection_purchase_game(id_game,id_purchase) values(11,2);
+insert into connection_purchase_game(id_game,id_purchase) values(11,3);
+insert into connection_purchase_game(id_game,id_purchase) values(12,3);
+insert into connection_purchase_game(id_game,id_purchase) values(7,4);
 select * from connection_purchase_game;
+
+select * from clients;
+select * from library;
+select * from connection_lib_and_game;
+select * from game;
+
+-- inserindo games comprados nas libs
+insert into connection_lib_and_game(id_game,id_lib) values(12,1);
+insert into connection_lib_and_game(id_game,id_lib) values(8,1);
+insert into connection_lib_and_game(id_game,id_lib) values(11,1);
+insert into connection_lib_and_game(id_game,id_lib) values(11,2);
+insert into connection_lib_and_game(id_game,id_lib) values(12,2);
+insert into connection_lib_and_game(id_game,id_lib) values(7,3);
+
+-- seleciona todos os games da lib do cliente, através do id_client
+select * from connection_lib_and_game where id_lib = (
+	select id_lib from clients where id_client = 3
+);
 
 -- seleciona os ids das compras realizadas por esse cliente
 select id_purchase from purchase where id_client = (
@@ -325,11 +394,31 @@ select connection_purchase_game.id_purchase, game.game_name
 	from connection_purchase_game inner join game on connection_purchase_game.id_game = game.id_game;
 
 
--- código da compra, nome de quem realizou a compra, quando e o que foi comprado
-select purchase.id_purchase, clients.client_name, purchase.date_time, game.game_name
+-- código da compra, nome de quem realizou a compra, quando, o que foi comprado, id_game e para qual lib
+select purchase.id_purchase, clients.client_name, purchase.date_time, game.game_name, game.id_game, clients.id_lib
 	from game 
 		inner join connection_purchase_game on game.id_game = connection_purchase_game.id_game
 		inner join purchase on connection_purchase_game.id_purchase = purchase.id_purchase
         inner join clients on purchase.id_client = clients.id_client;
+
+-- games na wishlist --------------------------------
+select * from clients;
+select * from wishlist;
+select * from game;
+
+-- inserindo games na wishlist
+insert into connection_wishlist_and_game(id_game,id_wishlist) values(3,1);
+insert into connection_wishlist_and_game(id_game,id_wishlist) values(1,1);
+insert into connection_wishlist_and_game(id_game,id_wishlist) values(2,2);
+insert into connection_wishlist_and_game(id_game,id_wishlist) values(9,3);
+insert into connection_wishlist_and_game(id_game,id_wishlist) values(3,2);
+insert into connection_wishlist_and_game(id_game,id_wishlist) values(10,1);
+
+select * from connection_wishlist_and_game;
+
+-- seleciona todos os games da wishlist do cliente, através do id_client
+select * from connection_wishlist_and_game where id_wishlist = (
+	select id_wishlist from clients where id_client = 1
+);
 
 -- drop database newgamesdb;
