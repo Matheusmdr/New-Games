@@ -218,7 +218,7 @@ create trigger after_purchase_insert_budget after insert on purchase
 for each row
 begin
 	insert into budget(input,output,transation_description)
-		(select sum(cost),0.00, concat("purchase ", max(id_purchase)) from purchase);
+		(select sum(cost),0.00, concat("purchase ", new.id_purchase) from purchase);
 end$$
 delimiter ;
 
