@@ -202,7 +202,9 @@ create trigger user_after_delete after delete on clients
 for each row
 begin
 	delete from library where id_lib = old.id_lib;
+    delete from connection_lib_and_game where id_lib = old.id_lib;
     delete from wishlist where id_wishlist = old.id_wishlist;
+    delete from connection_wishlist_and_game where id_wishlist = old.id_wishlist;
 end$$
 delimiter ;
 
