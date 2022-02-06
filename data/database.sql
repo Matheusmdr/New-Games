@@ -1,6 +1,7 @@
 create database if not exists newgamesdb;
 use newgamesdb;
 
+-- SET GLOBAL log_bin_trust_function_creators = 1;
 -- SET FOREIGN_KEY_CHECKS=0;
 -- SET GLOBAL FOREIGN_KEY_CHECKS=0;
 
@@ -14,6 +15,7 @@ create table if not exists supplier(
     primary_email varchar(120) not null,
     secondary_email varchar(120),
     website varchar(120),
+    fee float not null,
     
     primary key(id_supplier)
 );
@@ -135,8 +137,8 @@ create table if not exists employee(
 );
 
 create table if not exists budget(
-	input decimal(8,2) not null,
-    output decimal(8,2) not null,
+	input double not null,
+    output double not null,
     transation_description varchar(200) not null
 );
 
@@ -194,24 +196,40 @@ end$$
 delimiter ;
 
 -- ----------------------------------------------------------------------------
-
-/*função para deletar a lib do usuário, para ela n existir qnd ele for deletado*/
+/*deleta a lib e wishlist do usuário, para elas n existirem qnd ele for deletado*/
 delimiter $$
-create trigger user_before_delete before delete on clients
+create trigger user_after_delete after delete on clients
 for each row
 begin
-	
+	delete from library where id_lib = old.id_lib;
+    delete from wishlist where id_wishlist = old.id_wishlist;
 end$$
 delimiter ;
+
+-- drop database newgamesdb;
+
+-- select * from library;
+-- select * from wishlist;
+-- select * from clients;
+-- delete from clients where id_client = 2;
 -- ----------------------------------------------------------------------------
-/*verificar se o usuário já tem o game. Não inserir o game caso o usuário já tenha. (vale o msm p wishlist)*/
+/*verifica se o usuário já tem o game*/
 delimiter $$
-create trigger lib_before_insert_game before insert on connection_lib_and_game
-for each row
+create function verify_game_existence_into_client_lib(id_lib_ int, id_game_ int)
+returns boolean
 begin
-
+	declare flag boolean;
+    declare test int;
+    set flag = false;
+ 
+    if ((select count(1) from connection_lib_and_game where (id_lib = id_lib_ and id_game = id_game_)) = 1) then
+		set flag = true;
+	end if;
+    
+    return flag;
 end$$
 delimiter ;
+
 -- registra orçamento------------------------------------------------------------------
 delimiter $$
 create trigger after_purchase_insert_budget after insert on purchase
@@ -234,18 +252,18 @@ insert into employee(employee_name,email,employee_password,adress) values("Rodri
 
 select * from employee;
 -- inserindo fornecedores
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("SEGA","+551139068215","+551137062215","sega1@gmail.com", "sega2@gmail.com","https://www.sega.com");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("CAPCOM","+551139068635","+551137002150","capcom1@gmail.com", "capcom2@gmail.com","https://www.capcom.com/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("CD PROJEKT RED","+551139068005","+55113700205","cdprojektred1@gmail.com", "cdprojektred2@gmail.com","https://en.cdprojektred.com/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("BANDAI NAMCO","+551139000215","+551137062255","bandai1@gmail.com", "bandai2@gmail.com","https://www.bandainamcoent.com/pt-br/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("KOEI TECMO","+551139068215","+551137062215","koeitecmo1@gmail.com", "koeitecmo2@gmail.com","https://www.koeitecmo.co.jp/e/company/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("Rockstar Games","+551130068215","+552137062215","rockstar1@gmail.com", "rockstar2@gmail.com","https://www.rockstargames.com/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("方块游戏 (CubeGame)","+5551130068215","+5552137062215","cubegame1@gmail.com", "cubegame2@gmail.com","https://www.cubejoy.com/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("SQUARE ENIX","+5551130068215","+5552137062215","square_enix1@gmail.com", "square_enix2@gmail.com","https://square-enix-games.com/pt_BR/home");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("Team Cherry","+8551130068215","+5952137062215","teamcherry1@gmail.com", "teamcherry2@gmail.com","https://www.teamcherry.com.au/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("Motion Twin","+9551130068215","+7952137062215","motiontwin1@gmail.com", "motiontwin2@gmail.com","http://motion-twin.com/en/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("KONAMI","+2551130068215","+3952137062215","konami1@gmail.com", "konami2@gmail.com","https://www.konami.com/en/");
-insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website) values("PSYONIX","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/");
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("SEGA","+551139068215","+551137062215","sega1@gmail.com", "sega2@gmail.com","https://www.sega.com",0.50);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("CAPCOM","+551139068635","+551137002150","capcom1@gmail.com", "capcom2@gmail.com","https://www.capcom.com/",0.66);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("CD PROJEKT RED","+551139068005","+55113700205","cdprojektred1@gmail.com", "cdprojektred2@gmail.com","https://en.cdprojektred.com/",0.80);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("BANDAI NAMCO","+551139000215","+551137062255","bandai1@gmail.com", "bandai2@gmail.com","https://www.bandainamcoent.com/pt-br/",0.90);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("KOEI TECMO","+551139068215","+551137062215","koeitecmo1@gmail.com", "koeitecmo2@gmail.com","https://www.koeitecmo.co.jp/e/company/",0.33);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("Rockstar Games","+551130068215","+552137062215","rockstar1@gmail.com", "rockstar2@gmail.com","https://www.rockstargames.com/",0.25);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("方块游戏 (CubeGame)","+5551130068215","+5552137062215","cubegame1@gmail.com", "cubegame2@gmail.com","https://www.cubejoy.com/",0.258);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("SQUARE ENIX","+5551130068215","+5552137062215","square_enix1@gmail.com", "square_enix2@gmail.com","https://square-enix-games.com/pt_BR/home",0.89);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("Team Cherry","+8551130068215","+5952137062215","teamcherry1@gmail.com", "teamcherry2@gmail.com","https://www.teamcherry.com.au/",0.55);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("Motion Twin","+9551130068215","+7952137062215","motiontwin1@gmail.com", "motiontwin2@gmail.com","http://motion-twin.com/en/",0.48);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("KONAMI","+2551130068215","+3952137062215","konami1@gmail.com", "konami2@gmail.com","https://www.konami.com/en/",0.39);
+insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("PSYONIX","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51);
 
 select * from supplier;
 -- inserindo categoria dos jogos
@@ -362,9 +380,10 @@ insert into connection_lib_and_game(id_game,id_lib) values(11,2);
 insert into connection_lib_and_game(id_game,id_lib) values(12,2);
 insert into connection_lib_and_game(id_game,id_lib) values(7,3);
 
+select verify_game_existence_into_client_lib(3,7);
 -- seleciona todos os games da lib do cliente, através do id_client
-select * from connection_lib_and_game where id_lib = (
-	select id_lib from clients where id_client = 3
+select id_game from connection_lib_and_game where id_lib = (
+	select id_lib from clients where id_client = 1
 );
 
 -- seleciona os ids das compras realizadas por esse cliente
@@ -393,13 +412,13 @@ select purchase.id_purchase,  clients.client_name, purchase.date_time
 select connection_purchase_game.id_purchase, game.game_name
 	from connection_purchase_game inner join game on connection_purchase_game.id_game = game.id_game;
 
-
 -- código da compra, nome de quem realizou a compra, quando, o que foi comprado, id_game e para qual lib
 select purchase.id_purchase, clients.client_name, purchase.date_time, game.game_name, game.id_game, clients.id_lib
 	from game 
 		inner join connection_purchase_game on game.id_game = connection_purchase_game.id_game
 		inner join purchase on connection_purchase_game.id_purchase = purchase.id_purchase
         inner join clients on purchase.id_client = clients.id_client;
+
 
 -- games na wishlist --------------------------------
 select * from clients;
