@@ -241,7 +241,29 @@ begin
 		(select sum(cost),0.00, concat("purchase ", new.id_purchase) from purchase);
 end$$
 delimiter ;
+-- procedures ----------------------------------------------------------------
+delimiter $$
+create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200) )
+begin
+	if ( (select count(1) from supplier where supplier_name = sup_name) = 0) then
+		insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values(sup_name,p_phone,sec_phone,p_email,sec_email,website,fee);
+    end if;
+	
+	insert into game(game_name, price, img, supplier) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name) );
+    
+    if ( (select count(1) from category where category_name = cate_name) = 0) then
+		insert into category(category_name,category_description) values(cate_name, cate_desc);
+    end if;
+    
+    insert into connection_game_category(id_game,id_category) values((select id_game from game where game_name = g_name), (select id_category from category where category_name = cate_name) );
+end$$
+delimiter ;
 
+-- select * from supplier;
+-- select * from game;
+-- select * from category;
+-- drop database newgamesdb;
+-- call add_game("teste","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51,"Cuy2077",47.99,"cyberpunk.jpg", "RPG", "No description.");
 -- inserção do banco ----------------------------------------------
 -- inserindo funcionários --------------------------------------
 -- criando endereço 
