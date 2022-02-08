@@ -1,9 +1,9 @@
 create database if not exists newgamesdb;
 use newgamesdb;
 
--- SET GLOBAL log_bin_trust_function_creators = 1;
--- SET FOREIGN_KEY_CHECKS=0;
--- SET GLOBAL FOREIGN_KEY_CHECKS=0;
+SET GLOBAL log_bin_trust_function_creators = 1;
+SET FOREIGN_KEY_CHECKS=0;
+SET GLOBAL FOREIGN_KEY_CHECKS=0;
 
 -- Criação do banco ----------------------------------------------
 -- tabelas ----------------------------------------------
@@ -206,10 +206,24 @@ begin
     delete from connection_lib_and_game where id_lib = old.id_lib;
     delete from wishlist where id_wishlist = old.id_wishlist;
     delete from connection_wishlist_and_game where id_wishlist = old.id_wishlist;
+    delete from adress where id_adress = old.adress;
 end$$
 delimiter ;
 
 -- delete from clients where id_client = 2;
+/*deleta o endereço do empregado que foi deletado*/
+delimiter $$
+create trigger after_delete_employee after delete on employee
+for each row
+begin
+	delete from adress where id_adress = old.adress;
+end$$
+delimiter ;
+
+-- select * from clients;
+-- delete from employee where id_employee = 1;
+-- select * from adress;
+-- drop database newgamesdb;
 -- Funções----------------------------------------------------------------------------
 /*verifica se o usuário já tem o game*/
 delimiter $$
@@ -267,7 +281,7 @@ select * from connection_purchase_game;
 -- drop database newgamesdb;
 
 -- procedures ----------------------------------------------------------------
--- atualiza o registro de eorçamento da empresa -----------------------------
+-- atualiza o registro de orçamento da empresa -----------------------------
 delimiter $$
 create procedure update_budget(id int)
 begin
@@ -321,7 +335,6 @@ create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(80
 begin
 	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
 	insert into employee(employee_name,email,employee_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
-
 end$$
 delimiter ;
 
