@@ -137,8 +137,9 @@ create table if not exists employee(
 );
 
 create table if not exists budget(
-	input double not null,
+	input float not null,
     output double not null,
+    date_time datetime not null,
     transation_description varchar(200) not null
 );
 
@@ -208,13 +209,8 @@ begin
 end$$
 delimiter ;
 
--- drop database newgamesdb;
-
--- select * from library;
--- select * from wishlist;
--- select * from clients;
 -- delete from clients where id_client = 2;
--- ----------------------------------------------------------------------------
+-- Funções----------------------------------------------------------------------------
 /*verifica se o usuário já tem o game*/
 delimiter $$
 create function verify_game_existence_into_client_lib(id_lib_ int, id_game_ int)
@@ -231,17 +227,69 @@ begin
     return flag;
 end$$
 delimiter ;
-
--- registra orçamento------------------------------------------------------------------
+select * from budget;
+-- calcula o quanto a New Games receberá por aquela compra------------------------------------------------------------------
 delimiter $$
-create trigger after_purchase_insert_budget after insert on purchase
-for each row
+create function compute_yeld_single_purchase(purchase int)
+returns float
 begin
-	insert into budget(input,output,transation_description)
-		(select sum(cost),0.00, concat("purchase ", new.id_purchase) from purchase);
+	declare result float;
+    
+	select sum((1-supplier.fee)*game.price) into result
+	from connection_purchase_game
+		inner join game on connection_purchase_game.id_game = game.id_game
+        inner join supplier on game.supplier = id_supplier
+	where connection_purchase_game.id_purchase = purchase;
+    
+    return result;
 end$$
 delimiter ;
+
+-- calcula o orçamento------------------------------------------------------------------
+delimiter $$
+create function compute_total_yeld()
+returns double
+begin
+	declare result float;
+    
+	select sum(input) into result from budget;
+    
+    return result;
+end$$
+delimiter ;
+
+select * from purchase;
+
+-- select compute_total_yeld();
+select * from budget;
+select * from purchase;
+select * from connection_purchase_game;
+-- drop database newgamesdb;
+
 -- procedures ----------------------------------------------------------------
+-- atualiza o registro de eorçamento da empresa -----------------------------
+delimiter $$
+create procedure update_budget(id int)
+begin
+	declare temp float;
+	set temp = compute_yeld_single_purchase(id);
+	insert into budget(input,output,date_time, transation_description)
+		values(temp,0.00, (select date_time from purchase where id_purchase = id),concat("purchase ", id) );
+end$$
+delimiter ;
+-- Faz a compra de um jogo (cliente) ---------------------------
+delimiter $$
+create procedure buy_game(date_t datetime,cost_ decimal(10,2),disc decimal(6,2),pay_m varchar(120),pay_inst tinyint,id_cl int, id_g int, lib int)
+begin
+	insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values(date_t,cost_,disc,pay_m,pay_inst,id_cl);
+	insert into connection_purchase_game(id_game,id_purchase) values(id_g, (select id_purchase from purchase where id_client = id_cl and date_time = date_t) );
+    call update_budget((select id_purchase from purchase where id_client = id_cl and date_time = date_t));
+    insert into connection_lib_and_game(id_game,id_lib) values(id_g,lib);
+end$$
+delimiter ;
+-- call buy_game('2023-10-21 23:59:59',9.99,0.99,"credit card",1,1,8,1);
+
+-- adiciona um novo jogo na loja -------------------------------------------------
 delimiter $$
 create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200) )
 begin
@@ -258,12 +306,9 @@ begin
     insert into connection_game_category(id_game,id_category) values((select id_game from game where game_name = g_name), (select id_category from category where category_name = cate_name) );
 end$$
 delimiter ;
-
--- select * from supplier;
--- select * from game;
--- select * from category;
--- drop database newgamesdb;
 -- call add_game("teste","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51,"Cuy2077",47.99,"cyberpunk.jpg", "RPG", "No description.");
+-- ---------------------------------------------------------------------------------------
+
 -- inserção do banco ----------------------------------------------
 -- inserindo funcionários --------------------------------------
 -- criando endereço 
@@ -443,6 +488,10 @@ select purchase.id_purchase, clients.client_name, purchase.date_time, game.game_
 		inner join purchase on connection_purchase_game.id_purchase = purchase.id_purchase
         inner join clients on purchase.id_client = clients.id_client;
 
+select * from supplier;
+select * from connection_purchase_game;
+select * from game;
+select * from purchase;
 
 -- games na wishlist --------------------------------
 select * from clients;
@@ -463,5 +512,3 @@ select * from connection_wishlist_and_game;
 select * from connection_wishlist_and_game where id_wishlist = (
 	select id_wishlist from clients where id_client = 1
 );
-
--- drop database newgamesdb;
