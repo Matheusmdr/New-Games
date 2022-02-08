@@ -307,7 +307,7 @@ begin
 end$$
 delimiter ;
 -- call add_game("teste","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51,"Cuy2077",47.99,"cyberpunk.jpg", "RPG", "No description.");
--- ---------------------------------------------------------------------------------------
+-- adiciona um novo cliente no sistema ---------------------------------------------------------------------------------------
 delimiter $$
 create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
 begin
@@ -315,7 +315,20 @@ begin
 	insert into clients(client_name,email,client_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
 end$$
 delimiter ;
+-- adiciona funcionários -----------------------------------------------------------
+delimiter $$
+create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+begin
+	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
+	insert into employee(employee_name,email,employee_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+
+end$$
+delimiter ;
+
 -- select * from clients;
+-- drop database newgamesdb;
+-- select * from employee;
+-- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
 -- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
 -- inserção do banco ----------------------------------------------
 -- inserindo funcionários --------------------------------------
