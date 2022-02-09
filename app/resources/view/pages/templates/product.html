@@ -1,0 +1,12 @@
+<div class='game-content' id="{{game_id}}">
+    <div>
+        <img src="{{URL}}/app/resources/images/{{game_img}}"></img>
+    </div>
+    <a>{{game_name}}</a>
+    <span>{{game_price}}</span>
+    <form action='' method='post'>
+        <button class='btn' type='submit' name='add'>Add to Cart</button>
+        <input type='hidden' name='id_game' value="{{game_id}}">
+        <input type='hidden' name='quantity' value='1'>
+    </form>
+</div>

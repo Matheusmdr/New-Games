@@ -1,0 +1,17 @@
+Options -Indexes 
+
+<FilesMatch "\.(html|php|env|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "index[0-9]?\.php$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ ./index.php [QSA,NC]

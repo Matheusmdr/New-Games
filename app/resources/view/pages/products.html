@@ -1,0 +1,56 @@
+<main>
+    <section>
+        <div class="products-list container">
+            <div class="col-1">
+                <div>
+                    <div>
+                        <h3>Category</h3>
+                    </div>
+                    <form method="post" action=''>
+                        <select id="Category" name="select_category" onchange="this.form.submit()">
+                            <option value="-1">All
+                            </option>
+                            <option value="0">RPG
+                            </option>
+                            <option value="1">
+                                Survival horror</option>
+                            <option value="2">Action
+                            </option>
+                            <option value="3">
+                                Platform</option>
+                            <option value="4">
+                                Multiplayer</option>
+                        </select>
+
+                        <h3>Price</h3>
+
+                        <select id="Price" name="select_price" onchange="this.form.submit()">
+                            <option value="999">
+                                Select Filter</option>
+                            <option value="10">Under
+                                $10.00</option>
+                            <option value="20">Under
+                                $20.00</option>
+                            <option value="40">Under
+                                $40.00</option>
+                            <option value="80">Under
+                                $80.00</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="col-2">
+                <h3>Products</h3>
+                <div class="list" data-aos="fade-in" data-aos-delay="200">
+                    <div>
+                        <div id="productsListDiv" class="game-list">
+                            {{products}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{pagination}}
+    </section>
+</main>
