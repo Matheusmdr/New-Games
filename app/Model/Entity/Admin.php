@@ -5,24 +5,24 @@ namespace App\Model\Entity;
 use \WilliamCosta\DatabaseManager\Database;
 
 class Admin{
-    public $id;
-    public $client_name;
+    public $id_employee;
+    public $employee_name;
     public $email;
-    public $client_password;
+    public $employee_password;
 
 
     public function cadastrar(){
         $this->id = (new Database('users'))->insert([
-            'users_name' => $this->client_name,
-            'users_email' => $this->email,
-            'users_password' => $this->client_password
+            'employee_name' => $this->employee_name,
+            'email' => $this->email,
+            'employee_password' => $this->employee_password
         ]);
 
         return true;
     }
 
 
-    public static function getClientByEmail($email){
-        return (new Database('users'))->select('users_email = "'.$email.'"')->fetchObject(self::class);
+    public static function getAdminByEmail($email){
+        return (new Database('employee'))->select('email = "'.$email.'"')->fetchObject(self::class);
     }
 }

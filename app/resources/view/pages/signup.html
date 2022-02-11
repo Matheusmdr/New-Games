@@ -2,20 +2,17 @@
     <main>
         <section>
             <div class="sign_up">
-                <div>
-                    <div class="form-container">
-                        <form action="" method="POST">
-                            <p>Sign Up</p>
-                            <div class="container_username">
-                                <i class="fa fa-user icon username_fig"></i>
-                                <input type="text" name="name" placeholder="Full Name" required  onkeypress="return username(event)"/>
+                <div class="container">
+                    <div class="second-container">
+                        <form method="POST">
+                            <p>SIGN UP</p>
+                            <div class="container-form-input">
+                                <input type="text" name="name" placeholder="Full Name" required/>
                             </div>
-                            <div class="container_email">
-                                <i class="fa fa-envelope icon envelope_fig"></i>
+                            <div class="container-form-input">
                                 <input type="text" name="email" placeholder="Email" required>
                             </div>
-                            <div class="container_password">
-                                <i class="fa fa-lock icon password_fig"></i>
+                            <div class="container-form-input">
                                 <input type="password" name="password" placeholder="Password" required >
                             </div>
 <!--
@@ -30,7 +27,7 @@
                                
                                 <input type="text" name="country" id="country"  placeholder="Country" required class="text_style border-radius username password adress-information-center insert-country"onkeypress="return onlyLetterKey(event)"/>
                                 -->
-                            <button class="btn" type="submit" value="Sign Up" onclick="ValidateEmail(document.form.email)">Sign Up</button>
+                                <input type="submit" value="Sign Up" class="register_btn">
                         </form>
                     </div>
                 </div>

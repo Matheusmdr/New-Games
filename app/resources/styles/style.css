@@ -131,13 +131,9 @@ header {
     margin: 0%;
     padding: 0 1rem;
     height: 0rem;
-    height: 8vh;
+    height: 10vh;
     overflow: hidden;
     transition: 1s ease-in-out;
-}
-
-section{
-    margin: 4rem auto;
 }
 
 .nav .nav-menu {
@@ -180,12 +176,31 @@ section{
     font-weight: 600;
     position: relative;
     font-family: var(--Abel);
-    transition: 80ms ease-in-out;
 }
 
-.nav .nav-items .nav-link:hover {
-    background-color: rgba(187, 134, 252, 0.7);
+.nav .nav-items .nav-link a{
+    transition: 0.1s ease-in-out;
 }
+
+.nav .nav-items .nav-link.active a{
+    color: var(--secondary);
+  }
+
+.nav .nav-items .nav-link a:before{
+    content: '';
+    width: 0%;
+    left: 0;
+    height: 1px;
+    background-color: var(--secondary);
+    position: absolute;
+    bottom: 1rem;
+    transition: .2s;
+  }
+  
+  .nav .nav-items .nav-link a:hover:before{
+    width: 70%;
+    left: 15%;
+  }
 
 .nav .nav-brand a {
     font-size: 1.6rem;
@@ -564,14 +579,13 @@ main .products-list {
     color: var(--white);
     display: grid;
     grid-template-columns: 20% 80%;
-    padding-top: 5rem;
-    margin: 0rem 1rem;
-    min-height: 100vh;
+    padding-top: 3rem;
+    margin: 3rem 1rem 0rem 1rem;
     width: 100vw;
 }
 
 main .products-list .game-list {
-    padding: 1rem 0rem;
+    
     display: grid;
     grid-template-columns: repeat(3,1fr);
 }
@@ -609,221 +623,71 @@ main .products-list .game-list .game-content {
 /* Sign Up styles */
 
 
-main .sign_up{
-    margin-top: 3rem;
+main .sign_up, main .sign_in{
+    padding-top: 3rem;
+    margin: 5rem 0rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-family: var(--Lexend);
+    color: var(--white);
+    font-weight: 700;
 }
 
-.sign_up p{
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-}
-
-.sign_up .form-container{
+.sign_in .container,.sign_up .container{
     background: var(--secondary-background);
-    padding: 2rem 7rem;
-    border-radius: 15px;
+    min-width: 30%;
+    padding: 2rem;
+    border-radius:5px;
+}
+
+.sign_in .container .second-container,.sign_up .container .second-container {
     display: flex;
     flex-direction: column;
 }
 
-.sign_up .form-container form{
-    width: 100%;
-    color: #fff;
-}
-
-.sign_up .form-container form input[type=text], .sign_up .form-container form input[type=password], .sign_up .form-container form input[type=email]{
-    outline: none;
-    border: none;
-    padding: 0.5rem;
-    width: 12rem;
-    border-radius: 8px;
-    margin: 0.5rem;
-    font-size: 0.9rem;
-    align-self: center;
-}
-
-.sign_up .form-container form button.btn{
-    border-radius: 8px;
-    padding: .7rem 2rem;
-    border: 1px solid var(--primary);
-    margin: .5rem;
-    transition: all 0.3s ease-in-out;
-    font-size: 1rem;
-    font-family: var(--Lexend);
-    background-color: var(--primary);
-    color: var(--white);
-    cursor: pointer;
-    width: 85%;
-    margin-left: 10%;
-}
-
-.sign_up .form-container form button.btn:hover{
-    background-color: transparent;
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.sign_up .delivery-inform{
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    
-}
-
-
-/* Sign In styles */
-
-
-
-main .sign_in {
-    padding-top:2.5rem ;
-    height: 100vh;
-    width: 100vw;
-}
-
-.sign_in  form i{
-    color: var(--white);
-}
-
-/*Single purpose classes*/
-.sign_in  .border-radius {
-    border-radius: 15px;
-}
-
-.sign_in .shadow {
-    border: 1px solid;
-    padding: 10px;
-    box-shadow: 5px 10px 8px #888888;
-}
-
-.sign_in .center_text {
-    text-align: center;
-}
-
-.sign_in .text_style {
-    font-family: var(--Lexend);
-}
-
-/* Login */
-/* Login (container)*/
-.sign_in-container {
-    /*invisible*/
-    height: 10rem;
+.sign_in .container .second-container .container-form-input, .sign_up .container .second-container .container-form-input{
     display: flex;
     justify-content:center;
-    align-content: center;
-    /*var(--ming);*/
-}
-
-.sign_in .second-container {
-    margin: 0 auto;
-    /*visible*/
-    width: 40rem;
-    height: 30rem;
-    background-color: var(--secondary-background);
-}
-
-/* Login (submit button)*/
-.sign_in input[type=submit] {
-    padding: .7rem 2rem;
-    border: 1px solid var(--primary);
-    margin: .5rem;
-    transition: all 0.3s ease-in-out;
-    font-size: 1rem;
-    font-family: var(--Lexend);
-    background-color: var(--primary);
+    align-items:center;
     color: var(--white);
-    cursor: pointer;
+    gap:0.5rem;
 }
 
-.sign_in input[type=submit]:hover {
-    background-color: transparent;
-    border-color: var(--primary);
+.sign_in .container .second-container .container-form-input input, .sign_up .container .second-container .container-form-input input{
+    padding: 0.8rem 0.2rem;
+    min-width:85%;
+    border-radius: 5px;
+    border: none;
+    margin-top:1rem;
+}
+
+.sign_in .container .second-container .container-form-input a, .sign_up .container .second-container .container-form-input a{
     color: var(--primary);
 }
 
-.sign_in .username {
-    outline: none;
-    position: relative;
-    border: none;
-    padding: 0.2rem;
-    top: 5rem;
-    left: 10rem;
-    width: 20rem;
-    height: 2rem;
-}
-
-.sign_in .password {
-    top: 8rem;
-}
-
-.sign_in .login_btn {
-    top: 8rem;
-    height: 3rem;
-}
-
-.sign_in .login_title {
-    position: relative;
-    top: 5rem;
+.sign_in .container .second-container .login_btn, .sign_up .container .second-container .register_btn{
+    background-color: var(--primary);
     color: var(--white);
-    font-size: 22px;
+    padding: 0.5rem 0.2rem;
+    min-width:85%;
+    border-radius: 5px;
+    border:none;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-weight: 700;
+    transition:0.4s ease-in-out;
+    font-size:1rem;
 }
 
-.sign_in .question_account {
-    position: relative;
-    top: 10rem;
-    left: -2rem;
-}
-
-.sign_in .signup_text {
-    position: relative;
-    top: 7.7rem;
-    left: 27rem;
-}
-
-.sign_in .username_fig {
-    position: relative;
-    top: 7.5rem;
-    left: 8rem;
-    width: 20rem;
-    height: 2rem;
-}
-
-.sign_in .password_fig {
-    position: relative;
-    top: 10.5rem;
-    left: 8rem;
-    width: 20rem;
-    height: 2rem;
-}
-
-.sign_in .container_username {
-    position: relative;
-    top: 0rem;
-}
-
-.sign_in .container_password {
-    position: relative;
-    top: -2rem;
-}
-
-.sign_in .container_signup p{
-    color: var(--white);
-}
-
-.sign_in .container_signup a{
-    color: var(--secondary);
+.sign_in .container .second-container .login_btn:hover, .sign_up .container .second-container .register_btn:hover{
+    background-color: var(--secondary);
 }
 
 
 .navigation-pages{
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
 }
@@ -831,25 +695,29 @@ main .sign_in {
 .navigation-pages ul{
     display: flex;
     list-style: none;
+    gap:0.5rem
 }
 
-.navigation-pages ul li{
-    padding: 0.4rem;
-    background-color: var(--primary);
+.navigation-pages ul li a{
+   color: var(--white);
 }
 
 
-.navigation-pages ul li.active{
-    background-color: var(--secondary);
+.navigation-pages ul li.active a{
+    color: var(--secondary);
 }
 
 
 .alert{
-    background-color: var(--Alert);
     color: var(--white);
     font-family: var(--Abel);
     text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
 
+.alert.error{
+    background: var(--Alert);
 }
 
 .alert p{
