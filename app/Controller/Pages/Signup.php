@@ -11,7 +11,7 @@ class Signup extends Page
     public static function getSignup()
     {
         $content =  View::render('pages/signup', []);
-        return parent::getPage('New Games - Sign Up', $content);
+        return parent::getPage('New Games - Sign Up', $content,'signup');
     }
 
     public static function insertClient($request)

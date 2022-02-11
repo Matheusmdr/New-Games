@@ -1,24 +1,21 @@
 <main>
     <section>
         <div class="sign_in">
-            <div class="sign_in-container content">
-                <div class="second-container border-radius ">
-                    <form action="" method="post">
+            <div class="container">
+                <div class="second-container">
+                    <form method="post">
                         <p class="center_text text_style login_title">LOGIN</p>
-                        <div class="container_username">
-                            <i class="fa fa-user icon username_fig"></i>
-                            <input type="email" name="email" placeholder="Email" required class="text_style border-radius username">
+                        <div class="container-form-input">
+                            <input type="email" name="email" placeholder="Email" required class="login-input">
                         </div>
-                        <div class="container_password">
-                            <i class="fa fa-lock icon password_fig"></i>
-                            <input type="password" name="password" placeholder="Password" required class="text_style border-radius username password">
+                        <div class="container-form-input">
+                            <input type="password" name="password" placeholder="Password" required class="login-input">
                         </div>
-                        <input type="submit" value="Sign In" class="text_style border-radius username login_btn">
+                        <input type="submit" value="Sign In" class="login_btn">
+                        <div class="container-form-input">
+                            <p >Don't have a New Games account?  <a class="signup_text" href="{{URL}}/signup">Sign Up</a></p>
+                        </div>
                     </form>
-                    <div class="container_signup">
-                        <p class="center_text text_style question_account">Don't have a New Games account?</p>
-                        <a class="signup_text" href="../html/signup.php">Sign Up</a>
-                    </div>
                 </div>
             </div>
         </div>

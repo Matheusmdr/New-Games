@@ -4,7 +4,7 @@
     <nav class="nav">
         <div class="nav-menu flex">
             <div class="nav-brand">
-                <img src="{{URL}}/app/resources/images/game-controller.png" alt="joystick brand icon" id="joystick-brand-icon" />
+                <img src="{{URL}}/app/Resources/images/game-controller.png" alt="joystick brand icon" id="joystick-brand-icon" />
                 <a href="{{URL}}">New Games</a>
             </div>
             <div class="toggle-collapse">
@@ -14,25 +14,16 @@
             </div>
             <div>
                 <ul class="nav-items">
-                    <li class="nav-link">
-                        <a href="{{URL}}">HOME</a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="{{URL}}/products?page=1">PRODUCTS</a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="#">HELP</a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="#">CONTACT</a>
-                    </li>
+                   {{links}}
                 </ul>
             </div>
 
             <div class="nav-icons">
+                <!--
                 <a href="#" class="icon-item">
                     <i class="fas fa-search"></i>
                 </a>
+                -->
                 <a href="{{URL}}/signin" class="icon-item">
                     <i class="fas fa-user"></i>            
                 </a>

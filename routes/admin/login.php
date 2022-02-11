@@ -3,13 +3,6 @@
 use \App\Http\Response;
 use \App\Controller\Admin;
 
-
-$obRouter->get('/admin',[
-    function(){
-        return new Response(200,":::");
-    }
-]);
-
 $obRouter->get('/admin/login',[
     'middlewares' => [
         'required-admin-logout'

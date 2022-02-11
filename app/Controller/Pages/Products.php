@@ -4,6 +4,7 @@ namespace App\Controller\Pages;
 
 use \App\Utils\View;
 use \App\Model\Entity\Product;
+use \App\Model\Entity\Category;
 use \WilliamCosta\DatabaseManager\Pagination;
 
 
@@ -28,14 +29,32 @@ class Products extends Page{
                 'game_id' => $obProduct->id_game
             ]);
         }
+
         return $products;
     } 
+
+    public static function getCategoryItens($request){
+        $categorys = View::render('pages/templates/categoryOption',[
+            'name' => 'Select Filter'
+        ]);
+
+        $result = Category::getCategory(null,'category_name ASC');
+
+        while($obProduct =  $result->fetchObject(Product::class)){
+            $categorys .=  View::render('pages/templates/categoryOption',[
+                'name' => $obProduct->category_name,
+            ]);
+        }
+        return $categorys;
+    } 
+
     public static function getProducts($request) {
         $content =  View::render('pages/products',[
             'products' => self::getProductsItens($request,$obPagination),
-            'pagination' => parent::getPagination($request,$obPagination)
+            'pagination' => parent::getPagination($request,$obPagination),
+            'categorys' => self::getCategoryItens($request)
         ]);
-        return parent::getPage('New Games - Products',$content);
+        return parent::getPage('New Games - Products',$content, 'products');
     }
    
 }

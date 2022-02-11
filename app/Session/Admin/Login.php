@@ -12,9 +12,9 @@ class Login{
     public static function login($obUser){
         self::init();
         $_SESSION['admin']['user'] = [
-            'id' => $obUser->id_users,
-            'name' => $obUser->users_name,
-            'email' => $obUser->users_email
+            'id' => $obUser->id_employee,
+            'name' => $obUser->employee_name,
+            'email' => $obUser->email
         ];
         return true;
     }
