@@ -1,3 +1,12 @@
+/*
+	O arquivo está organizado como: 
+		1 - TABELAS
+        2 - PROCEDURES
+        3 - FUNCTIONS
+        4 - TRIGGERS 
+        5 - INSERÇÕES
+*/
+
 create database if not exists newgamesdb;
 use newgamesdb;
 
@@ -5,8 +14,10 @@ SET GLOBAL log_bin_trust_function_creators = 1;
 SET FOREIGN_KEY_CHECKS=0;
 SET GLOBAL FOREIGN_KEY_CHECKS=0;
 
--- Criação do banco ----------------------------------------------
--- tabelas ----------------------------------------------
+-- ---------------------------------------------------------------
+-- 							TABELAS
+-- ---------------------------------------------------------------
+
 create table if not exists supplier(
 	id_supplier int not null auto_increment,
     supplier_name varchar(120) not null,
@@ -143,7 +154,146 @@ create table if not exists budget(
     transation_description varchar(200) not null
 );
 
--- Triggers ---------------------------------------------------------
+-- ---------------------------------------------------------------
+-- 							PROCEDURES
+-- ---------------------------------------------------------------
+
+/*atualiza o registro de orçamento da empresa */
+delimiter $$
+create procedure update_budget(id int)
+begin
+	declare temp float;
+	set temp = compute_yeld_single_purchase(id);
+	insert into budget(input,output,date_time, transation_description)
+		values(temp,0.00, (select date_time from purchase where id_purchase = id),concat("purchase ", id) );
+end$$
+delimiter ;
+-- ----------------------------------------------------------------------------
+/*Faz a compra de um jogo (cliente) */
+delimiter $$
+create procedure buy_game(date_t datetime,cost_ decimal(10,2),disc decimal(6,2),pay_m varchar(120),pay_inst tinyint,id_cl int, id_g int, lib int)
+begin
+	insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values(date_t,cost_,disc,pay_m,pay_inst,id_cl);
+	insert into connection_purchase_game(id_game,id_purchase) values(id_g, (select id_purchase from purchase where id_client = id_cl and date_time = date_t) );
+    call update_budget((select id_purchase from purchase where id_client = id_cl and date_time = date_t));
+    insert into connection_lib_and_game(id_game,id_lib) values(id_g,lib);
+end$$
+delimiter ;
+-- call buy_game('2023-10-21 23:59:59',9.99,0.99,"credit card",1,1,8,1);
+
+-- ----------------------------------------------------------------------------
+/*adiciona um novo jogo na loja*/
+delimiter $$
+create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200) )
+begin
+	if ( (select count(1) from supplier where supplier_name = sup_name) = 0) then
+		insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values(sup_name,p_phone,sec_phone,p_email,sec_email,website,fee);
+    end if;
+	
+	insert into game(game_name, price, img, supplier) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name) );
+    
+    if ( (select count(1) from category where category_name = cate_name) = 0) then
+		insert into category(category_name,category_description) values(cate_name, cate_desc);
+    end if;
+    
+    insert into connection_game_category(id_game,id_category) values((select id_game from game where game_name = g_name), (select id_category from category where category_name = cate_name) );
+end$$
+delimiter ;
+-- call add_game("teste","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51,"Cuy2077",47.99,"cyberpunk.jpg", "RPG", "No description.");
+
+-- ----------------------------------------------------------------------------
+/*adiciona um novo cliente no sistema */
+delimiter $$
+create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+begin
+	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
+	insert into clients(client_name,email,client_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+end$$
+delimiter ;
+
+-- ----------------------------------------------------------------------------
+/*adiciona funcionários*/
+delimiter $$
+create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+begin
+	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
+	insert into employee(employee_name,email,employee_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+end$$
+delimiter ;
+
+-- -------------------------------------------------------------------------------------------------------
+/*código da compra, nome de quem realizou a compra, quando, o que foi comprado, id_game e para qual lib*/
+delimiter $$
+create procedure all_purchase_info()
+begin
+	select purchase.id_purchase, clients.client_name, purchase.date_time, game.game_name, game.id_game, clients.id_lib
+		from game 
+			inner join connection_purchase_game on game.id_game = connection_purchase_game.id_game
+			inner join purchase on connection_purchase_game.id_purchase = purchase.id_purchase
+			inner join clients on purchase.id_client = clients.id_client;
+end$$
+delimiter ;
+
+-- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
+-- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
+
+-- ---------------------------------------------------------------
+-- 							FUNÇÕES
+-- ---------------------------------------------------------------
+
+/*verifica se o usuário já tem o game*/
+delimiter $$
+create function verify_game_existence_into_client_lib(id_lib_ int, id_game_ int)
+returns boolean
+begin
+	declare flag boolean;
+    declare test int;
+    set flag = false;
+ 
+    if ((select count(1) from connection_lib_and_game where (id_lib = id_lib_ and id_game = id_game_)) = 1) then
+		set flag = true;
+	end if;
+    
+    return flag;
+end$$
+delimiter ;
+-- ----------------------------------------------------------------------------
+/*calcula o quanto a New Games receberá por aquela compra*/
+delimiter $$
+create function compute_yeld_single_purchase(purchase int)
+returns float
+begin
+	declare result float;
+    
+	select sum((1-supplier.fee)*game.price) into result
+	from connection_purchase_game
+		inner join game on connection_purchase_game.id_game = game.id_game
+        inner join supplier on game.supplier = id_supplier
+	where connection_purchase_game.id_purchase = purchase;
+    
+    return result;
+end$$
+delimiter ;
+-- ----------------------------------------------------------------------------
+/*calcula o orçamento*/
+delimiter $$
+create function compute_total_yeld()
+returns double
+begin
+	declare result float;
+    
+	select sum(input) into result from budget;
+    
+    return result;
+end$$
+delimiter ;
+
+-- select compute_total_yeld();
+
+-- ---------------------------------------------------------------
+-- 							TRIGGERS
+-- ---------------------------------------------------------------
+
 /*Inicializa uma biblioteca de jogos para cada usuário criado. Caso apresente algum erro, a mesma já elimina a biblioteca criada*/
 delimiter $$
 create trigger user_before_insert before insert on clients
@@ -210,7 +360,7 @@ begin
 end$$
 delimiter ;
 
--- delete from clients where id_client = 2;
+-- ----------------------------------------------------------------------------
 /*deleta o endereço do empregado que foi deletado*/
 delimiter $$
 create trigger after_delete_employee after delete on employee
@@ -220,140 +370,15 @@ begin
 end$$
 delimiter ;
 
--- select * from clients;
--- delete from employee where id_employee = 1;
--- select * from adress;
--- drop database newgamesdb;
--- Funções----------------------------------------------------------------------------
-/*verifica se o usuário já tem o game*/
-delimiter $$
-create function verify_game_existence_into_client_lib(id_lib_ int, id_game_ int)
-returns boolean
-begin
-	declare flag boolean;
-    declare test int;
-    set flag = false;
- 
-    if ((select count(1) from connection_lib_and_game where (id_lib = id_lib_ and id_game = id_game_)) = 1) then
-		set flag = true;
-	end if;
-    
-    return flag;
-end$$
-delimiter ;
-select * from budget;
--- calcula o quanto a New Games receberá por aquela compra------------------------------------------------------------------
-delimiter $$
-create function compute_yeld_single_purchase(purchase int)
-returns float
-begin
-	declare result float;
-    
-	select sum((1-supplier.fee)*game.price) into result
-	from connection_purchase_game
-		inner join game on connection_purchase_game.id_game = game.id_game
-        inner join supplier on game.supplier = id_supplier
-	where connection_purchase_game.id_purchase = purchase;
-    
-    return result;
-end$$
-delimiter ;
 
--- calcula o orçamento------------------------------------------------------------------
-delimiter $$
-create function compute_total_yeld()
-returns double
-begin
-	declare result float;
-    
-	select sum(input) into result from budget;
-    
-    return result;
-end$$
-delimiter ;
+-- ---------------------------------------------------------------
+-- 							INSERÇÕES
+-- ---------------------------------------------------------------
 
-select * from purchase;
-
--- select compute_total_yeld();
-select * from budget;
-select * from purchase;
-select * from connection_purchase_game;
--- drop database newgamesdb;
-
--- procedures ----------------------------------------------------------------
--- atualiza o registro de orçamento da empresa -----------------------------
-delimiter $$
-create procedure update_budget(id int)
-begin
-	declare temp float;
-	set temp = compute_yeld_single_purchase(id);
-	insert into budget(input,output,date_time, transation_description)
-		values(temp,0.00, (select date_time from purchase where id_purchase = id),concat("purchase ", id) );
-end$$
-delimiter ;
--- Faz a compra de um jogo (cliente) ---------------------------
-delimiter $$
-create procedure buy_game(date_t datetime,cost_ decimal(10,2),disc decimal(6,2),pay_m varchar(120),pay_inst tinyint,id_cl int, id_g int, lib int)
-begin
-	insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values(date_t,cost_,disc,pay_m,pay_inst,id_cl);
-	insert into connection_purchase_game(id_game,id_purchase) values(id_g, (select id_purchase from purchase where id_client = id_cl and date_time = date_t) );
-    call update_budget((select id_purchase from purchase where id_client = id_cl and date_time = date_t));
-    insert into connection_lib_and_game(id_game,id_lib) values(id_g,lib);
-end$$
-delimiter ;
--- call buy_game('2023-10-21 23:59:59',9.99,0.99,"credit card",1,1,8,1);
-
--- adiciona um novo jogo na loja -------------------------------------------------
-delimiter $$
-create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200) )
-begin
-	if ( (select count(1) from supplier where supplier_name = sup_name) = 0) then
-		insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values(sup_name,p_phone,sec_phone,p_email,sec_email,website,fee);
-    end if;
-	
-	insert into game(game_name, price, img, supplier) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name) );
-    
-    if ( (select count(1) from category where category_name = cate_name) = 0) then
-		insert into category(category_name,category_description) values(cate_name, cate_desc);
-    end if;
-    
-    insert into connection_game_category(id_game,id_category) values((select id_game from game where game_name = g_name), (select id_category from category where category_name = cate_name) );
-end$$
-delimiter ;
--- call add_game("teste","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51,"Cuy2077",47.99,"cyberpunk.jpg", "RPG", "No description.");
--- adiciona um novo cliente no sistema ---------------------------------------------------------------------------------------
-delimiter $$
-create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
-begin
-	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
-	insert into clients(client_name,email,client_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
-end$$
-delimiter ;
--- adiciona funcionários -----------------------------------------------------------
-delimiter $$
-create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
-begin
-	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
-	insert into employee(employee_name,email,employee_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
-end$$
-delimiter ;
-
--- select * from clients;
--- drop database newgamesdb;
--- select * from employee;
--- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
--- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
--- inserção do banco ----------------------------------------------
--- inserindo funcionários --------------------------------------
--- criando endereço 
+-- inserindo funcionários 
 insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","São Paulo", "Bairro 0", "11929391","Rua teste",190);
-
-select * from adress;
-
--- criando funcionário
 insert into employee(employee_name,email,employee_password,adress) values("Rodrigo Araújo Neto","rodrigo_araujo@gmail.com",MD5("senha123"),1);
 
-select * from employee;
 -- inserindo fornecedores
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("SEGA","+551139068215","+551137062215","sega1@gmail.com", "sega2@gmail.com","https://www.sega.com",0.50);
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("CAPCOM","+551139068635","+551137002150","capcom1@gmail.com", "capcom2@gmail.com","https://www.capcom.com/",0.66);
@@ -368,7 +393,6 @@ insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, 
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("KONAMI","+2551130068215","+3952137062215","konami1@gmail.com", "konami2@gmail.com","https://www.konami.com/en/",0.39);
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("PSYONIX","+08551130068215","+1952137062215","psyonix1@gmail.com", "psyonix2@gmail.com","https://www.psyonix.com/",0.51);
 
-select * from supplier;
 -- inserindo categoria dos jogos
 insert into category(category_name, category_description) values("RPG","Game genre in which players advance through a story quest, and often many side quests, for which their character or party of characters gain experience that improves various attributes and abilities.");
 insert into category(category_name, category_description) values("Survival horror","No description.");
@@ -376,8 +400,6 @@ insert into category(category_name, category_description) values("Action","No de
 insert into category(category_name, category_description) values("Platform","No description.");
 insert into category(category_name, category_description) values("Multiplayer","No description.");
 
--- delete from category where id_category = 5;
-select * from category;
 -- inserindo jogos
 insert into game(game_name, price, img, supplier) values("Persona 5 Strikers",59.99,"Persona5S.jpg",1);
 insert into game(game_name, price, img, supplier) values("Resident Evil Village",79.99,"RESIDENT-EVIL-8-1.jpg",2);
@@ -395,7 +417,6 @@ insert into game(game_name, price, img, supplier) values("Dead Cells",24.99,"Dea
 insert into game(game_name, price, img, supplier) values("Super Bomberman R Online",9.99,"Super-Bomberman-R.jpg",11);
 insert into game(game_name, price, img, supplier) values("Rocket League",9.99,"rocketleague.jpg",12);
 
-select * from game;
 -- inserindo conexão entre jogo e categoria
 insert into connection_game_category(id_game,id_category) values(1,1);
 insert into connection_game_category(id_game,id_category) values(2,2);
@@ -413,38 +434,16 @@ insert into connection_game_category(id_game,id_category) values(13,4);
 insert into connection_game_category(id_game,id_category) values(14,5);
 insert into connection_game_category(id_game,id_category) values(15,5);
 
--- delete from connection_game_category where id_game = 10 AND id_category = 4;
-
--- drop table connection_game_category;
-select * from connection_game_category;
--- retorna todas as categorias daquele game
-select * from connection_game_category where id_game = 1;
-
--- retorna o nome da categoria do jogo 
-select category_name from category where id_category = (
-	select id_category from connection_game_category where id_game = 1
-);
--- retorna nome do jogo
-select game_name from game where id_game = 2;
-
 -- inserindo cliente ---------------------------------------------------
--- criando endereço ---------
 insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Presidente Prudente", "Bairro 1", "19029396","Rua teste",170);
 insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Álvares Machado", "Bairro 2", "18019390","Rua teste 2",90);
 insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
-select * from adress;
 
 insert into clients(client_name,email,client_password,adress) values("João Antônio Soares","joao_antonio@gmail.com",MD5("senha123"),2);
 insert into clients(client_name,email,client_password,adress) values("Maria Joana Costa","maria_joana@gmail.com",MD5("senha123"),3);
 insert into clients(client_name,email,client_password,adress) values("Augusto Pereira Silva","augusto_pereira@gmail.com",MD5("senha123"),4);
-select * from clients;
 
 select * from library; -- lib e wishlist são criadas automaticamente ao inserir cliente
-
--- busca os dados de endereço do cliente através do nome
-select country,state,city,neighborhood,zip_code,street,house_number from adress where id_adress = (
-	select adress from clients where client_name = "João Antônio Soares"
-);
 
 -- Compra ------------------------------------------------------------------------------------------
 -- Setando Timezone correta (Brasil/São Paulo)
@@ -456,10 +455,6 @@ insert into purchase(date_time,cost,discount,payment_method,payment_installments
 insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-09-02 20:50:59',14.99,0.99,"credit card",1,1);
 insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-10-05 14:50:59',24.98,0.00,"credit card",1,2);
 insert into purchase(date_time,cost,discount,payment_method,payment_installments,id_client) values('2021-10-05 21:10:08',39.99,0.00,"credit card",1,3);
-select * from purchase;
-select * from budget;
-select * from clients;
-select * from connection_purchase_game;
 
 -- registrando o que foi comprado e em qual registro de compra
 insert into connection_purchase_game(id_game,id_purchase) values(12,1);
@@ -468,12 +463,6 @@ insert into connection_purchase_game(id_game,id_purchase) values(11,2);
 insert into connection_purchase_game(id_game,id_purchase) values(11,3);
 insert into connection_purchase_game(id_game,id_purchase) values(12,3);
 insert into connection_purchase_game(id_game,id_purchase) values(7,4);
-select * from connection_purchase_game;
-
-select * from clients;
-select * from library;
-select * from connection_lib_and_game;
-select * from game;
 
 -- inserindo games comprados nas libs
 insert into connection_lib_and_game(id_game,id_lib) values(12,1);
@@ -484,55 +473,8 @@ insert into connection_lib_and_game(id_game,id_lib) values(12,2);
 insert into connection_lib_and_game(id_game,id_lib) values(7,3);
 
 select verify_game_existence_into_client_lib(3,7);
--- seleciona todos os games da lib do cliente, através do id_client
-select id_game from connection_lib_and_game where id_lib = (
-	select id_lib from clients where id_client = 1
-);
-
--- seleciona os ids das compras realizadas por esse cliente
-select id_purchase from purchase where id_client = (
-	select id_client from clients where client_name = "João Antônio Soares"
-);
-
--- seleciona os nome do jogo comprado naquela compra, através do id de compra
-select game_name from game where id_game = (
-	select id_game from connection_purchase_game where id_purchase = (
-	2
-    ) 
-);
-
-select id_game from connection_purchase_game where id_purchase = 1;        
-
-select * from connection_purchase_game;
-select * from purchase;
-select * from clients;
-
--- nome de quem realizou a compra e quando
-select purchase.id_purchase,  clients.client_name, purchase.date_time 
-	from purchase inner join clients on purchase.id_client = clients.id_client;
-    
--- id da compra e nome do jogo
-select connection_purchase_game.id_purchase, game.game_name
-	from connection_purchase_game inner join game on connection_purchase_game.id_game = game.id_game;
-
--- código da compra, nome de quem realizou a compra, quando, o que foi comprado, id_game e para qual lib
-select purchase.id_purchase, clients.client_name, purchase.date_time, game.game_name, game.id_game, clients.id_lib
-	from game 
-		inner join connection_purchase_game on game.id_game = connection_purchase_game.id_game
-		inner join purchase on connection_purchase_game.id_purchase = purchase.id_purchase
-        inner join clients on purchase.id_client = clients.id_client;
-
-select * from supplier;
-select * from connection_purchase_game;
-select * from game;
-select * from purchase;
 
 -- games na wishlist --------------------------------
-select * from clients;
-select * from wishlist;
-select * from game;
-
--- inserindo games na wishlist
 insert into connection_wishlist_and_game(id_game,id_wishlist) values(3,1);
 insert into connection_wishlist_and_game(id_game,id_wishlist) values(1,1);
 insert into connection_wishlist_and_game(id_game,id_wishlist) values(2,2);
@@ -540,9 +482,3 @@ insert into connection_wishlist_and_game(id_game,id_wishlist) values(9,3);
 insert into connection_wishlist_and_game(id_game,id_wishlist) values(3,2);
 insert into connection_wishlist_and_game(id_game,id_wishlist) values(10,1);
 
-select * from connection_wishlist_and_game;
-
--- seleciona todos os games da wishlist do cliente, através do id_client
-select * from connection_wishlist_and_game where id_wishlist = (
-	select id_wishlist from clients where id_client = 1
-);
