@@ -1,4 +1,3 @@
-
 html,
 body {
     margin: 0%;
@@ -23,7 +22,7 @@ body {
     --Abel: 'Abel', sans-serif;
     --Anton: 'Anton', sans-serif;
     --Bebas_Neue: 'Bebas Neue', cursive;
-    --Lexend:  'Lexend Deca', sans-serif;
+    --Lexend: 'Lexend Deca', sans-serif;
 }
 
 .flex {
@@ -35,9 +34,11 @@ body {
 .container {
     margin: 0 5vw;
 }
-body{
+
+body {
     background: var(--background);
 }
+
 main {
     background: var(--background);
 }
@@ -108,11 +109,11 @@ select {
     font-weight: bold;
     font-size: 1.2rem;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-    border:none;
+    border: none;
 }
 
 
-option{
+option {
     font-weight: bold;
     font-size: 1rem;
 }
@@ -129,7 +130,7 @@ header {
 .nav {
     background: var(--secondary-background);
     margin: 0%;
-    padding: 0 1rem;
+    padding: 0 2rem;
     height: 0rem;
     height: 10vh;
     overflow: hidden;
@@ -140,6 +141,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-content: flex-start;
 }
 
 .nav .toggle-collapse {
@@ -165,49 +167,37 @@ header {
     height: 30rem;
 }
 
-.nav .nav-items {
+.nav .nav-brand,.nav .nav-items,
+.nav .nav-icons ul, .nav .nav-icons, .nav .nav-links {
     display: flex;
     margin: 0%;
+    align-content: center;
+    justify-content: center;
+    align-items:center;
+    gap: 1rem;
 }
 
-.nav .nav-items .nav-link {
-    padding: 1.3rem 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    position: relative;
-    font-family: var(--Abel);
+.nav-brand{
+    font-size: 1.4rem;
 }
 
-.nav .nav-items .nav-link a{
+.nav-links{
+    padding:0;
+}
+.nav .nav-items .nav-link a,
+.nav-icons a {
     transition: 0.1s ease-in-out;
 }
 
-.nav .nav-items .nav-link.active a{
+.nav .nav-items .nav-link.active a {
     color: var(--secondary);
-  }
+}
 
-.nav .nav-items .nav-link a:before{
-    content: '';
-    width: 0%;
-    left: 0;
-    height: 1px;
-    background-color: var(--secondary);
-    position: absolute;
-    bottom: 1rem;
-    transition: .2s;
-  }
-  
-  .nav .nav-items .nav-link a:hover:before{
+.nav .nav-items .nav-link a:hover,
+.nav-icons a:hover {
+    border-bottom: 3px solid var(--secondary);
     width: 70%;
     left: 15%;
-  }
-
-.nav .nav-brand a {
-    font-size: 1.6rem;
-    font-weight: 700;
-    padding: 1rem 0;
-    display: inline-block;
-    font-family: var(--Lexend);
 }
 
 #joystick-brand-icon {
@@ -215,37 +205,11 @@ header {
     padding: 1rem 0.5rem;
 }
 
-
-.nav .nav-icons {
-    display: flex;
-    position: relative;
-}
-
-.nav .nav-icons .icon-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1.3rem 0.7rem;
-    transition: 0.3s ease-in-out;
-}
-
-.nav .nav-icons .icon-item .down-arrow {
-    padding-left: 0.5rem;
-    font-size: 0.8rem;
-}
-
 .nav .nav-icons .icon-item:link,
 .nav .nav-icons .icon-item:visited {
     color: var(--white);
 }
 
-.nav .nav-icons .icon-item:hover {
-    background-color: rgba(187, 134, 252, 0.7);
-}
-
-.nav .nav-icons .icon-item:not(:last-child) {
-    margin-right: 1rem;
-}
 
 .nav .nav-icons #cart-total {
     transition: all 0.5s ease-in-out;
@@ -253,7 +217,6 @@ header {
     height: 1rem;
     position: absolute;
     top: 2px;
-    right: -5px;
     background-color: var(--secondary);
     padding: 0.2rem 0.4rem;
     border-radius: 13rem;
@@ -585,9 +548,9 @@ main .products-list {
 }
 
 main .products-list .game-list {
-    
+
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 main .products-list .game-list .game-content {
@@ -623,7 +586,8 @@ main .products-list .game-list .game-content {
 /* Sign Up styles */
 
 
-main .sign_up, main .sign_in{
+main .sign_up,
+main .sign_in {
     padding-top: 3rem;
     margin: 5rem 0rem;
     display: flex;
@@ -635,80 +599,87 @@ main .sign_up, main .sign_in{
     font-weight: 700;
 }
 
-.sign_in .container,.sign_up .container{
+.sign_in .container,
+.sign_up .container {
     background: var(--secondary-background);
     min-width: 30%;
     padding: 2rem;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
-.sign_in .container .second-container,.sign_up .container .second-container {
+.sign_in .container .second-container,
+.sign_up .container .second-container {
     display: flex;
     flex-direction: column;
 }
 
-.sign_in .container .second-container .container-form-input, .sign_up .container .second-container .container-form-input{
+.sign_in .container .second-container .container-form-input,
+.sign_up .container .second-container .container-form-input {
     display: flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
     color: var(--white);
-    gap:0.5rem;
+    gap: 0.5rem;
 }
 
-.sign_in .container .second-container .container-form-input input, .sign_up .container .second-container .container-form-input input{
+.sign_in .container .second-container .container-form-input input,
+.sign_up .container .second-container .container-form-input input {
     padding: 0.8rem 0.2rem;
-    min-width:85%;
+    min-width: 85%;
     border-radius: 5px;
     border: none;
-    margin-top:1rem;
+    margin-top: 1rem;
 }
 
-.sign_in .container .second-container .container-form-input a, .sign_up .container .second-container .container-form-input a{
+.sign_in .container .second-container .container-form-input a,
+.sign_up .container .second-container .container-form-input a {
     color: var(--primary);
 }
 
-.sign_in .container .second-container .login_btn, .sign_up .container .second-container .register_btn{
+.sign_in .container .second-container .login_btn,
+.sign_up .container .second-container .register_btn {
     background-color: var(--primary);
     color: var(--white);
     padding: 0.5rem 0.2rem;
-    min-width:85%;
+    min-width: 85%;
     border-radius: 5px;
-    border:none;
+    border: none;
     cursor: pointer;
     margin-top: 1rem;
     font-weight: 700;
-    transition:0.4s ease-in-out;
-    font-size:1rem;
+    transition: 0.4s ease-in-out;
+    font-size: 1rem;
 }
 
-.sign_in .container .second-container .login_btn:hover, .sign_up .container .second-container .register_btn:hover{
+.sign_in .container .second-container .login_btn:hover,
+.sign_up .container .second-container .register_btn:hover {
     background-color: var(--secondary);
 }
 
 
-.navigation-pages{
+.navigation-pages {
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
 }
 
-.navigation-pages ul{
+.navigation-pages ul {
     display: flex;
     list-style: none;
-    gap:0.5rem
+    gap: 0.5rem
 }
 
-.navigation-pages ul li a{
-   color: var(--white);
+.navigation-pages ul li a {
+    color: var(--white);
 }
 
 
-.navigation-pages ul li.active a{
+.navigation-pages ul li.active a {
     color: var(--secondary);
 }
 
 
-.alert{
+.alert {
     color: var(--white);
     font-family: var(--Abel);
     text-align: center;
@@ -716,10 +687,14 @@ main .sign_up, main .sign_in{
     margin: 0 auto;
 }
 
-.alert.error{
+.alert.error {
     background: var(--Alert);
 }
 
-.alert p{
+.alert.success{
+    background: var(--secondary);
+}
+
+.alert p {
     padding: 0.4rem 1rem;
 }

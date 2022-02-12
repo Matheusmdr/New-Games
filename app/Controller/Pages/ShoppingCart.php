@@ -8,7 +8,7 @@ use \App\Utils\View;
 class ShoppingCart extends Page{
     public static function getShoppingCart() {
         $content =  View::render('/app/resources/pages/shoppingCart',[]);
-        return parent::getPage('New Games - Cart',$content,'cart');
+        return parent::getPage('Cart | New Games',$content,'cart');
     }
    
 }

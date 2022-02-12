@@ -5,8 +5,8 @@ use \App\Controller\Pages;
 
 
 $obRouter->get('/',[
-    function(){
-        return new Response(200,Pages\Home::getHome());
+    function($request){
+        return new Response(200,Pages\Home::getHome($request));
     }
 ]);
 
@@ -26,22 +26,43 @@ $obRouter->get('/products',[
 
 
 $obRouter->get('/signin',[
-    function(){
-        return new Response(200,Pages\signin::getSignin());
+    'middlewares' => [
+        'required-client-logout'
+    ],
+    function($request){
+        return new Response(200,Pages\signin::getSignin($request));
+    }
+]);
+
+$obRouter->post('/signin',[
+    function($request){
+        return new Response(200,Pages\signin::setSignin($request));
     }
 ]);
 
 
-
 $obRouter->get('/signup',[
-    function(){
-        return new Response(200,Pages\signup::getSignup());
+    'middlewares' => [
+        'required-client-logout'
+    ],
+    function($request){
+        return new Response(200,Pages\signup::getSignup($request));
     }
 ]);
 
 $obRouter->post('/signup',[
     function($request){
         return new Response(200,Pages\signup::insertClient($request));
+    }
+]);
+
+
+$obRouter->get('/signout',[
+    'middlewares' => [
+        'required-client-login'
+    ],
+    function($request){
+        return new Response(200,Pages\Signin::setLogout($request));
     }
 ]);
 

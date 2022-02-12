@@ -47,10 +47,6 @@ begin
     if new.client_password = null then
         signal sqlstate '45000' set message_text = 'no password', mysql_errno = 1364;
     end if;    
-    
-    if new.adress = null then
-        signal sqlstate '45000' set message_text = 'no country', mysql_errno = 1364;
-    end if;      
        
 end$$
 delimiter ;
@@ -65,16 +61,5 @@ begin
     delete from connection_lib_and_game where id_lib = old.id_lib;
     delete from wishlist where id_wishlist = old.id_wishlist;
     delete from connection_wishlist_and_game where id_wishlist = old.id_wishlist;
-    delete from adress where id_adress = old.adress;
-end$$
-delimiter ;
-
--- ----------------------------------------------------------------------------
-/*deleta o endereço do empregado que foi deletado*/
-delimiter $$
-create trigger after_delete_employee after delete on employee
-for each row
-begin
-	delete from adress where id_adress = old.adress;
 end$$
 delimiter ;

@@ -54,7 +54,7 @@ class Products extends Page{
             'pagination' => parent::getPagination($request,$obPagination),
             'categorys' => self::getCategoryItens($request)
         ]);
-        return parent::getPage('New Games - Products',$content, 'products');
+        return parent::getPage('Products | New Games',$content, 'products');
     }
    
 }

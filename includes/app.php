@@ -28,7 +28,9 @@ View::init([
 MiddlewareQueue::setMap([
     'maintenance' => \App\Http\Middleware\Maintenance::class,
     'required-admin-logout' => \App\Http\Middleware\RequireAdminLogout::class,
-    'required-admin-login' => \App\Http\Middleware\RequireAdminLogin::class
+    'required-admin-login' => \App\Http\Middleware\RequireAdminLogin::class,
+    'required-client-logout' => \App\Http\Middleware\RequireClientLogout::class,
+    'required-client-login' => \App\Http\Middleware\RequireClientLogin::class
 ]);
 
 MiddlewareQueue::setDefault([

@@ -3,7 +3,7 @@
 namespace App\Controller\Pages;
 
 use \App\Utils\View;
-
+use App\Session\Client\Login as SessionClientLogin;
 
 class Page{
     private static $modules = [
@@ -77,6 +77,14 @@ class Page{
 
     private static function getMenu($currentModule){
         $links = '';
+        $userName = SessionClientLogin::getLoginName();
+        $account = "<a href='".URL."/signin' class='icon-item'>
+        <i class='fas fa-user'></i></a>";
+
+        if(SessionClientLogin::isLogged()){
+            $account = "<a href='".URL."/signout' class='icon-item'>Olá ".$userName."
+            <i class='fas fa-sign-out-alt'></i></a>";
+        }
 
         foreach(self::$modules as $hash=>$module){
                 $links .= View::render('pages/templates/links',[
@@ -86,7 +94,8 @@ class Page{
                 ]);
         }
         return View::render('pages/header',[
-            'links' => $links
+            'links' => $links,
+            'account' => $account
         ]);
     }
 }

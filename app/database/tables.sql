@@ -36,6 +36,7 @@ create table if not exists game(
     price decimal(6,2) not null,
     img varchar(120) not null,
     supplier int not null,
+    feature enum('0','1') not null,
     
     primary key(id_game),
     foreign key(supplier) references supplier(id_supplier)
@@ -77,30 +78,16 @@ create table if not exists connection_wishlist_and_game(
     foreign key(id_wishlist) references wishlist(id_wishlist)
 );
 
-create table if not exists adress(
-	id_adress int not null auto_increment,
-    country varchar(80) not null,
-    state varchar(80) not null,
-    city varchar(80) not null,
-    neighborhood varchar(80) not null,
-    zip_code char(8) not null,
-    street varchar(80) not null,
-    house_number int,
-    
-    primary key(id_adress)
-);
 
 create table if not exists clients (
     id_client int not null auto_increment,
     client_name varchar(200) not null,
     email varchar(50) not null unique,
-    client_password varchar(80) not null,
-	adress int not null,
+    client_password varchar(255) not null,
     id_lib int not null,
     id_wishlist int not null,
     
     primary key (id_client),
-    foreign key(adress) references adress(id_adress),
     foreign key(id_lib) references library(id_lib),
     foreign key(id_wishlist) references wishlist(id_wishlist)
 );
@@ -131,11 +118,10 @@ create table if not exists employee(
 	id_employee int not null auto_increment,
     employee_name varchar(200) not null,
     email varchar(200) not null unique,
-    employee_password varchar(200) not null,
+    employee_password varchar(255) not null,
     adress int not null,
     
-    primary key(id_employee),
-    foreign key(adress) references adress(id_adress)
+    primary key(id_employee)
 );
 
 create table if not exists budget(

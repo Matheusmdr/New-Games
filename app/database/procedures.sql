@@ -29,13 +29,13 @@ delimiter ;
 -- ----------------------------------------------------------------------------
 /*adiciona um novo jogo na loja*/
 delimiter $$
-create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200) )
+create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200), feature_status enum('0','1'))
 begin
 	if ( (select count(1) from supplier where supplier_name = sup_name) = 0) then
 		insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values(sup_name,p_phone,sec_phone,p_email,sec_email,website,fee);
     end if;
 	
-	insert into game(game_name, price, img, supplier) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name) );
+	insert into game(game_name, price, img, supplier,feature) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name),feature_status);
     
     if ( (select count(1) from category where category_name = cate_name) = 0) then
 		insert into category(category_name,category_description) values(cate_name, cate_desc);
@@ -49,20 +49,18 @@ delimiter ;
 -- ----------------------------------------------------------------------------
 /*adiciona um novo cliente no sistema */
 delimiter $$
-create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(255))
 begin
-	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
-	insert into clients(client_name,email,client_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+	insert into clients(client_name,email,client_password) values(name_,mail,psw);
 end$$
 delimiter ;
 
 -- ----------------------------------------------------------------------------
 /*adiciona funcionários*/
 delimiter $$
-create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(255))
 begin
-	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
-	insert into employee(employee_name,email,employee_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+	insert into employee(employee_name,email,employee_password) values(name_,mail, psw);
 end$$
 delimiter ;
 
@@ -79,5 +77,5 @@ begin
 end$$
 delimiter ;
 
--- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
--- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
+-- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123");
+-- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123");

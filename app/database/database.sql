@@ -45,6 +45,7 @@ create table if not exists game(
     price decimal(6,2) not null,
     img varchar(120) not null,
     supplier int not null,
+    feature enum('0','1') not null,
     
     primary key(id_game),
     foreign key(supplier) references supplier(id_supplier)
@@ -86,30 +87,16 @@ create table if not exists connection_wishlist_and_game(
     foreign key(id_wishlist) references wishlist(id_wishlist)
 );
 
-create table if not exists adress(
-	id_adress int not null auto_increment,
-    country varchar(80) not null,
-    state varchar(80) not null,
-    city varchar(80) not null,
-    neighborhood varchar(80) not null,
-    zip_code char(8) not null,
-    street varchar(80) not null,
-    house_number int,
-    
-    primary key(id_adress)
-);
 
 create table if not exists clients (
     id_client int not null auto_increment,
     client_name varchar(200) not null,
     email varchar(50) not null unique,
-    client_password varchar(80) not null,
-	adress int not null,
+    client_password varchar(255) not null,
     id_lib int not null,
     id_wishlist int not null,
     
     primary key (id_client),
-    foreign key(adress) references adress(id_adress),
     foreign key(id_lib) references library(id_lib),
     foreign key(id_wishlist) references wishlist(id_wishlist)
 );
@@ -140,11 +127,10 @@ create table if not exists employee(
 	id_employee int not null auto_increment,
     employee_name varchar(200) not null,
     email varchar(200) not null unique,
-    employee_password varchar(200) not null,
+    employee_password varchar(255) not null,
     adress int not null,
     
-    primary key(id_employee),
-    foreign key(adress) references adress(id_adress)
+    primary key(id_employee)
 );
 
 create table if not exists budget(
@@ -184,13 +170,13 @@ delimiter ;
 -- ----------------------------------------------------------------------------
 /*adiciona um novo jogo na loja*/
 delimiter $$
-create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200) )
+create procedure add_game(sup_name varchar(120), p_phone varchar(120), sec_phone varchar(120), p_email varchar(120), sec_email varchar(120),  website varchar(120), fee float, g_name varchar(200), price decimal(6,2), img_path varchar(200), cate_name varchar(120), cate_desc varchar(200), feature_status enum('0','1'))
 begin
 	if ( (select count(1) from supplier where supplier_name = sup_name) = 0) then
 		insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values(sup_name,p_phone,sec_phone,p_email,sec_email,website,fee);
     end if;
 	
-	insert into game(game_name, price, img, supplier) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name) );
+	insert into game(game_name, price, img, supplier,feature) values(g_name,price,img_path, (select id_supplier from supplier where supplier_name = sup_name),feature_status);
     
     if ( (select count(1) from category where category_name = cate_name) = 0) then
 		insert into category(category_name,category_description) values(cate_name, cate_desc);
@@ -204,20 +190,18 @@ delimiter ;
 -- ----------------------------------------------------------------------------
 /*adiciona um novo cliente no sistema */
 delimiter $$
-create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+create procedure add_client(name_ varchar(200),mail varchar(50),psw varchar(255))
 begin
-	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
-	insert into clients(client_name,email,client_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+	insert into clients(client_name,email,client_password) values(name_,mail,psw);
 end$$
 delimiter ;
 
 -- ----------------------------------------------------------------------------
 /*adiciona funcionários*/
 delimiter $$
-create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(80),ctry varchar(80),stat varchar(80),cty varchar(80),neighb varchar(80),zip char(8),street varchar(80),h_number int)
+create procedure add_employee(name_ varchar(200),mail varchar(50),psw varchar(255))
 begin
-	insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values(ctry,stat,cty, neighb, zip,street,h_number);
-	insert into employee(employee_name,email,employee_password,adress) values(name_,mail,MD5(psw), (select id_adress from adress order by id_adress limit 1) );
+	insert into employee(employee_name,email,employee_password) values(name_,mail, psw);
 end$$
 delimiter ;
 
@@ -234,8 +218,77 @@ begin
 end$$
 delimiter ;
 
--- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
--- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123","Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
+-- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123");
+-- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123");
+
+
+-- call add_employee("JoAo Antônio Soares","joao_intonio@gmail.com","senha123");
+-- call add_client("JoAo Antônio Soares","joao_intonio@gmail.com","senha123");
+
+-- ---------------------------------------------------------------
+-- 							TRIGGERS
+-- ---------------------------------------------------------------
+
+/*Inicializa uma biblioteca de jogos para cada usuário criado. Caso apresente algum erro, a mesma já elimina a biblioteca criada*/
+delimiter $$
+create trigger user_before_insert before insert on clients
+for each row
+begin
+	begin
+		declare id_library int;
+    
+		declare exit handler for sqlexception
+		begin
+			delete from library where id_lib = id_library;
+		end;
+    
+		insert into library(id_lib) values(null);
+		select last_insert_id() into id_library;
+    
+		set new.id_lib = id_library;
+	end;
+    
+	begin
+		declare id_wishl int;
+    
+		declare exit handler for sqlexception
+		begin
+			delete from wishlist where id_wishlist = id_wishl;
+		end;
+    
+		insert into wishlist(id_wishlist) values(null);
+		select last_insert_id() into id_wishl;
+    
+		set new.id_wishlist = id_wishl;
+    end;
+    
+    if new.client_name = null then
+        signal sqlstate '45000' set message_text = 'no username', mysql_errno = 1364;
+    end if;
+
+    if new.email = null then
+        signal sqlstate '45000' set message_text = 'no email', mysql_errno = 1364;
+    end if;
+
+    if new.client_password = null then
+        signal sqlstate '45000' set message_text = 'no password', mysql_errno = 1364;
+    end if;    
+       
+end$$
+delimiter ;
+
+-- ----------------------------------------------------------------------------
+/*deleta a lib e wishlist do usuário, para elas n existirem qnd ele for deletado*/
+delimiter $$
+create trigger user_after_delete after delete on clients
+for each row
+begin
+	delete from library where id_lib = old.id_lib;
+    delete from connection_lib_and_game where id_lib = old.id_lib;
+    delete from wishlist where id_wishlist = old.id_wishlist;
+    delete from connection_wishlist_and_game where id_wishlist = old.id_wishlist;
+end$$
+delimiter ;
 
 -- ---------------------------------------------------------------
 -- 							FUNÇÕES
@@ -290,94 +343,13 @@ delimiter ;
 
 -- select compute_total_yeld();
 
--- ---------------------------------------------------------------
--- 							TRIGGERS
--- ---------------------------------------------------------------
-
-/*Inicializa uma biblioteca de jogos para cada usuário criado. Caso apresente algum erro, a mesma já elimina a biblioteca criada*/
-delimiter $$
-create trigger user_before_insert before insert on clients
-for each row
-begin
-	begin
-		declare id_library int;
-    
-		declare exit handler for sqlexception
-		begin
-			delete from library where id_lib = id_library;
-		end;
-    
-		insert into library(id_lib) values(null);
-		select last_insert_id() into id_library;
-    
-		set new.id_lib = id_library;
-	end;
-    
-	begin
-		declare id_wishl int;
-    
-		declare exit handler for sqlexception
-		begin
-			delete from wishlist where id_wishlist = id_wishl;
-		end;
-    
-		insert into wishlist(id_wishlist) values(null);
-		select last_insert_id() into id_wishl;
-    
-		set new.id_wishlist = id_wishl;
-    end;
-    
-    if new.client_name = null then
-        signal sqlstate '45000' set message_text = 'no username', mysql_errno = 1364;
-    end if;
-
-    if new.email = null then
-        signal sqlstate '45000' set message_text = 'no email', mysql_errno = 1364;
-    end if;
-
-    if new.client_password = null then
-        signal sqlstate '45000' set message_text = 'no password', mysql_errno = 1364;
-    end if;    
-    
-    if new.adress = null then
-        signal sqlstate '45000' set message_text = 'no country', mysql_errno = 1364;
-    end if;      
-       
-end$$
-delimiter ;
-
--- ----------------------------------------------------------------------------
-/*deleta a lib e wishlist do usuário, para elas n existirem qnd ele for deletado*/
-delimiter $$
-create trigger user_after_delete after delete on clients
-for each row
-begin
-	delete from library where id_lib = old.id_lib;
-    delete from connection_lib_and_game where id_lib = old.id_lib;
-    delete from wishlist where id_wishlist = old.id_wishlist;
-    delete from connection_wishlist_and_game where id_wishlist = old.id_wishlist;
-    delete from adress where id_adress = old.adress;
-end$$
-delimiter ;
-
--- ----------------------------------------------------------------------------
-/*deleta o endereço do empregado que foi deletado*/
-delimiter $$
-create trigger after_delete_employee after delete on employee
-for each row
-begin
-	delete from adress where id_adress = old.adress;
-end$$
-delimiter ;
-
 
 -- ---------------------------------------------------------------
 -- 							INSERÇÕES
 -- ---------------------------------------------------------------
 
 -- inserindo funcionários 
-insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","São Paulo", "Bairro 0", "11929391","Rua teste",190);
-insert into employee(employee_name,email,employee_password,adress) values("Rodrigo Araújo Neto","rodrigo_araujo@gmail.com",MD5("senha123"),1);
+insert into employee(employee_name,email,employee_password) values("Rodrigo Araújo Neto","rodrigo_araujo@gmail.com",MD5("senha123"));
 
 -- inserindo fornecedores
 insert into supplier(supplier_name,primary_phone,secondary_phone,primary_email, secondary_email,website,fee) values("SEGA","+551139068215","+551137062215","sega1@gmail.com", "sega2@gmail.com","https://www.sega.com",0.50);
@@ -435,13 +407,9 @@ insert into connection_game_category(id_game,id_category) values(14,5);
 insert into connection_game_category(id_game,id_category) values(15,5);
 
 -- inserindo cliente ---------------------------------------------------
-insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Presidente Prudente", "Bairro 1", "19029396","Rua teste",170);
-insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Álvares Machado", "Bairro 2", "18019390","Rua teste 2",90);
-insert into adress(country,state,city,neighborhood,zip_code,street,house_number) values("Brazil","São Paulo","Presidente Epitácio", "Bairro 3", "19021391","Rua teste3",235);
-
-insert into clients(client_name,email,client_password,adress) values("João Antônio Soares","joao_antonio@gmail.com",MD5("senha123"),2);
-insert into clients(client_name,email,client_password,adress) values("Maria Joana Costa","maria_joana@gmail.com",MD5("senha123"),3);
-insert into clients(client_name,email,client_password,adress) values("Augusto Pereira Silva","augusto_pereira@gmail.com",MD5("senha123"),4);
+insert into clients(client_name,email,client_password) values("João Antônio Soares","joao_antonio@gmail.com",MD5("senha123"));
+insert into clients(client_name,email,client_password) values("Maria Joana Costa","maria_joana@gmail.com",MD5("senha123"));
+insert into clients(client_name,email,client_password) values("Augusto Pereira Silva","augusto_pereira@gmail.com",MD5("senha123"));
 
 select * from library; -- lib e wishlist são criadas automaticamente ao inserir cliente
 
