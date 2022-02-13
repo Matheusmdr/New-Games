@@ -409,7 +409,6 @@ main .game-content .btn-access {
 
 main .products {
     padding-top: 4rem;
-    height: 100vh;
     width: 100vw;
 }
 
@@ -454,6 +453,7 @@ main .sale .game-post .game-content {
 /* Footer */
 
 footer.footer {
+    margin-top: 2rem;
     background: var(--alternative-secondary-bg);
     position: relative;
 }
