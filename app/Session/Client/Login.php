@@ -33,10 +33,19 @@ class Login{
     public static function getLoginName() {
         self::init();
         $client_name = '';
-        if (isset($_SESSION['client']['user']['name'])){
+        if (self::isLogged()){
             $client_name = $_SESSION['client']['user']['name'];
         }
         $xClientName = explode(' ', $client_name);
         return $xClientName[0];
+    }
+
+    public static function getLoginId() {
+        self::init();
+        $id_client = '';
+        if (self::isLogged()){
+            $id_client = $_SESSION['client']['user']['id'];
+        }
+        return $id_client;
     }
 }

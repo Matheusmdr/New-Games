@@ -41,7 +41,7 @@ class Home extends Page
         $result = Product::getProducts(null, 'id_game DESC', '3');
 
         while ($obProduct =  $result->fetchObject(Product::class)) {
-            $newGames .=  View::render('pages/templates/productsList', [
+            $newGames .=  View::render('pages/templates/product', [
                 'game_id' => $obProduct->id_game,
                 'game_name' => $obProduct->game_name,
                 'game_price' => $obProduct->price,
@@ -59,7 +59,7 @@ class Home extends Page
             $resultProduct = Product::getProductsByCategory($obCategory);
             $content = '';
             while ($obProduct =  $resultProduct->fetchObject(Product::class)) {
-                $content .=  View::render('pages/templates/productsList', [
+                $content .=  View::render('pages/templates/product', [
                     'game_id' => $obProduct->id_game,
                     'game_name' => $obProduct->game_name,
                     'game_price' => $obProduct->price,

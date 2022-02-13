@@ -698,3 +698,17 @@ main .sign_in {
 .alert p {
     padding: 0.4rem 1rem;
 }
+
+.wishlist-alert{
+    font-size: 1.2rem;
+    font-family: var(--Lexend);
+    color: var(--white);
+    width: 100%;
+}
+
+main .products .empty_wishlist{
+    display:flex !important;
+    justify-content: center;
+    padding-bottom:5rem;
+    padding-top:2rem;
+}

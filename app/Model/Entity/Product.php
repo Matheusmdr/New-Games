@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use \App\Model\Entity\ConnectionGameCategory;
+use \App\Model\Entity\ConnectionGameWishlist;
 use \WilliamCosta\DatabaseManager\Database;
 
 class Product{
@@ -26,6 +27,20 @@ class Product{
         }
         $id = substr($id, 1);
         return self::getProducts("id_game in ($id)",null,3);
+    }
+
+    public static function getWishlistProducts($id_user){
+        $id = '';
+        $ob =  new ConnectionGameWishlist();
+        $ob = $ob->getIdWishlistProducts($id_user);
+        while($id_game = $ob->fetchObject(ConnectionGameWishlist::class)){
+            $id .= ",$id_game->id_game";
+        }
+        if($id == ''){
+            return null;
+        }
+        $id = substr($id, 1);
+        return self::getProducts("id_game in ($id)",null);
     }
 
 }

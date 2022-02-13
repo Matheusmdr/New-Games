@@ -67,6 +67,16 @@ $obRouter->get('/signout',[
 ]);
 
 
+$obRouter->get('/wishlist',[
+    'middlewares' => [
+        'required-client-login'
+    ],
+    function($request){
+        return new Response(200,Pages\Wishlist::getWishlist($request));
+    }
+]);
+
+
 $obRouter->get('/order-confirmation',[
     function(){
         return new Response(200,Pages\orderConfirmation::getOrderConfirmation());
