@@ -35,7 +35,7 @@ insert into game(game_name, price, img, supplier) values("Dark Souls 3",59.99,"d
 insert into game(game_name, price, img, supplier) values("The Witcher 3: Wild Hunt",7.99,"the-witcher-3-wild-hunt.jpg",3,0);
 insert into game(game_name, price, img, supplier) values("Devil May Cry 5",24.99,"devil-may-cry-5.jpg",2,1);
 insert into game(game_name, price, img, supplier) values("Nioh 2",39.99,"nioh2.jpg",5,0);
-insert into game(game_name, price, img, supplier) values("Red Dead Redemption 2",14.99,"ReadDeadRedemption 2.jpg",6,0);
+insert into game(game_name, price, img, supplier) values("Red Dead Redemption 2",14.99,"ReadDeadRedemption_2.jpg",6,0);
 insert into game(game_name, price, img, supplier) values("Sekiro: Shadows Die Twice",59.99,"Sekiro-Shadows-Die-Twice.jpg",7,0);
 insert into game(game_name, price, img, supplier) values("KINGDOM HEARTS III + Re Mind",59.99,"EGS_KINGDOMHEARTSIIIReMindDLC.jpg",8,0);
 insert into game(game_name, price, img, supplier) values("Hollow Knight",14.99,"hollowknight.jpg",9,0);
