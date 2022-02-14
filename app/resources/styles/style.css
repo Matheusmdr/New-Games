@@ -706,9 +706,39 @@ main .sign_in {
     width: 100%;
 }
 
-main .products .empty_wishlist{
+main .products .empty_wishlist, main .products .empty_category{
     display:flex !important;
     justify-content: center;
     padding-bottom:5rem;
     padding-top:2rem;
+}
+
+.error404{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
+
+.error404 h1, .error404 h2{
+    color: var(--primary);
+}
+
+.error404 h1{
+    font-size: 1.7rem;
+}
+
+.error404 h2{
+    font-size: 1rem;
+}
+
+.error404 h2 a{
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+.error404 img{
+    width: 50%;
 }

@@ -75,6 +75,13 @@ class Page{
          ]);
     }
 
+    public static function getErrorPage($title, $content){
+        return View::render('pages/error',[
+            'title' => $title,
+            'content' => $content,
+        ]);
+    }
+
     private static function getMenu($currentModule){
         $links = '';
         $userName = SessionClientLogin::getLoginName();

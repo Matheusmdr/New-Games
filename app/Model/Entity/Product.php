@@ -25,6 +25,9 @@ class Product{
         while($id_game = $ob->fetchObject(ConnectionGameCategory::class)){
             $id .= ",$id_game->id_game";
         }
+        if($id == ''){
+            return null;
+        }
         $id = substr($id, 1);
         return self::getProducts("id_game in ($id)",null,3);
     }

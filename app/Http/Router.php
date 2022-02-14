@@ -6,7 +6,7 @@ use \Closure;
 use \Exception;
 use \ReflectionFunction;
 use \App\Http\Middleware\Queue as MiddlewareQueue;
-
+use \App\Controller\Pages\Error;
 
 class Router
 {
@@ -55,10 +55,10 @@ class Router
                     $methods[$httpMethod]['variables']['request'] = $this->request;
                     return $methods[$httpMethod];
                 }
-                throw new Exception("Método não permitido", 405);
+                throw new Exception(Error::getError404(), 405);
             }
         }
-        throw new Exception("URL não encontrada", 404);
+        throw new Exception(Error::getError404(), 404);
     }
 
     private function addRoute($method, $route, $params = [])
@@ -109,7 +109,7 @@ class Router
         try {
             $route = $this->getRoute();
             if (!isset($route['controller'])) {
-                throw new Exception('URL não pôde ser processada', 500);
+                throw new Exception(Error::getError404(), 500);
             }
             $args = [];
 

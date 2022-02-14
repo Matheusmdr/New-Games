@@ -51,24 +51,33 @@ class Home extends Page
         return $newGames;
     }
 
-    public static function getProductsByCategory($request){
-        $result = Category::getCategory(null,'id_category ASC');
+    public static function getProductsByCategory($request)
+    {
+        $result = Category::getCategory(null, 'id_category ASC');
         $contentPage = '';
-        
-        while ($obCategory = $result->fetchObject(Category::class)){
+
+        while ($obCategory = $result->fetchObject(Category::class)) {
             $resultProduct = Product::getProductsByCategory($obCategory);
             $content = '';
-            while ($obProduct =  $resultProduct->fetchObject(Product::class)) {
-                $content .=  View::render('pages/templates/product', [
-                    'game_id' => $obProduct->id_game,
-                    'game_name' => $obProduct->game_name,
-                    'game_price' => $obProduct->price,
-                    'game_img' => $obProduct->img
-                ]);
+            $empty_category = '';
+            if (!is_null($resultProduct)) {
+                while ($obProduct =  $resultProduct->fetchObject(Product::class)) {
+                    $content .=  View::render('pages/templates/product', [
+                        'game_id' => $obProduct->id_game,
+                        'game_name' => $obProduct->game_name,
+                        'game_price' => $obProduct->price,
+                        'game_img' => $obProduct->img
+                    ]);
+                }
             }
-            $contentPage .=  View::render('pages/templates/gameByCategory',[
+            else{
+                $content =  Alert::getError('Empty Category');
+                $empty_category = 'empty_category';
+            }
+            $contentPage .=  View::render('pages/templates/gameByCategory', [
                 'category_name' => $obCategory->category_name,
-                'products' => $content
+                'products' => $content,
+                'empty_category' => $empty_category
             ]);
         }
         return $contentPage;
