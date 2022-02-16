@@ -46,4 +46,19 @@ class Product{
         return self::getProducts("id_game in ($id)",null);
     }
 
+
+    public static function getLibraryProducts($id_user){
+        $id = '';
+        $ob =  new ConnectionGameLibrary();
+        $ob = $ob->getIdLibraryProducts($id_user);
+        while($id_game = $ob->fetchObject(ConnectionGameLibrary::class)){
+            $id .= ",$id_game->id_game";
+        }
+        if($id == ''){
+            return null;
+        }
+        $id = substr($id, 1);
+        return self::getProducts("id_game in ($id)",null);
+    }
+
 }

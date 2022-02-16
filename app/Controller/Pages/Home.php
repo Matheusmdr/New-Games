@@ -5,6 +5,7 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use \App\Model\Entity\Product;
 use \App\Model\Entity\Category;
+use \App\Controller\Ajax\AjaxCart;
 
 
 class Home extends Page
@@ -16,7 +17,9 @@ class Home extends Page
             'newProducts' => self::getNewProducts($request),
             'categoryList' => self::getProductsbyCategory($request)
         ]);
+
         return parent::getPage('New Games', $content, 'home');
+        
     }
 
     public static function getFeaturedProducts($request)
@@ -81,5 +84,10 @@ class Home extends Page
             ]);
         }
         return $contentPage;
+    }
+
+
+    public static function setCartProducts($request){
+        $postVars = $request->getPostVars();
     }
 }
