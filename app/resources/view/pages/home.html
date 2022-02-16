@@ -78,8 +78,10 @@
      <section id="Most-Popular">
          <div class="post">
              <div class="container" data-aos="fade-in" data-aos-delay="200">
-                 <h2>MOST POPULAR</h2>
-                 <div id="popularDivPost" class="game-post">
+                 <h2 style="text-transform: uppercase;">
+                     featured games
+                 </h2>
+                 <div id="popularDivPost" class="owl-carousel owl-theme game-post">
                      {{featured}}
                  </div>
              </div>
@@ -89,15 +91,15 @@
 
 
      <section id="New Products">
-        <div class="products">
-            <div class="container"  data-aos="fade-right" data-aos-delay="200">
-                <h2>NEW PRODUCTS</h2>
-                <div id="newProductsDiv" class="game-post">
-                    {{newProducts}}
-                </div> 
-            </div>
-        </div>
-    </section>
+         <div class="products">
+             <div class="container" data-aos="fade-right" data-aos-delay="200">
+                 <h2>NEW PRODUCTS</h2>
+                 <div id="newProductsDiv" class="game-post">
+                     {{newProducts}}
+                 </div>
+             </div>
+         </div>
+     </section>
 
-    {{categoryList}}
+     {{categoryList}}
  </main>

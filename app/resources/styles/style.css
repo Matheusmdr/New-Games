@@ -931,3 +931,7 @@ button.removeBtn i{
 .container-table h2{
     text-align:center;
 }
+
+#popularDivPost{
+    flex-direction: column !important; 
+}

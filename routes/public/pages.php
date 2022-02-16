@@ -37,6 +37,12 @@ $obRouter->get('/products',[
     }
 ]);
 
+$obRouter->post('/products',[
+    function($request){
+        return new Response(200,Pages\Products::getProducts($request));
+    }
+]);
+
 
 $obRouter->get('/signin',[
     'middlewares' => [

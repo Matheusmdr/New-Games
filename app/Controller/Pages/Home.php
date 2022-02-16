@@ -25,7 +25,7 @@ class Home extends Page
     public static function getFeaturedProducts($request)
     {
         $featured = '';
-        $result = Product::getProducts("feature = '1'", 'id_game ASC', '3');
+        $result = Product::getProducts("feature = '1'", 'id_game ASC');
 
         while ($obProduct =  $result->fetchObject(Product::class)) {
             $featured .=  View::render('pages/templates/featured', [
@@ -84,10 +84,5 @@ class Home extends Page
             ]);
         }
         return $contentPage;
-    }
-
-
-    public static function setCartProducts($request){
-        $postVars = $request->getPostVars();
     }
 }
