@@ -28,21 +28,21 @@ insert into category(category_name, category_description) values("Platform","No 
 insert into category(category_name, category_description) values("Multiplayer","No description.");
 
 -- inserindo jogos
-insert into game(game_name, price, img, supplier) values("Persona 5 Strikers",59.99,"Persona5S.jpg",1,0);
-insert into game(game_name, price, img, supplier) values("Resident Evil Village",79.99,"RESIDENT-EVIL-8-1.jpg",2,1);
-insert into game(game_name, price, img, supplier) values("Cyberpunk 2077",47.99,"cyberpunk.jpg",3,1);
-insert into game(game_name, price, img, supplier) values("Dark Souls 3",59.99,"darksouls3.jpg",4,0);
-insert into game(game_name, price, img, supplier) values("The Witcher 3: Wild Hunt",7.99,"the-witcher-3-wild-hunt.jpg",3,0);
-insert into game(game_name, price, img, supplier) values("Devil May Cry 5",24.99,"devil-may-cry-5.jpg",2,1);
-insert into game(game_name, price, img, supplier) values("Nioh 2",39.99,"nioh2.jpg",5,0);
-insert into game(game_name, price, img, supplier) values("Red Dead Redemption 2",14.99,"ReadDeadRedemption_2.jpg",6,0);
-insert into game(game_name, price, img, supplier) values("Sekiro: Shadows Die Twice",59.99,"Sekiro-Shadows-Die-Twice.jpg",7,0);
-insert into game(game_name, price, img, supplier) values("KINGDOM HEARTS III + Re Mind",59.99,"EGS_KINGDOMHEARTSIIIReMindDLC.jpg",8,0);
-insert into game(game_name, price, img, supplier) values("Hollow Knight",14.99,"hollowknight.jpg",9,0);
-insert into game(game_name, price, img, supplier) values("Sonic Mania",9.99,"SonicMania.jpg",1,0);
-insert into game(game_name, price, img, supplier) values("Dead Cells",24.99,"DeadCells.jpg",10,0);
-insert into game(game_name, price, img, supplier) values("Super Bomberman R Online",9.99,"Super-Bomberman-R.jpg",11,0);
-insert into game(game_name, price, img, supplier) values("Rocket League",9.99,"rocketleague.jpg",12,0);
+insert into game(game_name, price, img, supplier,feature) values("Persona 5 Strikers",59.99,"Persona5S.jpg",1,0);
+insert into game(game_name, price, img, supplier,feature) values("Resident Evil Village",79.99,"RESIDENT-EVIL-8-1.jpg",2,1);
+insert into game(game_name, price, img, supplier,feature) values("Cyberpunk 2077",47.99,"cyberpunk.jpg",3,1);
+insert into game(game_name, price, img, supplier,feature) values("Dark Souls 3",59.99,"darksouls3.jpg",4,0);
+insert into game(game_name, price, img, supplier,feature) values("The Witcher 3: Wild Hunt",7.99,"the-witcher-3-wild-hunt.jpg",3,0);
+insert into game(game_name, price, img, supplier,feature) values("Devil May Cry 5",24.99,"devil-may-cry-5.jpg",2,1);
+insert into game(game_name, price, img, supplier,feature) values("Nioh 2",39.99,"nioh2.jpg",5,0);
+insert into game(game_name, price, img, supplier,feature) values("Red Dead Redemption 2",14.99,"ReadDeadRedemption_2.jpg",6,0);
+insert into game(game_name, price, img, supplier,feature) values("Sekiro: Shadows Die Twice",59.99,"Sekiro-Shadows-Die-Twice.jpg",7,0);
+insert into game(game_name, price, img, supplier,feature) values("KINGDOM HEARTS III + Re Mind",59.99,"EGS_KINGDOMHEARTSIIIReMindDLC.jpg",8,0);
+insert into game(game_name, price, img, supplier,feature) values("Hollow Knight",14.99,"hollowknight.jpg",9,0);
+insert into game(game_name, price, img, supplier,feature) values("Sonic Mania",9.99,"SonicMania.jpg",1,0);
+insert into game(game_name, price, img, supplier,feature) values("Dead Cells",24.99,"DeadCells.jpg",10,0);
+insert into game(game_name, price, img, supplier,feature) values("Super Bomberman R Online",9.99,"Super-Bomberman-R.jpg",11,0);
+insert into game(game_name, price, img, supplier,feature) values("Rocket League",9.99,"rocketleague.jpg",12,0);
 
 -- inserindo conexão entre jogo e categoria
 insert into connection_game_category(id_game,id_category) values(1,1);
