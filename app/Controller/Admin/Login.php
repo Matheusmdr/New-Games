@@ -17,7 +17,7 @@ class Login extends Page{
             'status' => $status
         ]);
 
-        return parent::getPage('New Games - Admin Login', $content);
+        return parent::getPage('New Games - Admin Login', $content,'login');
     }  
     
     public static function setLogin($request){
@@ -32,7 +32,7 @@ class Login extends Page{
 
         SessionAdminLogin::login($obAdmin);
 
-        $request->getRouter()->redirect('/admin/home');
+        $request->getRouter()->redirect('/admin');
     }
 
     public static function setLogout($request){

@@ -9,23 +9,20 @@ class Page{
     private static $modules = [
         'home' =>[
             'label' => 'Home',
-            'link' => URL.'/admin/home'
+            'link' => URL.'/admin'
         ],
+        'add-game' =>[
+            'label' => 'Add Game',
+            'link' => URL.'/admin/games/add'
+        ]
     ];
 
-    public static function getPage($title, $content) {
+    public static function getPage($title, $content, $currentModule) {
          return View::render('admin/page',[
              'title' => $title,
-             'content' => $content
+             'content' => $content, 
+             'menu' => self::getMenu($currentModule)
          ]);
-    }
-
-    public static function getPanel($title, $content, $currentModule){
-        $contentPanel = View::render('admin/panel',[
-            'menu' => self::getMenu($currentModule),
-            'content' => $content
-        ]);
-        return self::getPage($title,$contentPanel);   
     }
 
 
