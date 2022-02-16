@@ -6,8 +6,11 @@
         <h3>{{game_name}}</h3>
         <h4>{{game_price}}</h4>
         <form method='post'>
-            <button class='btn' type='submit' name='add'>Add to Cart</button>
-            <input type='hidden' name='id_game' value="{{game_id}}">
+            <button class='addBtn btn' type='submit' name='add'>Add to Cart</button>
+            <input type='hidden' class="name-input" name='game_id' value="{{game_id}}">
+            <input type='hidden' class="name-input" name='game_name' value="{{game_name}}">
+            <input type='hidden' class="name-input" name='game_price' value="{{game_price}}">
+            <input type='hidden' class="name-input" name='game_img' value="{{game_img}}">
             <input type='hidden' name='quantity' value='1'>
         </form>
     </div>

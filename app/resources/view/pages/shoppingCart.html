@@ -1,1 +1,28 @@
-shoppingCart
+<!-- Main -->
+<main>
+    <section class="cart_table">
+        <div>
+            <div>
+                <div class="container-table text_style">
+                    <table  class="table-orders">
+                        <thead>
+                            <tr class="table-title">
+                                <th colspan="4">Orders</th>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <th>Game</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Clear Cart</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders" class="table-rows">
+                            {{content}}
+                        </tbody>
+                    </table>
+                    {{message}}
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

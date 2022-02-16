@@ -10,6 +10,8 @@ Options -Indexes
     Allow from all
 </FilesMatch>
 
+ErrorDocument 403 http://localhost/New-Games/403
+
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f

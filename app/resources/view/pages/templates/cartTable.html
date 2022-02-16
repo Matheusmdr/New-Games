@@ -1,0 +1,13 @@
+<tr>
+    <th><img src="{{URL}}/app/Resources/images/{{game_img}}" /></th>
+    <th>{{game_name}}</th>
+    <th>{{game_price}}</th>
+    <th>
+        <div class='counter'>
+            <form method='post' class='remove-form'>
+                <button class="removeBtn" type='submit' ><i class="fas fa-trash-alt"></i></button>
+                <input type='hidden' class="id-input" name='game_id_remove' value="{{game_id}}">
+            </form>
+        </div>
+    </th>
+</tr>

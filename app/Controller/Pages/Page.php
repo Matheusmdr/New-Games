@@ -6,6 +6,7 @@ use \App\Utils\View;
 use App\Session\Client\Login as SessionClientLogin;
 
 class Page{
+
     private static $modules = [
         'home' =>[
             'label' => 'Home',
@@ -85,12 +86,14 @@ class Page{
     private static function getMenu($currentModule){
         $links = '';
         $userName = SessionClientLogin::getLoginName();
+        $libraryIcon = '';
         $account = "<a href='".URL."/signin' class='icon-item'>
         <i class='fas fa-user'></i></a>";
 
         if(SessionClientLogin::isLogged()){
             $account = "<a href='".URL."/signout' class='icon-item'>Olá ".$userName."
             <i class='fas fa-sign-out-alt'></i></a>";
+            $libraryIcon = "<a href='".URL."/library' class='icon-item'><i class='fas fa-folder'></i></a>";
         }
 
         foreach(self::$modules as $hash=>$module){
@@ -100,9 +103,15 @@ class Page{
                     'current' => $hash == $currentModule ? 'active' : ''
                 ]);
         }
+        $display = '';
+        if($libraryIcon == ''){
+            $display = 'none';
+        }
         return View::render('pages/header',[
             'links' => $links,
-            'account' => $account
+            'account' => $account,
+            'libraryIcon' => $libraryIcon,
+            'display' => $display
         ]);
     }
 }

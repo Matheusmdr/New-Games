@@ -42,6 +42,17 @@ create table if not exists game(
     foreign key(supplier) references supplier(id_supplier)
 );
 
+CREATE TABLE cart ( 
+    id_cart int(11) NOT NULL AUTO_INCREMENT, 
+    game_name varchar(120) NOT NULL, 
+    game_price decimal(6,2) NOT NULL, 
+    game_image varchar(120) NOT NULL, 
+    total_amount varchar(100) NOT NULL, 
+    id_game int(11) NOT NULL, 
+    PRIMARY KEY(id_cart), 
+    FOREIGN KEY(id_game) references game(id_game) 
+);
+
 create table if not exists connection_game_category(
 	id_game int not null,
     id_category int not null,
