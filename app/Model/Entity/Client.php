@@ -6,11 +6,12 @@ use \WilliamCosta\DatabaseManager\Database;
 
 class Client
 {
-    public $id;
+    public $id_client;
     public $client_name;
     public $email;
     public $client_password;
-
+    public $id_lib;
+    public $id_wishlist;
 
     public function setClient()
     {

@@ -30,7 +30,8 @@ MiddlewareQueue::setMap([
     'required-admin-logout' => \App\Http\Middleware\RequireAdminLogout::class,
     'required-admin-login' => \App\Http\Middleware\RequireAdminLogin::class,
     'required-client-logout' => \App\Http\Middleware\RequireClientLogout::class,
-    'required-client-login' => \App\Http\Middleware\RequireClientLogin::class
+    'required-client-login' => \App\Http\Middleware\RequireClientLogin::class,
+    'required-products-in-cart' => \App\Http\Middleware\RequireProductsInCart::class
 ]);
 
 MiddlewareQueue::setDefault([

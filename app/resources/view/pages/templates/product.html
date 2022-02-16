@@ -4,11 +4,19 @@
     </div>
     <a>{{game_name}}</a>
     <span>R${{game_price}}</span>
-    <form method='post' class="add-form">
-        <button class='addBtn btn' type='submit' name='add'>Add to Cart</button>
-        <input type='hidden' class="id-input" name='game_id' value="{{game_id}}">
-        <input type='hidden' class="name-input" name='game_name' value="{{game_name}}">
-        <input type='hidden' class="price-input" name='game_price' value="{{game_price}}">
-        <input type='hidden' class="img-input" name='game_img' value="{{game_img}}">
-    </form>
+    <div style="display:flex;align-items:center;justify-content:center">
+        <form method='post' class="add-form">
+            <button class='addBtn btn' type='submit' name='add'>Add to Cart</button>
+            <input type='hidden' class="id-input" name='game_id' value="{{game_id}}">
+            <input type='hidden' class="name-input" name='game_name' value="{{game_name}}">
+            <input type='hidden' class="price-input" name='game_price' value="{{game_price}}">
+            <input type='hidden' class="img-input" name='game_img' value="{{game_img}}">
+        </form>
+    
+        <form  method='post' class='add-wishlist'>
+            <input type='hidden' class="id-input" name='game_id' value="{{game_id}}">
+            <button  class="addWishlist btn" type="submit"><i class="fas fa-heart"></i></button>
+        </form>
+        
+    </div>
 </div>

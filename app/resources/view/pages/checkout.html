@@ -1,0 +1,60 @@
+<!-- Main -->
+<main>
+    <section class="cart_table">
+        <div>
+            <div>
+                <div class="container-table text_style">
+                    <table class="table-orders">
+                        <thead>
+                            <tr class="table-title">
+                                <th colspan="4">Orders</th>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <th>Game</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders" class="table-rows">
+                            {{content}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sign_in">
+                    <div class="container">
+                        <div class="second-container">
+                            <form method="post">
+                                <p class="center_text text_style login_title">Checkout</p>
+                                <div class="container-form-input" style="flex-direction: column;">
+                                    <h3>Choose your payment method</h3>
+                                    <select name="payment-method">
+                                        <option  value="Debit card" selected>Debit card</option>
+                                        <option  value="Credit card">Credit card</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <div class="container-form-input" style="flex-direction: column;gap:0;">
+                                        <h3>Cardholder Name</h3>
+                                        <input type="text" name="card-name" placeholder="Enter Cardholder Name"
+                                            class="login-input" required>
+                                    </div>
+                                    <div class="container-form-input" style="flex-direction: column;gap:0;">
+                                        <h3>Card Number</h3>
+                                        <input type="Number" name="card-number" placeholder="Enter Card Number"
+                                            class="login-input" required>
+                                    </div>
+                                    <div class="container-form-input" style="flex-direction: column;gap:0;">
+                                        <h3>Expiration Date</h3>
+                                        <input type="Number" name="card-expiration" placeholder="Enter Expiration Date"
+                                            class="login-input" required>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Confirm Order" class="login_btn">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

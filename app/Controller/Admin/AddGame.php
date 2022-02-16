@@ -16,7 +16,7 @@ class AddGame extends Page
 
     public static function setGame($request)
     {
-        $postVars = $request->getPostVars();
+        /*$postVars = $request->getPostVars();
         $name = $postVars['name'] ?? '';
         $email = $postVars['email'] ?? '';
         $sec_email = $postVars['sec-email'] ?? '';
@@ -46,6 +46,6 @@ class AddGame extends Page
             echo "Arquivo válido e enviado com sucesso.\n";
         } else {
             echo "Possível ataque de upload de arquivo!\n";
-        }
+        }*/
     }
 }

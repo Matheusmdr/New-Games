@@ -3,52 +3,51 @@
         <div class="sign_up">
             <div class="container">
                 <div class="second-container">
-                    <form method="POST">
+                    <form method="post" class="add-game-form">
+                        <div id="message11"></div>
                         <p>SUPPLIER</p>
                         <div class="container-form-input">
-                            <input type="text" name="name" placeholder="Name" required/>
+                            <input type="text"  id="name" name="name" placeholder="Name" required/>
                         </div>
                         <div class="container-form-input">
-                            <input type="text" name="email" placeholder="Email" required>
+                            <input type="text" id="email" name="email" placeholder="Email" required>
                         </div>
                         <div class="container-form-input">
-                            <input type="text" name="sec-email" placeholder="2nd Email">
+                            <input type="text" id="sec-email" name="sec-email" placeholder="2nd Email">
                         </div>                        
                         <div class="container-form-input">
-                            <input type="number" name="phone" placeholder="Phone" required >
+                            <input type="number" id="phone" name="phone" placeholder="Phone" required >
                         </div>
                         <div class="container-form-input">
-                            <input type="number" name="sec-phone" placeholder="2nd Phone">
+                            <input type="number" id="sec-phone" name="sec-phone" placeholder="2nd Phone">
                         </div>                        
                         <div class="container-form-input">
-                            <input type="text" name="website" placeholder="Website"/>
+                            <input type="text" id="website" name="website" placeholder="Website"/>
                         </div> 
                         <div class="container-form-input">
-                            <input type="number" name="fee" placeholder="Fee" required >
+                            <input type="number" id="feeVal" name="fee" placeholder="Fee" required >
                         </div>                                               
                         <p>GAME</p>
                         <div class="container-form-input">
-                            <input type="text" name="game_name" placeholder="Name" required/>
+                            <input type="text" id="game_name" name="game_name" placeholder="Name" required/>
                         </div>
                         <div class="container-form-input">
-                            <input type="number" name="price" placeholder="Price" required>
+                            <input type="number" id="price" name="price" placeholder="Price" required>
                         </div>
                         <div class="container-form-input">
-                            <input type="text" name="category" placeholder="Category" required>
+                            <input type="text" id="category" name="category" placeholder="Category" required>
                         </div>
                         <div class="container-form-input">
-                            <input type="text" name="category-desc" placeholder="Description" required>
+                            <input type="text" id="category-desc" name="category-desc" placeholder="Description" required>
                         </div>
-                        <div class="container-form-input" style="display:flex;flex-direction:column;">
-                            <label for="image">Game Image</label>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                            <input name="image" type="file" required accept="image/png">
-                        </div>
+                        
+                            <input id="image" name="image" type="file" required accept="image/png">
+                        
                         <div>
                             <input type="checkbox" id="feature" name="feature">
                             <label for="feature">Featured Product</label>
                         </div>
-                            <input type="submit" value="Add Game" class="register_btn">
+                            <input type="submit" value="Add Game" class="register_btn add_game_btn">
                     </form>
                 </div>
             </div>

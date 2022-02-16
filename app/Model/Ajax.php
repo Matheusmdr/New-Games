@@ -10,6 +10,5 @@ $row  = ajaxData("App\Model\Entity\\".$_POST['class'], $_POST['method'], $_POST[
 
 echo json_encode($row);
 
-
 exit;
 

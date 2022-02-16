@@ -5,8 +5,7 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use \App\Model\Entity\Product;
 use \App\Model\Entity\Category;
-use \App\Controller\Ajax\AjaxCart;
-
+use \App\Session\Client\Login as SessionClientLogin;
 
 class Home extends Page
 {
@@ -19,6 +18,9 @@ class Home extends Page
         ]);
 
         return parent::getPage('New Games', $content, 'home');
+    }
+
+    public static function setWishlist($request){
         
     }
 
@@ -72,8 +74,7 @@ class Home extends Page
                         'game_img' => $obProduct->img
                     ]);
                 }
-            }
-            else{
+            } else {
                 $content =  Alert::getError('Empty Category');
                 $empty_category = 'empty_category';
             }

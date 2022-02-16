@@ -23,12 +23,3 @@ $obRouter->get('/admin/games/add',[
     }
 ]);
 
-
-$obRouter->post('/admin/games/add',[
-    'middlewares' => [
-        'required-admin-login'
-    ],
-    function($request){
-        return new Response(200,Admin\AddGame::setGame($request));
-    }
-]);

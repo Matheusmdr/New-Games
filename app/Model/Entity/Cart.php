@@ -22,6 +22,7 @@ class Cart
 
     public static function addToCart($data)
     {
+
         $obCart = ((new Database('cart'))->select('id_game = "' . $data['id_game'] . '"'))->fetchObject(self::class);
         if (!$obCart) {
             return (new Database('cart'))->insert([
@@ -41,9 +42,28 @@ class Cart
         return (new Database('cart'))->delete('id_game = "' . $id_game . '"');
     }
 
+    public static function deleteCart()
+    {
+        $query = 'TRUNCATE TABLE cart;';
+        $database = new Database();
+        $database->execute($query);
+        return true;
+    }
+
+
     public static function totalCart()
     {
         $count = (new Database('cart'))->select()->rowCount();
         return $count;
     }
+
+    public static function getTotalAmount(){
+        $total = 0;
+        $result = self::getCartItems();
+        while ($obCart =  $result->fetchObject(self::class)) {
+           $total += $obCart->game_price;
+        }
+        return $total;
+    }
+
 }

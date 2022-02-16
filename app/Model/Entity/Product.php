@@ -16,15 +16,20 @@ class Product
     public $id_game;
     public $feature;
 
-
-    public function setProduct($sup_name, $p_phone, $sec_phone, $p_email, $sec_email, $website, $fee, $cat_name, $cat_desc)
+    /*
+    public static function setProduct($formData)
     {
         $query = "call add_game('$sup_name', '$p_phone', '$sec_phone','$p_email','$sec_email','$website','$fee','$this->game_name','$this->price','$this->img','$cat_name','$cat_desc','$this->feature');";
         $database = new Database();
         $database->execute($query);
         $this->id_game =  (new Database('game'))->select('game_name = "' . $this->game_name . '"')->fetchObject(self::class)->id_game;
-        return true;
-    }
+       
+        echo '<pre>';
+        print_r($formData);
+        echo '</pre>';
+        exit;
+        return $formData['name'];
+    }*/
 
     public static function getProducts($where = null, $order = null, $limit = null, $field = "*")
     {
@@ -75,5 +80,19 @@ class Product
         }
         $id = substr($id, 1);
         return self::getProducts("id_game in ($id)", null);
+    }
+
+    public static function getIdLibraryProducts($id_user)
+    {
+        $id = array();
+        $ob =  new ConnectionGameLibrary();
+        $ob = $ob->getIdLibraryProducts($id_user);
+        while ($id_game = $ob->fetchObject(ConnectionGameLibrary::class)) {
+            array_push($id, $id_game->id_game);
+        }
+        if (count($id) <= 0) {
+            return null;
+        }
+        return $id;
     }
 }
