@@ -67,7 +67,6 @@ $(document).ready(function () {
 
 
 function onlyLetterKey(evt) {
-  console.log("oi")
   var charCode = (evt.which) ? evt.which : evt.keyCode
   if (charCode == 32 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || (charCode > 191 && charCode <= 255))
     return true;
